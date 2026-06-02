@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeadForge</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+
+  <main class="container">
+
+    <div class="card">
+
+      <div class="logo">
+        <div class="logo-icon">LF</div>
+        <span>LeadForge</span>
+      </div>
+
+      <h1 class="title">
+        Gere estruturas de landing pages
+      </h1>
+     
+
+      <p class="subtitle">
+        Transforme nicho, oferta e objetivo em uma estrutura pronta para conversão.
+      </p>
+
+      <form id="generatorForm">
+
+        <input
+          type="text"
+          id="niche"
+          placeholder="Ex: Aviação"
+          required
+        >
+
+        <input
+          type="text"
+          id="offer"
+          placeholder="Ex: Curso Piloto"
+          required
+        >
+
+        <select id="tone">
+          <option value="premium">Premium</option>
+          <option value="direto">Direto</option>
+          <option value="emocional">Emocional</option>
+        </select>
+
+        <select id="goal">
+          <option value="leads">Captar Leads</option>
+          <option value="vendas">Gerar Vendas</option>
+          <option value="autoridade">Gerar Autoridade</option>
+        </select>
+
+        <button type="submit">Gerar Estrutura</button>
+        
+      </form>
+ 
+      <div id="result">
+          <div id="result">
+           <h4 class="result-label">Estrutura Gerada</h4>
+          </div> 
+      </div>
+    </div>
+
+
+  </main>
+
+  <script src="./scripts/script.js"></script>
+
+</body>
+</html>
