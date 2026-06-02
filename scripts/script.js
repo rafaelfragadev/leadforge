@@ -16,51 +16,21 @@ form.addEventListener("submit", function(event) {
     goal: goal.value
   };
 
-  function getToneMessage(tone) {
+  const tones = ["premium", "direto", "emocional"];
+      const toneMessages = {
+        premium:  "Experiência premium para elevar seus resultados.",
+        direto:   "Oferta direta para acelerar sua conversão.",
+        emocional: "Conexão emocional com seu público ideal."
+      };
+  const toneMessage = toneMessages[formData.tone] || "Tom não identificado.";
 
-  let toneMessage = "";
-  if (tone === "premium") {
-    toneMessage = "Experiência premium para elevar seus resultados.";
-  }
-
-  else if (tone === "direto") {
-    toneMessage = "Oferta direta para acelerar sua conversão.";
-  }
-
-  else if (tone === "emocional") {
-    toneMessage = "Conexão emocional com seu público ideal.";
-  }
-
-  else {
-    toneMessage = "Tom não identificado.";
-  }
-
-  return toneMessage;
-}
-
-const toneMessage = getToneMessage(formData.tone);
-
-
-function getGoalMessage(goal) {
- let goalMessage = "";
-
-  if (goal === "leads") {
-    goalMessage = "Capture mais leads qualificados.";
-    }
-
-    else if (goal === "vendas") {
-    goalMessage = "Converta visitantes em clientes.";
-    }
-
-    else if (goal === "autoridade") {
-    goalMessage = "Fortaleça sua autoridade digital.";
-    }
-
-    else {
-    goalMessage = "Objetivo não identificado.";
-    }
-  return goalMessage;
-}
+const goals = ["leads", "vendas", "autoridade"]; 
+ const goalMessages = {
+  leads: "Capture mais leads qualificados.",
+  vendas: "Converta visitantes em clientes.",
+  autoridade: "Fortaleça sua autoridade digital."
+ };  
+ const getGoalMessage = goalMessages[formData.goal] || "Objetivo não identificado.";
 
 
   function generateCTA(goal, offer) {
