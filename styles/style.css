@@ -169,6 +169,33 @@ select {
   color: white;
   font-size: 15px;
 }
+select{
+  width:100%;
+
+  padding:
+    16px 48px 16px 16px;
+
+  border-radius:12px;
+
+  background:rgba(255,255,255,.05);
+
+  color:white;
+
+  border:1px solid rgba(255,255,255,.1);
+
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='white' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 5.646a.5.5 0 0 1 .708 0L8 11.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+
+  background-repeat:no-repeat;
+
+  background-position:
+    right 18px center;
+
+  background-size:16px;
+}
 
 input::placeholder {
   color: #94a3b8;
@@ -245,4 +272,52 @@ button:hover {
   color: #67e8f9;
   font-size: 1rem;
   font-weight: 500;
+}
+
+#copyBtn{
+
+  margin-top:20px;
+
+  width:100%;
+
+  padding:14px 18px;
+
+  border:none;
+
+  border-radius:12px;
+
+  cursor:pointer;
+
+  font-size:15px;
+  font-weight:600;
+
+  color:#FFF;
+
+  background:linear-gradient(
+    90deg,
+    #00D4FF,
+    #5B5BFF
+  );
+
+  box-shadow:
+    0 10px 25px rgba(0,212,255,.18),
+    0 0 18px rgba(91,91,255,.15);
+
+  transition:.25s ease;
+}
+
+#copyBtn:hover{
+
+  transform:translateY(-2px);
+
+  filter:brightness(1.08);
+
+  box-shadow:
+    0 16px 35px rgba(0,212,255,.28),
+    0 0 28px rgba(91,91,255,.22);
+}
+
+#copyBtn:active{
+
+  transform:scale(.98);
 }
