@@ -23,8 +23,191 @@ body {
   max-width: 750px;
 }
 
+/* ---------- LIGHT THEME ---------- */
+
+body {
+  background: #F8FAFC;
+  color: #0F172A;
+
+  transition:
+    background .35s ease,
+    color .35s ease;
+}
+
+body .card {
+
+  background: #FFFFFF;
+
+  border: 1px solid rgba(15,23,42,.08);
+
+  box-shadow:
+    0 8px 30px rgba(15,23,42,.06),
+    0 2px 10px rgba(15,23,42,.04);
+
+  transition: all .35s ease;
+}
+
+body .title,
+body .logo span,
+body #result h1 {
+
+  color: #0F172A;
+}
+
+body .empty-state,
+body #result p,
+body .history h4 {
+
+  color: #64748B;
+}
+
+body .history li {
+
+  background: #F1F5F9;
+
+  color: #0F172A;
+
+  border: 1px solid rgba(15,23,42,.06);
+}
+
+body:not(.dark) input,
+body:not(.dark) select {
+
+  background:#FFFFFF;
+
+  color:#0F172A;
+
+  border:1px solid #CBD5E1;
+
+  box-shadow:
+    0 1px 2px rgba(15,23,42,.04),
+    inset 0 1px 0 rgba(255,255,255,.8);
+}
+
+body:not(.dark) input::placeholder {
+
+  color:#94A3B8;
+}
+
+body:not(.dark) .result-label {
+
+  color:#94A3B8;
+}
+
+body:not(.dark) .empty-state {
+
+  color:#64748B;
+}
+
+body:not(.dark) .history li {
+
+  background:#F1F5F9;
+
+  color:#0F172A;
+
+  border:1px solid rgba(15,23,42,.08);
+}
+
+/* ---------- LIGHT RESULT PANEL ---------- */
+
+body:not(.dark) #result {
+
+  background:#FFFFFF;
+
+  border:1px solid rgba(15,23,42,.08);
+
+  box-shadow:
+    0 8px 24px rgba(15,23,42,.06),
+    0 2px 8px rgba(15,23,42,.04);
+
+  color:#020617;
+}
+
+body:not(.dark) #result h1,
+body:not(.dark) #result h3 {
+
+  color:#020617;
+}
+
+body:not(.dark) #result p {
+
+  color:#475569;
+}
+
+body:not(.dark) .cta {
+
+  color:#0F172A;
+
+  font-weight:600;
+}
+
+body:not(.dark) select {
+
+  background-color:#FFFFFF;
+
+  color:#020617 !important;
+
+  border:1px solid #CBD5E1;
+
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23020617' viewBox='0 0 16 16'%3E%3Cpath d='M3.2 5.5L8 10.3l4.8-4.8' stroke='%23020617' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+
+  background-repeat:no-repeat;
+
+  background-position:right 16px center;
+
+  background-size:14px;
+}
+
+
+/* ---------- DARK THEME ---------- */
+
+body.dark {
+
+  background: #020617;
+
+  color: #E2E8F0;
+}
+
+body.dark .card {
+
+  background: rgba(15,23,42,.92);
+
+  border: 1px solid rgba(148,163,184,.12);
+
+  box-shadow:
+    0 12px 40px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+body.dark .title,
+body.dark .logo span,
+body.dark #result h1 {
+
+  color: #FFFFFF;
+}
+
+body.dark .empty-state,
+body.dark #result p,
+body.dark .history h4 {
+
+  color: #94A3B8;
+}
+
+body.dark .history li {
+
+  background: rgba(255,255,255,.05);
+
+  color: #F8FAFC;
+
+  border: 1px solid rgba(255,255,255,.08);
+}
+
 .card {
-   background: rgba(15, 23, 42, .85);
+  background: rgba(15, 23, 42, .85);
   backdrop-filter: blur(20px);
 
   border: 1px solid rgba(255,255,255,.1);
@@ -320,4 +503,34 @@ button:hover {
 #copyBtn:active{
 
   transform:scale(.98);
+}
+
+.history {
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255,255,255,.12);
+}
+
+.history h4 {
+  color: #94A3B8;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 14px;
+}
+
+.history ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.history li {
+  color: #FFFFFF;
+  font-size: 0.95rem;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.06);
+  margin-bottom: 8px;
 }
