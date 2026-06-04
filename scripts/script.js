@@ -104,6 +104,38 @@ function renderResult(formData, aiResult) {
         </li>
 
       </ul>
+      <div class="social-proof">
+      <strong>Prova social</strong>
+          <p>${aiResult.socialProof}</p>
+       </div>
+
+      <div class="objection">
+  <strong>Quebra de objeção</strong>
+  <p>
+    ${
+      aiResult.objection ||
+      "Mesmo que você esteja começando do zero, esta formação foi desenvolvida para acompanhar sua evolução passo a passo."
+    }
+  </p>
+</div> 
+      <div class="faq">
+  <strong>FAQ</strong>
+
+  <div class="faq-item">
+    <h4>${aiResult.faq1Question}</h4>
+    <p>${aiResult.faq1Answer}</p>
+  </div>
+
+  <div class="faq-item">
+    <h4>${aiResult.faq2Question}</h4>
+    <p>${aiResult.faq2Answer}</p>
+  </div>
+
+  <div class="faq-item">
+    <h4>${aiResult.faq3Question}</h4>
+    <p>${aiResult.faq3Answer}</p>
+  </div>
+</div>
 
       <button class="cta-preview">
         ${aiResult.cta}
@@ -113,10 +145,13 @@ function renderResult(formData, aiResult) {
         📋 Copiar Estrutura
       </button>
 
+      <button id="downloadBtn">⬇️ Baixar TXT</button>
+      <button id="pdfBtn">📄 Baixar PDF</button>
+
       <button id="clearBtn">
         🗑 Limpar Resultado
       </button>
-
+     
     </div>
   `;
 }
@@ -205,7 +240,7 @@ console.log("TIPO:", typeof aiResult);
 
 // daqui pra baixo segue generatedText, loading, setTimeout...
 
-  const generatedText = `
+const generatedText = `
 ${aiResult.headline}
 
 ${aiResult.subheadline}
@@ -213,6 +248,23 @@ ${aiResult.subheadline}
 ✅ ${aiResult.benefit1}
 ✅ ${aiResult.benefit2}
 ✅ ${aiResult.benefit3}
+
+Prova social:
+${aiResult.socialProof}
+
+Objeção:
+${aiResult.objection}
+
+FAQ:
+
+${aiResult.faq1Question}
+${aiResult.faq1Answer}
+
+${aiResult.faq2Question}
+${aiResult.faq2Answer}
+
+${aiResult.faq3Question}
+${aiResult.faq3Answer}
 
 CTA:
 ${aiResult.cta}
@@ -256,6 +308,79 @@ copyBtn.addEventListener("click", function() {
   setTimeout(function() {
     copyBtn.textContent = "📋 Copiar Estrutura";
   }, 2000);
+});
+
+const downloadBtn = document.getElementById("downloadBtn");
+const pdfBtn = document.getElementById("pdfBtn");
+
+downloadBtn.addEventListener("click", function() {
+  const blob = new Blob(
+    [generatedText],
+    { type: "text/plain" }
+  );
+
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "leadforge-estrutura.txt";
+
+  link.click();
+
+  URL.revokeObjectURL(url);
+
+  showToast("⬇️ Arquivo TXT baixado!");
+  const pdfBtn = document.getElementById("pdfBtn");
+});
+
+pdfBtn.addEventListener("click", function() {
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+
+  doc.setFontSize(18);
+  doc.text("LeadForge AI", 20, 20);
+
+  doc.setFontSize(14);
+  doc.text(aiResult.headline, 20, 40);
+
+  doc.setFontSize(11);
+  doc.text(aiResult.subheadline, 20, 55);
+
+  doc.text("Benefícios:", 20, 75);
+  doc.text(`- ${aiResult.benefit1}`, 20, 88);
+  doc.text(`- ${aiResult.benefit2}`, 20, 100);
+  doc.text(`- ${aiResult.benefit3}`, 20, 112);
+
+  doc.text("Prova social:", 20, 132);
+  doc.text(aiResult.socialProof, 20, 145);
+
+  doc.text("Quebra de objeção:", 20, 165);
+  doc.text(aiResult.objection, 20, 178);
+
+  doc.text("CTA:", 20, 198);
+  doc.text(aiResult.cta, 20, 211);
+
+  doc.addPage();
+
+  doc.setFontSize(16);
+  doc.text("FAQ", 20, 20);
+
+  doc.setFontSize(11);
+
+  doc.text(aiResult.faq1Question, 20, 40);
+  doc.text(aiResult.faq1Answer, 20, 52);
+
+  doc.text(aiResult.faq2Question, 20, 75);
+  doc.text(aiResult.faq2Answer, 20, 87);
+
+  doc.text(aiResult.faq3Question, 20, 110);
+  doc.text(aiResult.faq3Answer, 20, 122);
+
+  doc.save("leadforge-estrutura.pdf");
+
+  showToast("📄 PDF baixado!");
 });
 
 setupClearButton();
@@ -388,8 +513,26 @@ async function fetchAIContent(formData) {
   showToast("⏳ Limite da IA atingido. Tente novamente em alguns segundos.");
 
    return {
-     headline: "Não foi possível gerar agora.",
-     subheadline: "A IA está temporariamente ocupada. Tente novamente em alguns segundos.",
+      headline: "Não foi possível gerar agora.",
+      subheadline: "A IA está temporariamente ocupada. Tente novamente em alguns segundos.",
+
+      benefit1: "Aguarde alguns instantes.",
+      benefit2: "Evite muitas tentativas seguidas.",
+      benefit3: "O sistema voltará a responder em breve.",
+
+      socialProof: "O sistema está temporariamente indisponível devido ao limite da API.",
+
+      objection: "Mesmo que a IA esteja ocupada agora, você poderá gerar sua estrutura em instantes.",
+
+      faq1Question: "Quando posso tentar novamente?",
+      faq1Answer: "Você pode tentar novamente em alguns segundos, quando o limite da IA for liberado.",
+
+      faq2Question: "Meus dados foram perdidos?",
+      faq2Answer: "Não. Você pode gerar uma nova estrutura assim que a IA estiver disponível.",
+
+      faq3Question: "O que causou esse erro?",
+      faq3Answer: "O limite temporário da API foi atingido por muitas chamadas em pouco tempo.",
+
       cta: "Tentar novamente"
     };
   }

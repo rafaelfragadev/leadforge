@@ -31,6 +31,28 @@ Exemplo correto:
 Exemplo incorreto:
 "Conquiste Os Céus E Transforme Sua Carreira"
 
+A prova social deve parecer realista.
+
+Evite frases genéricas.
+
+Prefira:
+- quantidade de alunos
+- resultados alcançados
+- experiência acumulada
+- reconhecimento do mercado
+
+Máximo de 2 frases.
+
+Crie também uma quebra de objeção para o público.
+
+Exemplos:
+- Mesmo que você esteja começando do zero...
+- Não é necessário ter experiência prévia...
+- O curso foi desenvolvido para iniciantes...
+
+Crie também 3 perguntas frequentes com respostas curtas e persuasivas.
+As perguntas devem antecipar dúvidas reais do público.
+
 Nicho: ${niche}
 Oferta: ${offer}
 Tom: ${tone}
@@ -39,12 +61,21 @@ Objetivo: ${goal}
 Responda SOMENTE em JSON válido.
 
 Formato:
+
 {
   "headline": "",
   "subheadline": "",
   "benefit1": "",
   "benefit2": "",
   "benefit3": "",
+  "socialProof": "",
+  "objection": "",
+  "faq1Question": "",
+  "faq1Answer": "",
+  "faq2Question": "",
+  "faq2Answer": "",
+  "faq3Question": "",
+  "faq3Answer": "",
   "cta": ""
 }
 `;
