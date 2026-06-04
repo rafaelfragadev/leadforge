@@ -147,6 +147,8 @@ function renderResult(formData, aiResult) {
 
       <button id="downloadBtn">⬇️ Baixar TXT</button>
       <button id="pdfBtn">📄 Baixar PDF</button>
+      <button id="htmlBtn">🧩 Baixar HTML</button>
+      <button id="cssBtn">🎨 Baixar CSS</button>
 
       <button id="clearBtn">
         🗑 Limpar Resultado
@@ -310,6 +312,20 @@ copyBtn.addEventListener("click", function() {
   }, 2000);
 });
 
+  const previewBtn = document.getElementById("previewBtn");
+
+  previewBtn.addEventListener("click", function() {
+    const htmlContent = generateHTML(aiResult);
+
+    const previewWindow = window.open("", "_blank");
+
+    previewWindow.document.open();
+    previewWindow.document.write(htmlContent);
+    previewWindow.document.close();
+
+    showToast("👁️ Preview aberto!");
+  });
+
 const downloadBtn = document.getElementById("downloadBtn");
 const pdfBtn = document.getElementById("pdfBtn");
 
@@ -383,12 +399,439 @@ pdfBtn.addEventListener("click", function() {
   showToast("📄 PDF baixado!");
 });
 
+const htmlBtn = document.getElementById("htmlBtn");
+
+htmlBtn.addEventListener("click", function() {
+  const htmlContent = generateHTML(aiResult);
+
+  const blob = new Blob(
+    [htmlContent],
+    { type: "text/html" }
+  );
+
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "leadforge-landing-page.html";
+
+  link.click();
+
+  URL.revokeObjectURL(url);
+
+  showToast("🧩 HTML baixado!");
+});
+const cssBtn =
+  document.getElementById("cssBtn");
+
+
+cssBtn.addEventListener("click", function() {
+
+  const cssContent =
+    generateCSS();
+
+  const blob = new Blob(
+    [cssContent],
+    {
+      type:"text/css"
+    }
+  );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const link =
+    document.createElement("a");
+
+  link.href = url;
+
+  link.download =
+    "leadforge-style.css";
+
+  link.click();
+
+  URL.revokeObjectURL(url);
+
+  showToast(
+    "🎨 CSS baixado!"
+  );
+
+});
+
 setupClearButton();
 setupHistoryClick();
 
 }, 1000);
 
 });
+
+function generateCSS() {
+  return `
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Inter,sans-serif;
+  background:#050816;
+  color:#FFFFFF;
+  line-height:1.6;
+}
+
+section{
+  padding:100px 24px;
+}
+
+.container{
+  max-width:1280px;
+  margin:0 auto;
+
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:20px;
+}
+
+.section-header{
+  grid-column:1 / span 12;
+  margin-bottom:40px;
+}
+
+.section-header h2{
+  font-size:40px;
+  line-height:1;
+  letter-spacing:-.03em;
+}
+
+/* HERO */
+
+.hero{
+  min-height:100vh;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(37,99,235,.28),
+      transparent 40%
+    ),
+    linear-gradient(
+      180deg,
+      #050816 0%,
+      #0B1020 100%
+    );
+}
+
+.hero-content{
+  grid-column:3 / span 8;
+
+  text-align:center;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+.hero-content span{
+  display:inline-flex;
+
+  padding:8px 14px;
+
+  border-radius:999px;
+
+  background:rgba(255,255,255,.06);
+
+  border:1px solid rgba(255,255,255,.10);
+
+  color:#93C5FD;
+
+  margin-bottom:24px;
+}
+
+.hero-content h1{
+  font-size:clamp(42px,6vw,76px);
+
+  line-height:1;
+
+  letter-spacing:-.04em;
+
+  margin-bottom:24px;
+}
+
+.hero-content p{
+  font-size:20px;
+
+  color:#CBD5E1;
+
+  max-width:700px;
+}
+
+.hero-content a{
+  margin-top:36px;
+
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:16px 28px;
+
+  border-radius:14px;
+
+  text-decoration:none;
+
+  color:#FFFFFF;
+
+  font-weight:700;
+
+  background:
+    linear-gradient(
+      135deg,
+      #2563EB,
+      #7C3AED
+    );
+
+  box-shadow:
+    0 20px 50px rgba(37,99,235,.35);
+}
+
+/* BENEFÍCIOS */
+
+.benefits-grid{
+  grid-column:1 / span 12;
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.benefit-card{
+  padding:32px;
+
+  border-radius:24px;
+
+  background:
+    rgba(255,255,255,.05);
+
+  border:
+    1px solid rgba(255,255,255,.10);
+
+  transition:.3s;
+}
+
+.benefit-card:hover{
+  transform:translateY(-4px);
+
+  border-color:
+    rgba(37,99,235,.45);
+}
+
+.benefit-card p{
+  color:#CBD5E1;
+}
+
+/* SOCIAL + OBJECTION */
+
+.content-card{
+  grid-column:1 / span 12;
+
+  padding:32px;
+
+  border-radius:24px;
+
+  background:
+    rgba(255,255,255,.05);
+
+  border:
+    1px solid rgba(255,255,255,.10);
+}
+
+.content-card p{
+  color:#CBD5E1;
+}
+
+/* FAQ */
+
+.faq-list{
+  grid-column:1 / span 12;
+}
+
+details{
+  margin-bottom:16px;
+
+  border-radius:18px;
+
+  overflow:hidden;
+
+  background:
+    rgba(255,255,255,.05);
+
+  border:
+    1px solid rgba(255,255,255,.10);
+}
+
+summary{
+  cursor:pointer;
+
+  padding:22px;
+
+  font-weight:700;
+
+  list-style:none;
+}
+
+details p{
+  padding:0 22px 22px;
+
+  color:#CBD5E1;
+}
+
+/* MOBILE */
+
+@media(max-width:1024px){
+
+  .hero-content{
+    grid-column:1 / span 12;
+  }
+
+  .benefits-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:768px){
+
+  section{
+    padding:72px 20px;
+  }
+
+  .hero{
+    min-height:auto;
+  }
+
+  .hero-content h1{
+    font-size:42px;
+  }
+
+  .hero-content p{
+    font-size:18px;
+  }
+
+}
+`;
+}
+
+
+function generateHTML(aiResult) {
+  return `
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${aiResult.headline}</title>
+
+  <style>
+    ${generateCSS()}
+  </style>
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <span>Gerado com LeadForge AI</span>
+
+        <h1>${aiResult.headline}</h1>
+
+        <p>${aiResult.subheadline}</p>
+
+        <a href="#">
+          ${aiResult.cta}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="benefits">
+    <div class="container">
+      <div class="section-header">
+        <h2>Benefícios</h2>
+      </div>
+
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <p>${aiResult.benefit1}</p>
+        </div>
+
+        <div class="benefit-card">
+          <p>${aiResult.benefit2}</p>
+        </div>
+
+        <div class="benefit-card">
+          <p>${aiResult.benefit3}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="social-proof">
+    <div class="container">
+      <div class="section-header">
+        <h2>Prova social</h2>
+      </div>
+
+      <div class="content-card">
+        <p>${aiResult.socialProof}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="objection">
+    <div class="container">
+      <div class="section-header">
+        <h2>Quebra de objeção</h2>
+      </div>
+
+      <div class="content-card">
+        <p>${aiResult.objection}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq">
+    <div class="container">
+      <div class="section-header">
+        <h2>Perguntas frequentes</h2>
+      </div>
+
+      <div class="faq-list">
+        <details>
+          <summary>${aiResult.faq1Question}</summary>
+          <p>${aiResult.faq1Answer}</p>
+        </details>
+
+        <details>
+          <summary>${aiResult.faq2Question}</summary>
+          <p>${aiResult.faq2Answer}</p>
+        </details>
+
+        <details>
+          <summary>${aiResult.faq3Question}</summary>
+          <p>${aiResult.faq3Answer}</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
+`;
+}
 
 function renderHistory() {
   if (history.length === 0) {
