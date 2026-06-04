@@ -61,14 +61,15 @@ const savedResult =
 
 if (savedResult) {
   resultDiv.innerHTML = savedResult;
+
   setupClearButton();
   setupHistoryClick();
+
 } else {
   resultDiv.innerHTML = `
-    <h4 class="result-label">Estrutura Gerada</h4>
-    <p class="empty-state">
-      Preencha os campos acima e clique em "Gerar Estrutura".
-    </p>
+    <div class="empty-state">
+      <p>⚡ Gere sua primeira estrutura com IA.</p>
+    </div>
   `;
 }
 
@@ -198,9 +199,10 @@ console.log("TIPO:", typeof aiResult);
 });
 
   localStorage.setItem(
-    "leadforgeHistory",
+    "leadforgeResult",
     JSON.stringify(history)
   );
+
 // daqui pra baixo segue generatedText, loading, setTimeout...
 
   const generatedText = `
@@ -216,7 +218,19 @@ CTA:
 ${aiResult.cta}
 `;
 
-resultDiv.innerHTML = `<p class="loading">⚡ Gerando estrutura...</p>`;
+resultDiv.innerHTML = `
+  <h4 class="result-label">Estrutura Gerada</h4>
+  <div class="loading-state">
+    <p>🤖 Analisando nicho...</p>
+    <p>✍️ Criando headline...</p>
+    <p>🚀 Gerando estrutura...</p>
+  </div>
+`;
+
+localStorage.setItem(
+  "leadforgeResult",
+  resultDiv.innerHTML
+);
 
 setTimeout(function() {
 
@@ -281,21 +295,22 @@ function setupClearButton() {
   if (!clearBtn) return;
 
   clearBtn.addEventListener("click", function() {
+
     localStorage.removeItem("leadforgeResult");
     localStorage.removeItem("leadforgeHistory");
-    
+
     history = [];
-    showToast("🗑 Histórico limpo!");
 
     resultDiv.innerHTML = `
-      <h4 class="result-label">Estrutura Gerada</h4>
-      <p class="empty-state">
-        Preencha os campos acima e clique em "Gerar Estrutura".
-      </p>
+      <div class="empty-state">
+        <p>⚡ Gere sua primeira estrutura com IA.</p>
+      </div>
     `;
+
+    showToast("🗑 Histórico limpo!");
+
   });
 }
-
 
 function setupHistoryClick() {
   const historyList = document.getElementById("historyList");
