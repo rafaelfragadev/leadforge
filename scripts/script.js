@@ -1,3 +1,7 @@
+let lastGenerateTime = 0;
+const cooldownTime = 10000;
+let cooldownInterval = null;
+
 const form = document.querySelector("#generatorForm");
 
 const themeBtn =
@@ -10,6 +14,7 @@ const savedTheme =
 
 if (savedTheme !== "light") {
   document.body.classList.add("dark");
+  
 }
 
 themeBtn.addEventListener(
@@ -26,7 +31,7 @@ themeBtn.addEventListener(
         "theme",
         "dark"
       );
-
+      showToast("🌙 Tema dark ativado!");
     }
 
     else {
@@ -35,31 +40,17 @@ themeBtn.addEventListener(
         "theme",
         "light"
       );
-
+     showToast("☀️ Tema light ativado!");
     }
 
   }
 );
 
-
-const toneMessages = {
-   premium:  "Experiência premium para elevar seus resultados.",
-   direto:   "Oferta direta para acelerar sua conversão.",
-   emocional: "Conexão emocional com seu público ideal."
-  };
-
-
-const goalMessages = {
-  leads: "Capture mais leads qualificados.",
-  vendas: "Converta visitantes em clientes.",
-  autoridade: "Fortaleça sua autoridade digital."
- };  
-
-
 const resultDiv = document.getElementById("result");
 const savedHistory = localStorage.getItem("leadforgeHistory");
-
+let isGenerating = false;
 let history = savedHistory
+
   ? JSON.parse(savedHistory)
   : [];
 
@@ -71,6 +62,7 @@ const savedResult =
 if (savedResult) {
   resultDiv.innerHTML = savedResult;
   setupClearButton();
+  setupHistoryClick();
 } else {
   resultDiv.innerHTML = `
     <h4 class="result-label">Estrutura Gerada</h4>
@@ -80,39 +72,108 @@ if (savedResult) {
   `;
 }
 
-function generateCTA(goal, offer) {
-
-  const ctaMessages = {
-  leads: `Receba mais informações sobre o ${offer}.`,
-  vendas: `Cadastre-se para receber mais informações sobre o ${offer}.`,
-  autoridade: `Descubra por que o ${offer} está se tornando referência no mercado.`
-};
-  return ctaMessages[goal] || "CTA não identificado.";
-}
-
-function renderResult(formData, toneMessage, goalMessage, cta) {
+function renderResult(formData, aiResult) {
   return `
-    <h1>${formData.offer} para ${formData.niche}</h1>
-    <h3>${toneMessage}</h3>
-    <p>${goalMessage}</p>
-    <p class="cta">${cta}</p>
-    <button id="copyBtn">📋 Copiar Estrutura</button>
-    <button id="clearBtn">🗑 Limpar Resultado</button>
-  `; 
+    <div class="result-content">
+
+      <span class="badge">
+        Estrutura gerada por IA
+      </span>
+
+      <h1>
+        ${aiResult.headline}
+      </h1>
+
+      <h3 class="subheadline">
+        ${aiResult.subheadline}
+      </h3>
+
+      <ul class="benefits">
+
+        <li class="benefit">
+          ✅ ${aiResult.benefit1}
+        </li>
+
+        <li class="benefit">
+          ✅ ${aiResult.benefit2}
+        </li>
+
+        <li class="benefit">
+          ✅ ${aiResult.benefit3}
+        </li>
+
+      </ul>
+
+      <button class="cta-preview">
+        ${aiResult.cta}
+      </button>
+
+      <button id="copyBtn">
+        📋 Copiar Estrutura
+      </button>
+
+      <button id="clearBtn">
+        🗑 Limpar Resultado
+      </button>
+
+    </div>
+  `;
 }
 
-
-
-form.addEventListener("submit", function(event) {
-
+form.addEventListener("submit", async function(event) {
   event.preventDefault();
+const now = Date.now();
+
+if (now - lastGenerateTime < cooldownTime) {
+  showToast("⏳ Aguarde 1 minuto antes de gerar novamente.");
+  return;
+}
+
+  lastGenerateTime = now;
+const submitBtn =
+  form.querySelector("button[type='submit']");
+
+let timeLeft = 10;
+
+submitBtn.disabled = true;
+submitBtn.textContent =
+  `⏳ Aguarde ${timeLeft}s`;
+
+cooldownInterval = setInterval(function() {
+
+  timeLeft--;
+
+      submitBtn.textContent =
+        `⏳ Aguarde ${timeLeft}s`;
+
+      if (timeLeft <= 0) {
+
+        clearInterval(
+          cooldownInterval
+        );
+
+        submitBtn.disabled = false;
+
+        submitBtn.textContent =
+          "⚡ Gerar Estrutura";
+
+      }
+
+    }, 1000);
+
+  if (isGenerating) {
+    showToast("⏳ Aguarde a geração terminar.");
+    return;
+  }
+  
+
+  isGenerating = true;
 
   const niche = document.getElementById("niche");
   const offer = document.getElementById("offer");
   const tone = document.getElementById("tone");
   const goal = document.getElementById("goal");
 
-  
   const formData = {
     niche: niche.value,
     offer: offer.value,
@@ -120,38 +181,47 @@ form.addEventListener("submit", function(event) {
     goal: goal.value
   };
 
-    history.push(formData.offer);
-    console.log(history);
+  let aiResult = null;
 
-      localStorage.setItem(
-        "leadforgeHistory",
-        JSON.stringify(history));
+  try {
+    aiResult = await fetchAIContent(formData);
+  } finally {
+    isGenerating = false;
+  }
+console.log("AI RESULT:", aiResult);
+console.log("TIPO:", typeof aiResult);
 
-  const toneMessage = toneMessages[formData.tone] || "Tom não identificado.";
-  const goalMessage = goalMessages[formData.goal] || "Objetivo não identificado.";
-  const cta = generateCTA(formData.goal, formData.offer);
+  history.push({
+  offer: formData.offer,
+  niche: formData.niche,
+  result: aiResult
+});
+
+  localStorage.setItem(
+    "leadforgeHistory",
+    JSON.stringify(history)
+  );
+// daqui pra baixo segue generatedText, loading, setTimeout...
 
   const generatedText = `
-  ${formData.offer} para ${formData.niche}
+${aiResult.headline}
 
-  ${toneMessage}
+${aiResult.subheadline}
 
-  ${goalMessage}
+✅ ${aiResult.benefit1}
+✅ ${aiResult.benefit2}
+✅ ${aiResult.benefit3}
 
-  ${cta}
+CTA:
+${aiResult.cta}
 `;
 
 resultDiv.innerHTML = `<p class="loading">⚡ Gerando estrutura...</p>`;
 
 setTimeout(function() {
- resultDiv.innerHTML = `
-  ${renderResult(
-    formData,
-    toneMessage,
-    goalMessage,
-    cta
-  )}
 
+resultDiv.innerHTML = `
+  ${renderResult(formData, aiResult)}
   ${renderHistory()}
 `;
 
@@ -160,19 +230,22 @@ setTimeout(function() {
     resultDiv.innerHTML
   );
 
+showToast("⚡ Estrutura gerada!");
+
 const copyBtn = document.getElementById("copyBtn");
 
 copyBtn.addEventListener("click", function() {
   navigator.clipboard.writeText(generatedText);
 
   copyBtn.textContent = "✅ Copiado!";
-
+  showToast("✅ Estrutura copiada!");
   setTimeout(function() {
     copyBtn.textContent = "📋 Copiar Estrutura";
   }, 2000);
 });
 
 setupClearButton();
+setupHistoryClick();
 
 }, 1000);
 
@@ -183,14 +256,18 @@ function renderHistory() {
     return "";
   }
 
-  const historyItems = history.map(function(item) {
-    return `<li>${item}</li>`;
+  const historyItems = history.map(function(item, index) {
+    return `
+      <li data-index="${index}">
+        ${item.offer} para ${item.niche}
+      </li>
+    `;
   });
 
   return `
     <div class="history">
       <h4>Últimas gerações</h4>
-      <ul>
+      <ul id="historyList">
         ${historyItems.join("")}
       </ul>
     </div>
@@ -206,8 +283,9 @@ function setupClearButton() {
   clearBtn.addEventListener("click", function() {
     localStorage.removeItem("leadforgeResult");
     localStorage.removeItem("leadforgeHistory");
-
+    
     history = [];
+    showToast("🗑 Histórico limpo!");
 
     resultDiv.innerHTML = `
       <h4 class="result-label">Estrutura Gerada</h4>
@@ -216,4 +294,89 @@ function setupClearButton() {
       </p>
     `;
   });
+}
+
+
+function setupHistoryClick() {
+  const historyList = document.getElementById("historyList");
+
+  if (!historyList) return;
+
+  historyList.addEventListener("click", function(event) {
+    const clickedItem = event.target;
+
+    const index = clickedItem.dataset.index;
+
+    if (index === undefined) return;
+
+    const historyItem = history[index];
+
+    resultDiv.innerHTML = `
+      ${renderResult(
+        {
+          offer: historyItem.offer,
+          niche: historyItem.niche
+        },
+        historyItem.result
+      )}
+
+      ${renderHistory()}
+    `;
+
+    setupClearButton();
+    setupHistoryClick();
+
+    showToast("📂 Geração restaurada!");
+  });
+}
+
+
+function showToast(message) {
+
+  const toast =
+    document.createElement("div");
+
+  toast.classList.add(
+    "toast"
+    
+  );
+
+  toast.textContent =
+    message;
+
+  document.body.appendChild(
+    toast
+  );
+  
+  setTimeout(function() {
+
+    toast.remove();
+
+  }, 3000);
+
+}
+
+async function fetchAIContent(formData) {
+  const response = await fetch("http://localhost:3000/generate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(formData)
+  });
+
+  const data = await response.json();
+
+  console.log("Resposta da API:", data);
+
+ if (!response.ok) {
+  showToast("⏳ Limite da IA atingido. Tente novamente em alguns segundos.");
+
+   return {
+     headline: "Não foi possível gerar agora.",
+     subheadline: "A IA está temporariamente ocupada. Tente novamente em alguns segundos.",
+      cta: "Tentar novamente"
+    };
+  }
+  return data;
 }

@@ -4,6 +4,12 @@
   box-sizing: border-box;
 }
 
+ul {
+  list-style-type: none; 
+  padding: 0;           
+  margin: 0;           
+}
+
 body {
   font-family: Inter, sans-serif;
   min-height: 100vh;
@@ -140,6 +146,8 @@ body:not(.dark) .cta {
 
   font-weight:600;
 }
+
+
 
 body:not(.dark) select {
 
@@ -412,7 +420,7 @@ button {
   color: white;
 
   transition: .3s;
-  margin-bottom: 15px;
+  margin: 15px 0;
 }
 
 button:hover {
@@ -533,4 +541,28 @@ button:hover {
   border-radius: 10px;
   background: rgba(255,255,255,.06);
   margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.toast {
+
+  position:fixed;
+
+  top:24px;
+  right:24px;
+
+  background:#16A34A;
+
+  color:#FFFFFF;
+
+  padding:14px 18px;
+
+  border-radius:14px;
+
+  font-weight:600;
+
+  z-index:9999;
+
+  box-shadow:
+    0 12px 32px rgba(0,0,0,.18);
 }
