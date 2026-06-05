@@ -27,8 +27,28 @@ body {
 .container {
   width: 100%;
   max-width: 750px;
+  position: relative;
+}
+.logo img{
+  height:32px;
+  width:auto;
 }
 
+.logo-dark{
+  display:block;
+}
+
+.logo-light{
+  display:none;
+}
+
+.dark .logo-dark{
+  display:none;
+}
+
+.dark .logo-light{
+  display:block;
+}
 /* ---------- LIGHT THEME ---------- */
 
 body {
@@ -294,6 +314,7 @@ button:hover {
   align-items: center;
   gap: 12px;
   margin-bottom: 30px;
+  justify-content: space-between;
 }
 
 .logo-icon {
