@@ -19,7 +19,7 @@ app.post("/generate", async function(req, res) {
     const { niche, offer, tone, goal } = req.body;
 
    const model = genAI.getGenerativeModel({
-  model: "models/gemini-2.5-flash-lite"
+  model: "models/gemini-2.0-flash"
 });
 
 const prompt = `
@@ -53,6 +53,22 @@ Exemplos:
 Crie também 3 perguntas frequentes com respostas curtas e persuasivas.
 As perguntas devem antecipar dúvidas reais do público.
 
+Retorne 3 benefícios.
+
+Cada benefício deve conter:
+
+- título curto
+- descrição curta
+
+Para os benefícios, use exatamente estes campos:
+
+benefit1Icon, benefit1Title, benefit1Description
+benefit2Icon, benefit2Title, benefit2Description
+benefit3Icon, benefit3Title, benefit3Description
+
+Os campos benefit1Icon, benefit2Icon e benefit3Icon devem conter apenas uma destas opções:
+rocket, shield, chart, target, star, graduation, globe, airplane, users, lightning
+
 Nicho: ${niche}
 Oferta: ${offer}
 Tom: ${tone}
@@ -65,21 +81,32 @@ Formato:
 {
   "headline": "",
   "subheadline": "",
-  "benefit1": "",
-  "benefit2": "",
-  "benefit3": "",
+
+  "benefit1Icon": "",
+  "benefit1Title": "",
+  "benefit1Description": "",
+
+  "benefit2Icon": "",
+  "benefit2Title": "",
+  "benefit2Description": "",
+
+  "benefit3Icon": "",
+  "benefit3Title": "",
+  "benefit3Description": "",
+
   "socialProof": "",
   "objection": "",
+
   "faq1Question": "",
   "faq1Answer": "",
   "faq2Question": "",
   "faq2Answer": "",
   "faq3Question": "",
   "faq3Answer": "",
+
   "cta": ""
 }
 `;
-
 const result = await model.generateContent(prompt);
 
 const text = result.response.text();
@@ -89,7 +116,18 @@ const cleanText = text
   .replace(/```/g, "")
   .trim();
 
-const parsed = JSON.parse(cleanText);
+let parsed;
+
+try {
+  parsed = JSON.parse(cleanText);
+} catch (jsonError) {
+  console.log("JSON INVÁLIDO DA IA:", cleanText);
+
+  return res.status(500).json({
+    error: "A IA retornou um JSON inválido."
+  });
+}
+
 res.json(parsed);
 
   } catch (error) {

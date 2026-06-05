@@ -89,21 +89,32 @@ function renderResult(formData, aiResult) {
         ${aiResult.subheadline}
       </h3>
 
-      <ul class="benefits">
+      <div class="benefit-card">
+  <div class="benefit-icon">
+    ${getIcon(aiResult.benefit1Icon || "star")}
+  </div>
 
-        <li class="benefit">
-          ✅ ${aiResult.benefit1}
-        </li>
+  <h3>${aiResult.benefit1Title}</h3>
+  <p>${aiResult.benefit1Description}</p>
+</div>
 
-        <li class="benefit">
-          ✅ ${aiResult.benefit2}
-        </li>
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          ${getIcon(aiResult.benefit2Icon || "target")}
+        </div>
 
-        <li class="benefit">
-          ✅ ${aiResult.benefit3}
-        </li>
+        <h3>${aiResult.benefit2Title}</h3>
+        <p>${aiResult.benefit2Description}</p>
+      </div>
 
-      </ul>
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          ${getIcon(aiResult.benefit3Icon || "rocket")}
+        </div>
+
+        <h3>${aiResult.benefit3Title}</h3>
+        <p>${aiResult.benefit3Description}</p>
+      </div>
       <div class="social-proof">
       <strong>Prova social</strong>
           <p>${aiResult.socialProof}</p>
@@ -149,6 +160,7 @@ function renderResult(formData, aiResult) {
       <button id="pdfBtn">📄 Baixar PDF</button>
       <button id="htmlBtn">🧩 Baixar HTML</button>
       <button id="cssBtn">🎨 Baixar CSS</button>
+      <button id="zipBtn">📦 Baixar Projeto ZIP</button>
 
       <button id="clearBtn">
         🗑 Limpar Resultado
@@ -328,6 +340,38 @@ copyBtn.addEventListener("click", function() {
 
 const downloadBtn = document.getElementById("downloadBtn");
 const pdfBtn = document.getElementById("pdfBtn");
+const zipBtn = document.getElementById("zipBtn");
+
+zipBtn.addEventListener("click", async function() {
+  const zip = new JSZip();
+
+  zip.file(
+    "index.html",
+    generateHTMLWithExternalCSS(aiResult)
+  );
+
+  zip.file(
+    "style.css",
+    generateCSS()
+  );
+
+  const content = await zip.generateAsync({
+    type: "blob"
+  });
+
+  const url = URL.createObjectURL(content);
+
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "leadforge-landing.zip";
+
+  link.click();
+
+  URL.revokeObjectURL(url);
+
+  showToast("📦 Projeto ZIP baixado!");
+});
 
 downloadBtn.addEventListener("click", function() {
   const blob = new Blob(
@@ -608,6 +652,8 @@ section{
 }
 
 .benefit-card{
+  margin-bottom:12px;
+  font-size:22px;
   padding:32px;
 
   border-radius:24px;
@@ -630,6 +676,28 @@ section{
 
 .benefit-card p{
   color:#CBD5E1;
+}
+
+.benefit-icon{
+  width:56px;
+  height:56px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  margin-bottom:20px;
+
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #2563EB,
+      #7C3AED
+    );
+
+  font-size:24px;
 }
 
 /* SOCIAL + OBJECTION */
@@ -763,21 +831,48 @@ function generateHTML(aiResult) {
         <h2>Benefícios</h2>
       </div>
 
-      <div class="benefits-grid">
-        <div class="benefit-card">
-          <p>${aiResult.benefit1}</p>
-        </div>
+<div class="benefits-grid">
+  <div class="benefit-card">
+      <div class="benefit-icon">
+        ${getIcon(aiResult.benefit1Icon || "star")}
+      </div>
+      <h3>${aiResult.benefit1Title}</h3>
+      <p>${aiResult.benefit1Description}</p></div>
 
-        <div class="benefit-card">
-          <p>${aiResult.benefit2}</p>
-        </div>
+<div class="benefit-card">
 
-        <div class="benefit-card">
-          <p>${aiResult.benefit3}</p>
-        </div>
+<div class="benefit-icon">
+${getIcon(aiResult.benefit2Icon || "target")}
+  </div>
+
+  <h3>
+    ${aiResult.benefit2Title}
+  </h3>
+
+  <p>
+    ${aiResult.benefit2Description}
+  </p>
+
+</div>
+
+<div class="benefit-card">
+
+  <div class="benefit-icon">
+    ${getIcon(aiResult.benefit3Icon || "rocket")}
+  </div>
+
+      <h3>
+        ${aiResult.benefit3Title}
+      </h3>
+
+      <p>
+        ${aiResult.benefit3Description}
+      </p>
+
+</div>
       </div>
     </div>
-  </section>
+</section>
 
   <section class="social-proof">
     <div class="container">
@@ -827,6 +922,27 @@ function generateHTML(aiResult) {
       </div>
     </div>
   </section>
+
+</body>
+</html>
+`;
+}
+
+function generateHTMLWithExternalCSS(aiResult) {
+  return `
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${aiResult.headline}</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  ${generateHTML(aiResult)
+    .split("<body>")[1]
+    .split("</body>")[0]}
 
 </body>
 </html>
@@ -956,28 +1072,56 @@ async function fetchAIContent(formData) {
   showToast("⏳ Limite da IA atingido. Tente novamente em alguns segundos.");
 
    return {
-      headline: "Não foi possível gerar agora.",
-      subheadline: "A IA está temporariamente ocupada. Tente novamente em alguns segundos.",
+  headline: "Não foi possível gerar agora.",
+  subheadline: "A IA está temporariamente ocupada. Tente novamente em alguns segundos.",
 
-      benefit1: "Aguarde alguns instantes.",
-      benefit2: "Evite muitas tentativas seguidas.",
-      benefit3: "O sistema voltará a responder em breve.",
+  benefit1Icon: "star",
+  benefit1Title: "Aguarde alguns instantes",
+  benefit1Description: "O limite temporário da IA foi atingido.",
 
-      socialProof: "O sistema está temporariamente indisponível devido ao limite da API.",
+  benefit2Icon: "target",
+  benefit2Title: "Evite muitas tentativas",
+  benefit2Description: "Muitas chamadas em sequência podem gerar bloqueio temporário.",
 
-      objection: "Mesmo que a IA esteja ocupada agora, você poderá gerar sua estrutura em instantes.",
+  benefit3Icon: "rocket",
+  benefit3Title: "Tente novamente em breve",
+  benefit3Description: "O sistema voltará a responder normalmente em alguns segundos.",
 
-      faq1Question: "Quando posso tentar novamente?",
-      faq1Answer: "Você pode tentar novamente em alguns segundos, quando o limite da IA for liberado.",
+  socialProof: "O sistema está temporariamente indisponível devido ao limite da API.",
 
-      faq2Question: "Meus dados foram perdidos?",
-      faq2Answer: "Não. Você pode gerar uma nova estrutura assim que a IA estiver disponível.",
+  objection: "Mesmo que a IA esteja ocupada agora, você poderá gerar sua estrutura em instantes.",
 
-      faq3Question: "O que causou esse erro?",
-      faq3Answer: "O limite temporário da API foi atingido por muitas chamadas em pouco tempo.",
+  faq1Question: "Quando posso tentar novamente?",
+  faq1Answer: "Você pode tentar novamente em alguns segundos.",
 
-      cta: "Tentar novamente"
+  faq2Question: "Meus dados foram perdidos?",
+  faq2Answer: "Não. Basta gerar novamente quando a IA estiver disponível.",
+
+  faq3Question: "O que aconteceu?",
+  faq3Answer: "O limite temporário da API foi atingido.",
+
+  cta: "Tentar novamente"
     };
   }
   return data;
+}
+
+function getIcon(iconName){
+
+  const icons = {
+
+    rocket: "🚀",
+    shield: "🛡️",
+    chart: "📈",
+    target: "🎯",
+    star: "⭐",
+    graduation: "🎓",
+    globe: "🌎",
+    airplane: "✈️",
+    users: "👥",
+    lightning: "⚡"
+
+  };
+
+  return icons[iconName] || "✨";
 }
