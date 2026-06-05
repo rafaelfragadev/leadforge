@@ -224,7 +224,7 @@ cooldownInterval = setInterval(function() {
   const offer = document.getElementById("offer");
   const tone = document.getElementById("tone");
   const goal = document.getElementById("goal");
-  const templateType = document.getElementById("templateType");
+  const templateType = document.getElementById("templateType").value;
 
   const formData = {
     niche: niche.value,
@@ -236,11 +236,22 @@ cooldownInterval = setInterval(function() {
 
   let aiResult = null;
 
-  try {
-    aiResult = await fetchAIContent(formData);
-  } finally {
-    isGenerating = false;
-  }
+try {
+  aiResult = await fetchAIContent(formData);
+} finally {
+  isGenerating = false;
+}
+
+localStorage.setItem(
+  "leadforge_last_aiResult",
+  JSON.stringify(aiResult)
+);
+
+localStorage.setItem(
+  "leadforge_last_templateType",
+  templateType
+);
+
 console.log("AI RESULT:", aiResult);
 console.log("TIPO:", typeof aiResult);
 
@@ -299,7 +310,7 @@ resultDiv.innerHTML = `
   ${renderHistory()}
 
 `;
-setupPreviewButton(aiResult, formData.templateType);
+setupPreviewButton(aiResult, templateType);
 
 
   localStorage.setItem(
@@ -430,7 +441,7 @@ pdfBtn.addEventListener("click", function() {
 const htmlBtn = document.getElementById("htmlBtn");
 
 htmlBtn.addEventListener("click", function() {
-  const htmlContent = generateHTML(aiResult, formData.templateType);
+  const htmlContent = generateHTML(aiResult, templateType);
 
   const blob = new Blob(
     [htmlContent],
@@ -535,10 +546,11 @@ function getThemeByNiche(niche = "") {
   };
 }
 
-function generateCSS(aiResult) {
-  const theme = getThemeByNiche(
-  document.getElementById("niche").value
+function generateCSS(aiResult, templateType) {
+  const theme = getThemeByNiche(document.getElementById("niche").value
 );
+ console.log("CSS templateType:", templateType);
+ console.log("CSS extra:", generateTemplateCSS(templateType, theme));
   return `
 *{
   margin:0;
@@ -746,7 +758,6 @@ section{
     ${theme.primary},
     ${theme.accent}
   );
-}
 }
 
 .mockup-line{
@@ -973,12 +984,116 @@ details p{
 }
 
 
-}
+} ${generateTemplateCSS(templateType, theme)}
 `;
 }
 
+function generateTemplateCSS(templateType, theme) {
+   const type = String(templateType).toLowerCase().trim();
+     console.log("TYPE NORMALIZADO:", type);
+    switch (templateType) {
+
+    case "curso":
+      return `
+.hero{
+  background:
+    radial-gradient(circle at top right,#7C3AED55,transparent 35%),
+    linear-gradient(135deg,#0F172A,#1E293B);
+}
+
+.hero-content h1{
+  font-size:76px;
+}
+
+.benefit-card{
+  border-top:4px solid ${theme.primary};
+}
+
+.faq{
+  background:#111827;
+}
+`;
+
+    case "saas":
+      return `
+.hero{
+  background:
+    radial-gradient(circle at 80% 20%,#2563EB66,transparent 35%),
+    #050816;
+}
+
+.mockup-card{
+  transform:rotate(-4deg);
+}
+
+.benefit-card{
+  background:linear-gradient(
+    180deg,
+    #10172A,
+    #080C18
+  );
+}
+`;
+
+   case "consultoria":
+  return `
+body{
+  background:#F8F8F8;
+  color:#111;
+}
+
+.hero{
+  background:#FFFFFF;
+}
+
+.hero-content h1{
+  color:#111;
+}
+
+.hero-content p{
+  color:#555;
+}
+
+.benefit-card{
+  background:#FFF;
+  border:1px solid #E5E7EB;
+  box-shadow:0 20px 40px rgba(0,0,0,.06);
+}
+
+.section-header h2{
+  color:#111;
+}
+`;
+
+    case "ecommerce":
+      return `
+body{
+  background:#FFF;
+  color:#111;
+}
+
+.hero{
+  background:#FAFAFA;
+}
+
+.benefit-card{
+  background:#FFF;
+  border:1px solid #EEE;
+}
+
+.hero-content a{
+  border-radius:999px;
+}
+`;
+
+    default:
+      return "";
+  }
+}
 
 function generateHTML(aiResult, templateType) {
+   const theme = getThemeByNiche(document.getElementById("niche").value)
+
  console.log("TEMPLATE:", templateType);
   return `
 <!DOCTYPE html>
@@ -1225,7 +1340,7 @@ function generateHTMLWithExternalCSS(aiResult, templateType) {
 </head>
 <body>
 
-  ${generateHTML(aiResult, templateType)
+  ${generateHTML(aiResult, formData.templateType)
     .split("<body>")[1]
     .split("</body>")[0]}
 
