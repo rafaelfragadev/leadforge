@@ -223,12 +223,14 @@ cooldownInterval = setInterval(function() {
   const offer = document.getElementById("offer");
   const tone = document.getElementById("tone");
   const goal = document.getElementById("goal");
+  const templateType = document.getElementById("templateType");
 
   const formData = {
     niche: niche.value,
     offer: offer.value,
     tone: tone.value,
-    goal: goal.value
+    goal: goal.value,
+    templateType: templateType.value
   };
 
   let aiResult = null;
