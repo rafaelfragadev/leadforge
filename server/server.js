@@ -55,6 +55,29 @@ benefit3Icon, benefit3Title, benefit3Description
 Os campos benefit1Icon, benefit2Icon e benefit3Icon devem conter apenas uma destas opções:
 rocket, shield, chart, target, star, graduation, globe, airplane, users, lightning
 
+Dependendo do template escolhido, retorne também:
+
+Para SaaS:
+problemTitle
+problemDescription
+
+solutionTitle
+solutionDescription
+
+Para Consultoria:
+methodTitle
+methodDescription
+
+resultsTitle
+resultsDescription
+
+Para E-commerce:
+differentialTitle
+differentialDescription
+
+reviewTitle
+reviewDescription
+
 Nicho: ${niche}
 Oferta: ${offer}
 Tom: ${tone}
@@ -90,6 +113,24 @@ Formato:
   "faq2Answer": "",
   "faq3Question": "",
   "faq3Answer": "",
+
+   "problemTitle": "",
+  "problemDescription": "",
+
+  "solutionTitle": "",
+  "solutionDescription": "",
+
+  "methodTitle": "",
+  "methodDescription": "",
+
+  "resultsTitle": "",
+  "resultsDescription": "",
+
+  "differentialTitle": "",
+  "differentialDescription": "",
+
+  "reviewTitle": "",
+  "reviewDescription": ""
 
   "cta": ""
 }

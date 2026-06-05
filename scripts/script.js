@@ -161,6 +161,7 @@ function renderResult(formData, aiResult) {
       <button id="htmlBtn">🧩 Baixar HTML</button>
       <button id="cssBtn">🎨 Baixar CSS</button>
       <button id="zipBtn">📦 Baixar Projeto ZIP</button>
+      <button id="previewBtn">👁️ Ver Preview</button>
 
       <button id="clearBtn">
         🗑 Limpar Resultado
@@ -244,15 +245,11 @@ console.log("AI RESULT:", aiResult);
 console.log("TIPO:", typeof aiResult);
 
   history.push({
-  offer: formData.offer,
+   offer: formData.offer,
   niche: formData.niche,
+  templateType: formData.templateType,
   result: aiResult
 });
-
-  localStorage.setItem(
-    "leadforgeResult",
-    JSON.stringify(history)
-  );
 
 // daqui pra baixo segue generatedText, loading, setTimeout...
 
@@ -295,17 +292,15 @@ resultDiv.innerHTML = `
   </div>
 `;
 
-localStorage.setItem(
-  "leadforgeResult",
-  resultDiv.innerHTML
-);
-
 setTimeout(function() {
 
 resultDiv.innerHTML = `
   ${renderResult(formData, aiResult)}
   ${renderHistory()}
+
 `;
+setupPreviewButton(aiResult, formData.templateType);
+
 
   localStorage.setItem(
     "leadforgeResult",
@@ -326,20 +321,7 @@ copyBtn.addEventListener("click", function() {
   }, 2000);
 });
 
-  const previewBtn = document.getElementById("previewBtn");
-
-  previewBtn.addEventListener("click", function() {
-    const htmlContent = generateHTML(aiResult);
-
-    const previewWindow = window.open("", "_blank");
-
-    previewWindow.document.open();
-    previewWindow.document.write(htmlContent);
-    previewWindow.document.close();
-
-    showToast("👁️ Preview aberto!");
-  });
-
+ 
 const downloadBtn = document.getElementById("downloadBtn");
 const pdfBtn = document.getElementById("pdfBtn");
 const zipBtn = document.getElementById("zipBtn");
@@ -349,12 +331,12 @@ zipBtn.addEventListener("click", async function() {
 
   zip.file(
     "index.html",
-    generateHTMLWithExternalCSS(aiResult)
+    generateHTMLWithExternalCSS(aiResult, formData.templateType)
   );
 
   zip.file(
     "style.css",
-    generateCSS()
+    generateCSS(aiResult)
   );
 
   const content = await zip.generateAsync({
@@ -448,7 +430,7 @@ pdfBtn.addEventListener("click", function() {
 const htmlBtn = document.getElementById("htmlBtn");
 
 htmlBtn.addEventListener("click", function() {
-  const htmlContent = generateHTML(aiResult);
+  const htmlContent = generateHTML(aiResult, formData.templateType);
 
   const blob = new Blob(
     [htmlContent],
@@ -456,7 +438,6 @@ htmlBtn.addEventListener("click", function() {
   );
 
   const url = URL.createObjectURL(blob);
-
   const link = document.createElement("a");
 
   link.href = url;
@@ -475,7 +456,7 @@ const cssBtn =
 cssBtn.addEventListener("click", function() {
 
   const cssContent =
-    generateCSS();
+    generateCSS(aiResult);
 
   const blob = new Blob(
     [cssContent],
@@ -512,7 +493,52 @@ setupHistoryClick();
 
 });
 
-function generateCSS() {
+function getThemeByNiche(niche = "") {
+
+  const nicheLower = niche.toLowerCase();
+
+  if (nicheLower.includes("aviação")) {
+    return {
+      primary: "#2563EB",
+      secondary: "#0F172A",
+      accent: "#60A5FA"
+    };
+  }
+
+  if (
+    nicheLower.includes("saúde") ||
+    nicheLower.includes("medicina") ||
+    nicheLower.includes("nutrição")
+  ) {
+    return {
+     primary: "#10B981",
+  secondary: "#064E3B",
+  accent: "#A7F3D0"
+    };
+  }
+
+  if (
+    nicheLower.includes("advocacia") ||
+    nicheLower.includes("advogado")
+  ) {
+    return {
+      primary: "#C9A227",
+      secondary: "#111111",
+      accent: "#F5E6A8"
+    };
+  }
+
+  return {
+    primary: "#2563EB",
+    secondary: "#0B1020",
+    accent: "#7C3AED"
+  };
+}
+
+function generateCSS(aiResult) {
+  const theme = getThemeByNiche(
+  document.getElementById("niche").value
+);
   return `
 *{
   margin:0;
@@ -581,6 +607,10 @@ section{
   flex-direction:column;
   justify-content:center;
 }
+  .hero-content p{
+  color:#CBD5E1;
+}
+
 
 .hero-visual{
   grid-column:8 / span 5;
@@ -613,7 +643,7 @@ section{
   border:
     1px solid rgba(255,255,255,.10);
 
-  color:#93C5FD;
+   color:${theme.accent};
 
   backdrop-filter:blur(12px);
 }
@@ -660,9 +690,9 @@ section{
   font-weight:600;
 
   background:linear-gradient(
-    135deg,
-    #2563EB,
-    #7C3AED
+  135deg,
+  ${theme.primary},
+  ${theme.accent}
   );
 
   box-shadow:
@@ -686,20 +716,22 @@ section{
 }
 
 .mockup-card{
-
+  box-shadow: 0 40px 120px rgba(37,99,235,.18);
   transform:rotate(-4deg);
+  width:100%;
+  max-width:520px;
 
-  box-shadow:
-    0 40px 120px rgba(37,99,235,.18);
+  padding:24px;
 
-  transition:.4s ease;
-}
+  border-radius:28px;
 
-.mockup-card:hover{
+  background:
+    rgba(255,255,255,.05);
 
-  transform:
-    rotate(-2deg)
-    translateY(-8px);
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(20px);
 }
 
 .mockup-header{
@@ -709,12 +741,12 @@ section{
 
   margin-bottom:20px;
 
-  background:
-    linear-gradient(
-      135deg,
-      #2563EB,
-      #7C3AED
-    );
+  background:linear-gradient(
+    135deg,
+    ${theme.primary},
+    ${theme.accent}
+  );
+}
 }
 
 .mockup-line{
@@ -760,14 +792,11 @@ section{
   }
 
   .hero-content a{
-
-  transition:
-    transform .3s ease,
-    box-shadow .3s ease;
-
-  box-shadow:
-    0 20px 50px rgba(37,99,235,.35);
-
+  background:linear-gradient(
+    135deg,
+    ${theme.primary},
+    ${theme.accent}
+  );
 }
 
   .hero-visual{
@@ -900,6 +929,11 @@ details p{
     grid-column:1 / span 12;
   }
 
+  .hero-content p{
+  color:#CBD5E1;
+}
+
+
   .benefits-grid{
     grid-template-columns:1fr;
   }
@@ -917,20 +951,35 @@ details p{
   }
 
   .hero-content h1{
-    font-size: clamp(42px, 5vw, 72px);
-    max-width: 700px;
-  }
+  max-width:700px;
+
+  font-size:clamp(
+    42px,
+    5vw,
+    72px
+  );
+
+  line-height:.95;
+
+  letter-spacing:-.05em;
+
+  margin-bottom:24px;
+
+  color:#FFFFFF;
+}
 
   .hero-content p{
-    font-size:18px;
-  }
+  color:#CBD5E1;
+}
+
 
 }
 `;
 }
 
 
-function generateHTML(aiResult) {
+function generateHTML(aiResult, templateType) {
+ console.log("TEMPLATE:", templateType);
   return `
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -940,11 +989,12 @@ function generateHTML(aiResult) {
   <title>${aiResult.headline}</title>
 
  <style>
-  ${generateCSS()}
+  ${generateCSS(aiResult, templateType)}
 </style>
 </head>
 
 <body>
+
 
   <section class="hero">
 
@@ -993,6 +1043,8 @@ function generateHTML(aiResult) {
 
 </section>
 
+  ${generateDynamicSection(aiResult, templateType)}
+ 
   <section class="benefits">
     <div class="container">
       <div class="section-header">
@@ -1096,7 +1148,72 @@ ${getIcon(aiResult.benefit2Icon || "target")}
 `;
 }
 
-function generateHTMLWithExternalCSS(aiResult) {
+function generateDynamicSection(aiResult, templateType) {
+  if (templateType === "saas") {
+    return `
+      <section class="dynamic-section">
+        <div class="container">
+
+          <div class="content-card">
+            <h2>${aiResult.problemTitle}</h2>
+            <p>${aiResult.problemDescription}</p>
+          </div>
+
+          <div class="content-card">
+            <h2>${aiResult.solutionTitle}</h2>
+            <p>${aiResult.solutionDescription}</p>
+          </div>
+
+        </div>
+      </section>
+    `;
+  }
+  
+
+  if (templateType === "consultoria") {
+    return `
+      <section class="dynamic-section">
+        <div class="container">
+
+          <div class="content-card">
+            <h2>${aiResult.methodTitle}</h2>
+            <p>${aiResult.methodDescription}</p>
+          </div>
+
+          <div class="content-card">
+            <h2>${aiResult.resultsTitle}</h2>
+            <p>${aiResult.resultsDescription}</p>
+          </div>
+
+        </div>
+      </section>
+    `;
+  }
+
+  if (templateType === "ecommerce") {
+    return `
+      <section class="dynamic-section">
+        <div class="container">
+
+          <div class="content-card">
+            <h2>${aiResult.differentialTitle}</h2>
+            <p>${aiResult.differentialDescription}</p>
+          </div>
+
+          <div class="content-card">
+            <h2>${aiResult.reviewTitle}</h2>
+            <p>${aiResult.reviewDescription}</p>
+          </div>
+
+        </div>
+      </section>
+    `;
+  }
+
+  return "";
+}
+
+function generateHTMLWithExternalCSS(aiResult, templateType) {
   return `
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -1108,7 +1225,7 @@ function generateHTMLWithExternalCSS(aiResult) {
 </head>
 <body>
 
-  ${generateHTML(aiResult)
+  ${generateHTML(aiResult, templateType)
     .split("<body>")[1]
     .split("</body>")[0]}
 
@@ -1193,10 +1310,14 @@ function setupHistoryClick() {
     setupClearButton();
     setupHistoryClick();
 
+    setupPreviewButton(
+      historyItem.result,
+      historyItem.templateType
+    );
+
     showToast("📂 Geração restaurada!");
   });
 }
-
 
 function showToast(message) {
 
@@ -1292,4 +1413,22 @@ function getIcon(iconName){
   };
 
   return icons[iconName] || "✨";
+}
+
+function setupPreviewButton(aiResult, templateType) {
+  const previewBtn = document.getElementById("previewBtn");
+
+  if (!previewBtn) return;
+
+  previewBtn.onclick = function() {
+    const htmlContent = generateHTML(aiResult, templateType);
+
+    const previewWindow = window.open("", "_blank");
+
+    previewWindow.document.open();
+    previewWindow.document.write(htmlContent);
+    previewWindow.document.close();
+
+    showToast("👁️ Preview aberto!");
+  };
 }
