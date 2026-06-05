@@ -520,6 +520,7 @@ function generateCSS() {
   box-sizing:border-box;
 }
 
+
 body{
   font-family:Inter,sans-serif;
   background:#050816;
@@ -556,71 +557,97 @@ section{
 .hero{
   min-height:100vh;
 
+  display:flex;
+  align-items:center;
+
   background:
     radial-gradient(
-      circle at top,
-      rgba(37,99,235,.28),
-      transparent 40%
+      circle at top right,
+      rgba(37,99,235,.20),
+      transparent 35%
     ),
-    linear-gradient(
-      180deg,
-      #050816 0%,
-      #0B1020 100%
-    );
+    radial-gradient(
+      circle at top left,
+      rgba(124,58,237,.18),
+      transparent 35%
+    ),
+    #050816;
 }
 
 .hero-content{
-  grid-column:3 / span 8;
-
-  text-align:center;
+  grid-column:1 / span 6;
 
   display:flex;
   flex-direction:column;
-  align-items:center;
   justify-content:center;
 }
 
-.hero-content span{
+.hero-visual{
+  grid-column:8 / span 5;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  pointer-events:none;
+}
+
+.hero-badge{
+
   display:inline-flex;
 
-  padding:8px 14px;
+  align-items:center;
+
+  gap:8px;
+
+  width:max-content;
+
+  padding:10px 16px;
+
+  margin-bottom:28px;
 
   border-radius:999px;
 
-  background:rgba(255,255,255,.06);
+  background:
+    rgba(255,255,255,.05);
 
-  border:1px solid rgba(255,255,255,.10);
+  border:
+    1px solid rgba(255,255,255,.10);
 
   color:#93C5FD;
 
-  margin-bottom:24px;
+  backdrop-filter:blur(12px);
 }
 
 .hero-content h1{
-  font-size:clamp(42px,6vw,76px);
 
-  line-height:1;
+  max-width:700px;
 
-  letter-spacing:-.04em;
+  font-size:clamp(
+    42px,
+    5vw,
+    72px
+  );
+
+  line-height:.95;
+
+  letter-spacing:-.05em;
 
   margin-bottom:24px;
 }
-
 .hero-content p{
   font-size:20px;
 
   color:#CBD5E1;
 
-  max-width:700px;
+  max-width:600px;
 }
 
 .hero-content a{
+  max-width:570px;
+  text-align:center;
+  display:inline-block;
+
   margin-top:36px;
-
-  display:inline-flex;
-
-  align-items:center;
-  justify-content:center;
 
   padding:16px 28px;
 
@@ -630,7 +657,57 @@ section{
 
   color:#FFFFFF;
 
-  font-weight:700;
+  font-weight:600;
+
+  background:linear-gradient(
+    135deg,
+    #2563EB,
+    #7C3AED
+  );
+
+  box-shadow:
+    0 20px 50px rgba(37,99,235,.35);
+
+  transition:
+    transform .3s ease,
+    box-shadow .3s ease,
+    opacity .3s ease;
+}
+
+.hero-content a:hover{
+
+  transform:
+    translateY(-4px)
+    scale(1.02);
+
+  box-shadow:
+    0 35px 80px rgba(37,99,235,.55);
+
+}
+
+.mockup-card{
+
+  transform:rotate(-4deg);
+
+  box-shadow:
+    0 40px 120px rgba(37,99,235,.18);
+
+  transition:.4s ease;
+}
+
+.mockup-card:hover{
+
+  transform:
+    rotate(-2deg)
+    translateY(-8px);
+}
+
+.mockup-header{
+  height:180px;
+
+  border-radius:18px;
+
+  margin-bottom:20px;
 
   background:
     linear-gradient(
@@ -638,9 +715,66 @@ section{
       #2563EB,
       #7C3AED
     );
+}
+
+.mockup-line{
+  height:14px;
+
+  border-radius:999px;
+
+  margin-bottom:14px;
+
+  background:
+    rgba(255,255,255,.08);
+}
+
+.mockup-line.short{
+  width:60%;
+}
+
+.mockup-stats{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:14px;
+
+  margin-top:24px;
+}
+
+.mockup-stats div{
+  height:90px;
+
+  border-radius:16px;
+
+  background:
+    rgba(255,255,255,.06);
+}
+    @media(max-width:1024px){
+
+  .hero-content{
+    grid-column:1 / span 12;
+    text-align:center;
+    align-items:center;
+  }
+
+  .hero-content a{
+
+  transition:
+    transform .3s ease,
+    box-shadow .3s ease;
 
   box-shadow:
     0 20px 50px rgba(37,99,235,.35);
+
+}
+
+  .hero-visual{
+    grid-column:1 / span 12;
+    margin-top:50px;
+  }
+
 }
 
 /* BENEFÍCIOS */
@@ -783,7 +917,8 @@ details p{
   }
 
   .hero-content h1{
-    font-size:42px;
+    font-size: clamp(42px, 5vw, 72px);
+    max-width: 700px;
   }
 
   .hero-content p{
@@ -804,28 +939,59 @@ function generateHTML(aiResult) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${aiResult.headline}</title>
 
-  <style>
-    ${generateCSS()}
-  </style>
+ <style>
+  ${generateCSS()}
+</style>
 </head>
 
 <body>
 
   <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <span>Gerado com LeadForge AI</span>
 
-        <h1>${aiResult.headline}</h1>
+  <div class="container">
 
-        <p>${aiResult.subheadline}</p>
+    <div class="hero-content">
 
-        <a href="#">
-          ${aiResult.cta}
-        </a>
-      </div>
+      <span class="hero-badge">
+        Gerado com LeadForge AI
+      </span>
+
+      <h1>${aiResult.headline}</h1>
+
+      <p>
+        ${aiResult.subheadline}
+      </p>
+
+      <a href="#">
+        ${aiResult.cta}
+      </a>
+
     </div>
-  </section>
+
+    <div class="hero-visual">
+
+      <div class="mockup-card">
+
+        <div class="mockup-header"></div>
+
+        <div class="mockup-line"></div>
+        <div class="mockup-line short"></div>
+
+        <div class="mockup-stats">
+
+          <div></div>
+          <div></div>
+          <div></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
 
   <section class="benefits">
     <div class="container">
