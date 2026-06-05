@@ -578,7 +578,15 @@ section{
   grid-template-columns:repeat(12,1fr);
   gap:20px;
 }
-
+.section-kicker{
+  display:inline-block;
+  margin-bottom:14px;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:${theme.accent};
+}
 .section-header{
   grid-column:1 / span 12;
   margin-bottom:40px;
@@ -995,95 +1003,601 @@ function generateTemplateCSS(templateType, theme) {
 
     case "curso":
       return `
+body{
+  background:#F7F3FF;
+  color:#111;
+}
+
 .hero{
   background:
-    radial-gradient(circle at top right,#7C3AED55,transparent 35%),
-    linear-gradient(135deg,#0F172A,#1E293B);
+    radial-gradient(circle at 15% 20%, #7C3AED22, transparent 28%),
+    radial-gradient(circle at 85% 10%, #2563EB22, transparent 30%),
+    linear-gradient(135deg,#FFFFFF,#F4EEFF);
+}
+
+.hero-badge{
+  background:#FFFFFF;
+  color:#7C3AED;
+  border:1px solid #E9D5FF;
+  box-shadow:0 10px 30px rgba(124,58,237,.10);
 }
 
 .hero-content h1{
-  font-size:76px;
+  color:#111;
+  font-size:clamp(52px,5vw,82px);
+}
+
+.hero-content p{
+  color:#475569;
+}
+
+.hero-content a{
+  border-radius:999px;
+  background:linear-gradient(135deg,#7C3AED,#2563EB);
+  box-shadow:0 24px 60px rgba(124,58,237,.25);
+}
+
+.mockup-card{
+  background:#FFFFFF;
+  border:1px solid #E9D5FF;
+  box-shadow:0 40px 100px rgba(124,58,237,.18);
+  transform:rotate(3deg);
+}
+
+.mockup-header{
+  height:90px;
+  background:linear-gradient(135deg,#7C3AED,#2563EB);
+}
+
+.mockup-card::before{
+  content:"🎓 Curso online";
+  display:block;
+  margin-bottom:18px;
+  font-weight:800;
+  color:#111;
+}
+
+.mockup-card::after{
+  content:"12 módulos • certificado • comunidade";
+  display:block;
+  margin-top:18px;
+  padding:14px 16px;
+  border-radius:14px;
+  background:#F3E8FF;
+  color:#6D28D9;
+  font-weight:700;
+}
+
+.dynamic-section{
+  background:#FFFFFF;
+}
+
+.dynamic-section .content-card{
+  background:#FFFFFF;
+  color:#111;
+  border:1px solid #E9D5FF;
+  box-shadow:0 20px 50px rgba(124,58,237,.08);
+}
+
+.content-card p,
+.benefit-card p{
+  color:#475569;
 }
 
 .benefit-card{
-  border-top:4px solid ${theme.primary};
+  background:#FFFFFF;
+  color:#111;
+  border:1px solid #E9D5FF;
+  box-shadow:0 18px 50px rgba(124,58,237,.08);
+}
+
+.section-header h2{
+  color:#111;
 }
 
 .faq{
-  background:#111827;
+  background:#F4EEFF;
+}
+
+details{
+  background:#FFFFFF;
+  color:#111;
+  border:1px solid #E9D5FF;
+}
+
+details p{
+  color:#475569;
 }
 `;
 
     case "saas":
       return `
+body{
+  background:#050816;
+  color:#FFFFFF;
+}
+
 .hero{
   background:
-    radial-gradient(circle at 80% 20%,#2563EB66,transparent 35%),
-    #050816;
+    radial-gradient(circle at 80% 15%, #2563EB55, transparent 32%),
+    radial-gradient(circle at 100% 0%, #7C3AED44, transparent 30%),
+    linear-gradient(135deg,#050816,#0B1020);
+}
+
+.hero-badge{
+  background:rgba(255,255,255,.06);
+  color:#A78BFA;
+  border:1px solid rgba(255,255,255,.12);
+}
+
+.hero-content h1{
+  font-size:clamp(54px,5vw,84px);
+  color:#FFFFFF;
+}
+
+.hero-content p{
+  color:#CBD5E1;
+}
+
+.hero-content a{
+  background:linear-gradient(135deg,#2563EB,#7C3AED);
+  box-shadow:0 30px 80px rgba(37,99,235,.35);
 }
 
 .mockup-card{
+  background:rgba(15,23,42,.78);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:
+    0 40px 120px rgba(37,99,235,.25),
+    inset 0 1px 0 rgba(255,255,255,.08);
   transform:rotate(-4deg);
 }
 
+.mockup-card::before{
+  content:"Dashboard";
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:18px;
+  color:#CBD5E1;
+  font-weight:800;
+}
+
+.mockup-header{
+  height:150px;
+  background:linear-gradient(135deg,#2563EB,#7C3AED);
+}
+
+.mockup-stats div{
+  background:rgba(255,255,255,.08);
+}
+
+.dynamic-section{
+  background:#080C18;
+}
+
+.dynamic-section .content-card{
+  background:linear-gradient(180deg,#10172A,#080C18);
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 24px 70px rgba(0,0,0,.35);
+}
+
 .benefit-card{
-  background:linear-gradient(
-    180deg,
-    #10172A,
-    #080C18
-  );
+  background:linear-gradient(180deg,#10172A,#080C18);
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 24px 70px rgba(0,0,0,.35);
+}
+
+.faq{
+  background:#050816;
 }
 `;
 
    case "consultoria":
   return `
 body{
-  background:#F8F8F8;
-  color:#111;
+  background:#F6F3EC;
+  color:#151515;
 }
 
 .hero{
-  background:#FFFFFF;
+  background:
+    linear-gradient(90deg,#F6F3EC 0%,#FFFFFF 55%,#ECE7DC 100%);
+}
+
+.hero-badge{
+  background:#151515;
+  color:#F6F3EC;
+  border:1px solid #151515;
 }
 
 .hero-content h1{
-  color:#111;
+  color:#151515;
+  font-size:clamp(54px,5vw,84px);
+  letter-spacing:-.06em;
 }
 
 .hero-content p{
-  color:#555;
+  color:#4B5563;
+}
+
+.hero-content a{
+  background:#151515;
+  color:#FFFFFF;
+  border-radius:6px;
+  box-shadow:0 22px 50px rgba(0,0,0,.18);
+}
+
+.mockup-card{
+  background:#151515;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 40px 90px rgba(0,0,0,.22);
+  transform:rotate(0deg);
+}
+
+.mockup-card::before{
+  content:"Estratégia";
+  display:block;
+  margin-bottom:18px;
+  color:#F6F3EC;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.mockup-header{
+  height:80px;
+  background:#C8A96A;
+}
+
+.mockup-line,
+.mockup-stats div{
+  background:rgba(255,255,255,.12);
+}
+
+.dynamic-section{
+  background:#151515;
+  color:#FFFFFF;
+}
+
+.dynamic-section .section-kicker{
+  color:#C8A96A;
+}
+
+.dynamic-section .content-card{
+  background:#1F1F1F;
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 24px 70px rgba(0,0,0,.22);
+}
+
+.dynamic-section .content-card p{
+  color:#D1D5DB;
+}
+
+.benefits{
+  background:#F6F3EC;
 }
 
 .benefit-card{
-  background:#FFF;
-  border:1px solid #E5E7EB;
-  box-shadow:0 20px 40px rgba(0,0,0,.06);
+  background:#FFFFFF;
+  color:#151515;
+  border:1px solid #E5E0D5;
+  box-shadow:0 18px 45px rgba(0,0,0,.06);
 }
 
-.section-header h2{
-  color:#111;
+.benefit-card p{
+  color:#4B5563;
+}
+
+.benefit-icon{
+  background:#151515;
+}
+
+.social-proof,
+.objection{
+  background:#FFFFFF;
+}
+
+.content-card{
+  background:#FFFFFF;
+  color:#151515;
+  border:1px solid #E5E0D5;
+}
+
+.content-card p{
+  color:#4B5563;
+}
+
+.faq{
+  background:#F6F3EC;
+}
+
+details{
+  background:#FFFFFF;
+  color:#151515;
+  border:1px solid #E5E0D5;
+}
+
+details p{
+  color:#4B5563;
 }
 `;
 
     case "ecommerce":
       return `
 body{
-  background:#FFF;
-  color:#111;
+  background:#FFF7ED;
+  color:#111827;
 }
 
 .hero{
-  background:#FAFAFA;
+  background:
+    radial-gradient(circle at 80% 20%, #FB923C33, transparent 30%),
+    linear-gradient(135deg,#FFFFFF,#FFF7ED);
 }
 
-.benefit-card{
-  background:#FFF;
-  border:1px solid #EEE;
+.hero-badge{
+  background:#FFEDD5;
+  color:#C2410C;
+  border:1px solid #FED7AA;
+}
+
+.hero-content h1{
+  color:#111827;
+  font-size:clamp(52px,5vw,82px);
+}
+
+.hero-content p{
+  color:#4B5563;
 }
 
 .hero-content a{
+  background:#EA580C;
+  color:#FFFFFF;
   border-radius:999px;
+  box-shadow:0 24px 60px rgba(234,88,12,.25);
 }
+
+.mockup-card{
+  background:#FFFFFF;
+  border:1px solid #FED7AA;
+  box-shadow:0 40px 100px rgba(234,88,12,.16);
+  transform:rotate(-2deg);
+}
+
+.mockup-card::before{
+  content:"Produto em destaque";
+  display:block;
+  margin-bottom:18px;
+  color:#111827;
+  font-weight:900;
+}
+
+.mockup-header{
+  height:210px;
+  background:
+    radial-gradient(circle at 50% 45%,#FDBA74 0%,#FB923C 38%,#EA580C 100%);
+}
+
+.mockup-card::after{
+  content:"★★★★★ 4.9 • Oferta especial";
+  display:block;
+  margin-top:18px;
+  padding:14px 16px;
+  border-radius:999px;
+  background:#FFEDD5;
+  color:#C2410C;
+  font-weight:800;
+  text-align:center;
+}
+
+.mockup-line{
+  background:#FED7AA;
+}
+
+.mockup-stats div{
+  background:#FFF7ED;
+  border:1px solid #FED7AA;
+}
+
+.dynamic-section{
+  background:#FFFFFF;
+}
+
+.dynamic-section .section-kicker{
+  color:#EA580C;
+}
+
+.dynamic-section .content-card{
+  background:#FFF7ED;
+  color:#111827;
+  border:1px solid #FED7AA;
+  box-shadow:0 20px 50px rgba(234,88,12,.08);
+}
+
+.dynamic-section .content-card p{
+  color:#4B5563;
+}
+
+.benefits{
+  background:#FFF7ED;
+}
+
+.benefit-card{
+  background:#FFFFFF;
+  color:#111827;
+  border:1px solid #FED7AA;
+  box-shadow:0 18px 45px rgba(234,88,12,.08);
+}
+
+.benefit-card p{
+  color:#4B5563;
+}
+
+.benefit-icon{
+  background:#EA580C;
+}
+
+.social-proof,
+.objection{
+  background:#FFFFFF;
+}
+
+.content-card{
+  background:#FFF7ED;
+  color:#111827;
+  border:1px solid #FED7AA;
+}
+
+.content-card p{
+  color:#4B5563;
+}
+
+.faq{
+  background:#FFFFFF;
+}
+
+details{
+  background:#FFF7ED;
+  color:#111827;
+  border:1px solid #FED7AA;
+}
+
+details p{
+  color:#4B5563;
+}
+`;
+
+    default:
+      return "";
+  }
+}
+
+function safeText(value, fallback) {
+  return value && value.trim() !== "" ? value : fallback;
+}
+
+function generateDynamicSection(aiResult, templateType) {
+  console.log("🔥 DYNAMIC RODOU:", templateType);
+
+  const type = String(templateType).toLowerCase().trim();
+
+  switch (type) {
+
+    case "curso":
+      return `
+<section class="dynamic-section course-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-kicker">Conteúdo do curso</span>
+      <h2>${safeText(aiResult.differentialTitle, "O que você vai aprender")}</h2>
+    </div>
+
+    <div class="content-card">
+      <p>${safeText(aiResult.differentialDescription, "Você vai aprender os fundamentos, aplicar na prática e sair com clareza para evoluir com segurança.")}</p>
+    </div>
+  </div>
+</section>
+
+<section class="dynamic-section modules-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-kicker">Resultado esperado</span>
+      <h2>${safeText(aiResult.resultsTitle, "Módulos pensados para evolução real")}</h2>
+    </div>
+
+    <div class="content-card">
+      <p>${safeText(aiResult.resultsDescription, "A jornada foi organizada para sair do básico, avançar com exemplos reais e transformar conhecimento em aplicação prática.")}</p>
+    </div>
+  </div>
+</section>
+`;
+
+    case "saas":
+      return `
+<section class="dynamic-section problem-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-kicker">Problema</span>
+      <h2>${safeText(aiResult.problemTitle, "O gargalo que trava sua operação")}</h2>
+    </div>
+
+    <div class="content-card">
+      <p>${safeText(aiResult.problemDescription, "Processos manuais, dados espalhados e pouca clareza tornam a tomada de decisão lenta e imprecisa.")}</p>
+    </div>
+  </div>
+</section>
+
+<section class="dynamic-section solution-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-kicker">Solução</span>
+      <h2>${safeText(aiResult.solutionTitle, "Uma plataforma para centralizar tudo")}</h2>
+    </div>
+
+    <div class="content-card">
+      <p>${safeText(aiResult.solutionDescription, "Com uma visão centralizada, sua equipe acompanha indicadores, automatiza tarefas e toma decisões com muito mais velocidade.")}</p>
+    </div>
+  </div>
+</section>
+`;
+
+    case "consultoria":
+      return `
+<section class="dynamic-section method-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-kicker">Método</span>
+      <h2>${safeText(aiResult.methodTitle, "Um método claro para sair do improviso")}</h2>
+    </div>
+
+    <div class="content-card">
+      <p>${safeText(aiResult.methodDescription, "A consultoria identifica gargalos, define prioridades e constrói um plano prático para gerar evolução real no negócio.")}</p>
+    </div>
+  </div>
+</section>
+
+<section class="dynamic-section results-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-kicker">Resultados</span>
+      <h2>${safeText(aiResult.resultsTitle, "Como isso se transforma em evolução real")}</h2>
+    </div>
+
+    <div class="content-card">
+      <p>${safeText(aiResult.resultsDescription, "O processo gera mais clareza, prioridade, direção estratégica e ações práticas para melhorar os resultados do negócio.")}</p>
+    </div>
+  </div>
+</section>
+`;
+
+    case "ecommerce":
+      return `
+<section class="dynamic-section product-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-kicker">Diferencial</span>
+      <h2>${safeText(aiResult.differentialTitle, "Feito para quem quer comprar com confiança")}</h2>
+    </div>
+
+    <div class="content-card">
+      <p>${safeText(aiResult.differentialDescription, "Um produto pensado para entregar qualidade, praticidade e uma experiência de compra mais segura.")}</p>
+    </div>
+  </div>
+</section>
+
+<section class="dynamic-section review-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-kicker">Avaliações</span>
+      <h2>${safeText(aiResult.reviewTitle, "O que dizem sobre o produto")}</h2>
+    </div>
+
+    <div class="content-card">
+      <p>${safeText(aiResult.reviewDescription, "Clientes destacam a qualidade, a facilidade de uso e a boa experiência de compra.")}</p>
+    </div>
+  </div>
+</section>
 `;
 
     default:
@@ -1261,71 +1775,6 @@ ${getIcon(aiResult.benefit2Icon || "target")}
 </body>
 </html>
 `;
-}
-
-function generateDynamicSection(aiResult, templateType) {
-  if (templateType === "saas") {
-    return `
-      <section class="dynamic-section">
-        <div class="container">
-
-          <div class="content-card">
-            <h2>${aiResult.problemTitle}</h2>
-            <p>${aiResult.problemDescription}</p>
-          </div>
-
-          <div class="content-card">
-            <h2>${aiResult.solutionTitle}</h2>
-            <p>${aiResult.solutionDescription}</p>
-          </div>
-
-        </div>
-      </section>
-    `;
-  }
-  
-
-  if (templateType === "consultoria") {
-    return `
-      <section class="dynamic-section">
-        <div class="container">
-
-          <div class="content-card">
-            <h2>${aiResult.methodTitle}</h2>
-            <p>${aiResult.methodDescription}</p>
-          </div>
-
-          <div class="content-card">
-            <h2>${aiResult.resultsTitle}</h2>
-            <p>${aiResult.resultsDescription}</p>
-          </div>
-
-        </div>
-      </section>
-    `;
-  }
-
-  if (templateType === "ecommerce") {
-    return `
-      <section class="dynamic-section">
-        <div class="container">
-
-          <div class="content-card">
-            <h2>${aiResult.differentialTitle}</h2>
-            <p>${aiResult.differentialDescription}</p>
-          </div>
-
-          <div class="content-card">
-            <h2>${aiResult.reviewTitle}</h2>
-            <p>${aiResult.reviewDescription}</p>
-          </div>
-
-        </div>
-      </section>
-    `;
-  }
-
-  return "";
 }
 
 function generateHTMLWithExternalCSS(aiResult, templateType) {

@@ -86,8 +86,6 @@ Tipo de landing page: ${templateType}
 
 Responda SOMENTE em JSON válido. Sem markdown. Sem texto antes ou depois.
 
-Formato:
-
 {
   "headline": "",
   "subheadline": "",
@@ -114,7 +112,7 @@ Formato:
   "faq3Question": "",
   "faq3Answer": "",
 
-   "problemTitle": "",
+  "problemTitle": "",
   "problemDescription": "",
 
   "solutionTitle": "",
@@ -125,12 +123,10 @@ Formato:
 
   "resultsTitle": "",
   "resultsDescription": "",
-
   "differentialTitle": "",
   "differentialDescription": "",
-
   "reviewTitle": "",
-  "reviewDescription": ""
+  "reviewDescription": "",
 
   "cta": ""
 }
