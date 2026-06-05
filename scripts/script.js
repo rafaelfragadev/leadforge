@@ -557,7 +557,42 @@ function generateCSS(aiResult, templateType) {
   padding:0;
   box-sizing:border-box;
 }
+.template-grid{
+  grid-column:1 / span 12;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
 
+.template-card{
+  padding:32px;
+  border-radius:24px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+}
+
+.template-card span{
+  display:inline-flex;
+  margin-bottom:18px;
+  font-size:14px;
+  font-weight:800;
+  opacity:.7;
+}
+
+.template-card h3{
+  font-size:24px;
+  margin-bottom:12px;
+}
+
+.template-card p{
+  color:#CBD5E1;
+}
+
+@media(max-width:768px){
+  .template-grid{
+    grid-template-columns:1fr;
+  }
+}
 
 body{
   font-family:Inter,sans-serif;
@@ -567,7 +602,7 @@ body{
 }
 
 section{
-  padding:100px 24px;
+  padding:80px 24px;
 }
 
 .container{
@@ -589,7 +624,7 @@ section{
 }
 .section-header{
   grid-column:1 / span 12;
-  margin-bottom:40px;
+  margin-bottom:26px;
 }
 
 .section-header h2{
@@ -601,7 +636,7 @@ section{
 /* HERO */
 
 .hero{
-  min-height:100vh;
+  min-height:88vh;
 
   display:flex;
   align-items:center;
@@ -962,13 +997,19 @@ details p{
 @media(max-width:768px){
 
   section{
-    padding:72px 20px;
+     padding:56px 20px;
   }
 
   .hero{
     min-height:auto;
   }
-
+ .dynamic-section,
+  .benefits,
+  .social-proof,
+  .objection,
+  .faq{
+    padding:56px 20px;
+  }
   .hero-content h1{
   max-width:700px;
 
@@ -1070,6 +1111,7 @@ body{
 
 .dynamic-section{
   background:#FFFFFF;
+  padding:72px 24px;
 }
 
 .dynamic-section .content-card{
@@ -1336,6 +1378,13 @@ body{
     linear-gradient(135deg,#FFFFFF,#FFF7ED);
 }
 
+.benefits,
+.social-proof,
+.objection,
+.faq{
+  padding:72px 24px;
+}
+
 .hero-badge{
   background:#FFEDD5;
   color:#C2410C;
@@ -1478,14 +1527,28 @@ function safeText(value, fallback) {
 }
 
 function generateDynamicSection(aiResult, templateType) {
-  console.log("🔥 DYNAMIC RODOU:", templateType);
-
   const type = String(templateType).toLowerCase().trim();
 
   switch (type) {
-
     case "curso":
-      return `
+      return generateCourseSection(aiResult);
+
+    case "saas":
+      return generateSaasSection(aiResult);
+
+    case "consultoria":
+      return generateConsultingSection(aiResult);
+
+    case "ecommerce":
+      return generateEcommerceSection(aiResult);
+
+    default:
+      return "";
+  }
+}
+
+function generateCourseSection(aiResult) {
+  return `
 <section class="dynamic-section course-section">
   <div class="container">
     <div class="section-header">
@@ -1493,28 +1556,32 @@ function generateDynamicSection(aiResult, templateType) {
       <h2>${safeText(aiResult.differentialTitle, "O que você vai aprender")}</h2>
     </div>
 
-    <div class="content-card">
-      <p>${safeText(aiResult.differentialDescription, "Você vai aprender os fundamentos, aplicar na prática e sair com clareza para evoluir com segurança.")}</p>
-    </div>
-  </div>
-</section>
+    <div class="template-grid course-modules">
+      <div class="template-card">
+        <span>01</span>
+        <h3>Fundamentos</h3>
+        <p>${safeText(aiResult.differentialDescription, "Entenda a base necessária para começar com clareza e segurança.")}</p>
+      </div>
 
-<section class="dynamic-section modules-section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-kicker">Resultado esperado</span>
-      <h2>${safeText(aiResult.resultsTitle, "Módulos pensados para evolução real")}</h2>
-    </div>
+      <div class="template-card">
+        <span>02</span>
+        <h3>Prática guiada</h3>
+        <p>Aprenda aplicando em exercícios, exemplos reais e situações próximas do mercado.</p>
+      </div>
 
-    <div class="content-card">
-      <p>${safeText(aiResult.resultsDescription, "A jornada foi organizada para sair do básico, avançar com exemplos reais e transformar conhecimento em aplicação prática.")}</p>
+      <div class="template-card">
+        <span>03</span>
+        <h3>Resultado final</h3>
+        <p>${safeText(aiResult.resultsDescription, "Saia com uma visão prática, organizada e pronta para evoluir.")}</p>
+      </div>
     </div>
   </div>
 </section>
 `;
+}
 
-    case "saas":
-      return `
+function generateSaasSection(aiResult) {
+  return `
 <section class="dynamic-section problem-section">
   <div class="container">
     <div class="section-header">
@@ -1541,9 +1608,10 @@ function generateDynamicSection(aiResult, templateType) {
   </div>
 </section>
 `;
+}
 
-    case "consultoria":
-      return `
+function generateConsultingSection(aiResult) {
+  return `
 <section class="dynamic-section method-section">
   <div class="container">
     <div class="section-header">
@@ -1556,36 +1624,11 @@ function generateDynamicSection(aiResult, templateType) {
     </div>
   </div>
 </section>
-
-<section class="dynamic-section results-section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-kicker">Resultados</span>
-      <h2>${safeText(aiResult.resultsTitle, "Como isso se transforma em evolução real")}</h2>
-    </div>
-
-    <div class="content-card">
-      <p>${safeText(aiResult.resultsDescription, "O processo gera mais clareza, prioridade, direção estratégica e ações práticas para melhorar os resultados do negócio.")}</p>
-    </div>
-  </div>
-</section>
 `;
+}
 
-    case "ecommerce":
-      return `
-<section class="dynamic-section product-section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-kicker">Diferencial</span>
-      <h2>${safeText(aiResult.differentialTitle, "Feito para quem quer comprar com confiança")}</h2>
-    </div>
-
-    <div class="content-card">
-      <p>${safeText(aiResult.differentialDescription, "Um produto pensado para entregar qualidade, praticidade e uma experiência de compra mais segura.")}</p>
-    </div>
-  </div>
-</section>
-
+function generateEcommerceSection(aiResult) {
+  return `
 <section class="dynamic-section review-section">
   <div class="container">
     <div class="section-header">
@@ -1599,10 +1642,6 @@ function generateDynamicSection(aiResult, templateType) {
   </div>
 </section>
 `;
-
-    default:
-      return "";
-  }
 }
 
 function generateHTML(aiResult, templateType) {
