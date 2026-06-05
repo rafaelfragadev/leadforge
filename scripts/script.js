@@ -235,7 +235,7 @@ cooldownInterval = setInterval(function() {
   };
 
   let aiResult = null;
-
+  
 try {
   aiResult = await fetchAIContent(formData);
 } finally {
@@ -252,8 +252,8 @@ localStorage.setItem(
   templateType
 );
 
-console.log("AI RESULT:", aiResult);
-console.log("TIPO:", typeof aiResult);
+//console.log("AI RESULT:", aiResult);
+//console.log("TIPO:", typeof aiResult);
 
   history.push({
    offer: formData.offer,
@@ -1640,20 +1640,20 @@ function generateCourseSection(aiResult) {
     <div class="template-grid course-modules">
       <div class="template-card">
         <span>01</span>
-        <h3>Fundamentos</h3>
-        <p>${safeText(aiResult.differentialDescription, "Entenda a base necessária para começar com clareza e segurança.")}</p>
+        <h3>${safeText(aiResult.module1Title, "Fundamentos")}</h3>
+        <p>${safeText(aiResult.module1Description, "Entenda a base necessária para começar com clareza e segurança.")}</p>
       </div>
 
       <div class="template-card">
         <span>02</span>
-        <h3>Prática guiada</h3>
-        <p>Aprenda aplicando em exercícios, exemplos reais e situações próximas do mercado.</p>
+        <h3>${safeText(aiResult.module2Title, "Prática guiada")}</h3>
+        <p>${safeText(aiResult.module2Description, "Aprenda aplicando em exercícios, exemplos reais e situações próximas do mercado.")}</p>
       </div>
 
       <div class="template-card">
         <span>03</span>
-        <h3>Resultado final</h3>
-        <p>${safeText(aiResult.resultsDescription, "Saia com uma visão prática, organizada e pronta para evoluir.")}</p>
+        <h3>${safeText(aiResult.module3Title, "Resultado final")}</h3>
+        <p>${safeText(aiResult.module3Description, "Saia com uma visão prática, organizada e pronta para evoluir.")}</p>
       </div>
     </div>
   </div>
@@ -1669,10 +1669,19 @@ function generateSaasSection(aiResult) {
 
     <div class="section-header">
       <span class="section-kicker">Como funciona</span>
-      <h2>${safeText(
-        aiResult.solutionTitle,
-        "Transforme dados em crescimento"
-      )}</h2>
+      <h3>
+        ${safeText(
+          aiResult.module1Title,
+          "Fundamentos"
+        )}
+      </h3>
+
+      <p>
+        ${safeText(
+          aiResult.module1Description,
+          "Entenda a base necessária..."
+        )}
+</p>
     </div>
 
     <div class="template-grid">
@@ -1750,72 +1759,45 @@ function generateSaasSection(aiResult) {
 function generateConsultingSection(aiResult) {
   return `
 <section class="dynamic-section consulting-process">
-
   <div class="container">
-
     <div class="section-header">
       <span class="section-kicker">Método</span>
-      <h2>${safeText(
-        aiResult.methodTitle,
-        "Uma metodologia para gerar clareza e crescimento"
-      )}</h2>
+      <h2>${safeText(aiResult.methodTitle, "Uma metodologia para gerar clareza e crescimento")}</h2>
     </div>
 
     <div class="template-grid">
-
       <div class="template-card">
         <span>01</span>
-        <h3>Diagnóstico</h3>
-        <p>
-          Entendemos os gargalos, oportunidades e desafios que impedem o crescimento.
-        </p>
+        <h3>${safeText(aiResult.step1Title, "Diagnóstico")}</h3>
+        <p>${safeText(aiResult.step1Description, "Entendemos os gargalos, oportunidades e desafios que impedem o crescimento.")}</p>
       </div>
 
       <div class="template-card">
         <span>02</span>
-        <h3>Estratégia</h3>
-        <p>
-          Construímos um plano de ação com prioridades claras e metas objetivas.
-        </p>
+        <h3>${safeText(aiResult.step2Title, "Estratégia")}</h3>
+        <p>${safeText(aiResult.step2Description, "Construímos um plano de ação com prioridades claras e metas objetivas.")}</p>
       </div>
 
       <div class="template-card">
         <span>03</span>
-        <h3>Execução</h3>
-        <p>
-          Acompanhamos a implementação para transformar planejamento em resultado.
-        </p>
+        <h3>${safeText(aiResult.step3Title, "Execução")}</h3>
+        <p>${safeText(aiResult.step3Description, "Acompanhamos a implementação para transformar planejamento em resultado.")}</p>
       </div>
-
     </div>
-
   </div>
-
 </section>
 
 <section class="dynamic-section consulting-results">
-
   <div class="container">
-
     <div class="section-header">
       <span class="section-kicker">Resultados</span>
-      <h2>${safeText(
-        aiResult.resultsTitle,
-        "O impacto esperado"
-      )}</h2>
+      <h2>${safeText(aiResult.resultsTitle, "O impacto esperado")}</h2>
     </div>
 
     <div class="content-card">
-      <p>
-        ${safeText(
-          aiResult.resultsDescription,
-          "Mais clareza, foco estratégico e processos organizados para acelerar resultados."
-        )}
-      </p>
+      <p>${safeText(aiResult.resultsDescription, "Mais clareza, foco estratégico e processos organizados para acelerar resultados.")}</p>
     </div>
-
   </div>
-
 </section>
 `;
 }
@@ -1823,31 +1805,17 @@ function generateConsultingSection(aiResult) {
 function generateEcommerceSection(aiResult) {
   return `
 <section class="dynamic-section ecommerce-offer">
-
   <div class="container">
-
     <div class="section-header">
       <span class="section-kicker">Oferta</span>
-      <h2>${safeText(
-        aiResult.differentialTitle,
-        "Produto pensado para quem busca qualidade e praticidade"
-      )}</h2>
+      <h2>${safeText(aiResult.differentialTitle, "Produto pensado para quem busca qualidade e praticidade")}</h2>
     </div>
 
     <div class="offer-card">
-
       <div>
         <span class="offer-label">Oferta especial</span>
-        <h3>${safeText(
-          aiResult.solutionTitle,
-          "Condição exclusiva por tempo limitado"
-        )}</h3>
-        <p>
-          ${safeText(
-            aiResult.differentialDescription,
-            "Aproveite uma experiência de compra mais segura, prática e com benefícios exclusivos."
-          )}
-        </p>
+        <h3>${safeText(aiResult.solutionTitle, "Condição exclusiva por tempo limitado")}</h3>
+        <p>${safeText(aiResult.differentialDescription, "Aproveite uma experiência de compra mais segura, prática e com benefícios exclusivos.")}</p>
       </div>
 
       <div class="price-box">
@@ -1855,55 +1823,41 @@ function generateEcommerceSection(aiResult) {
         <strong>R$ 97</strong>
         <small>ou 12x sem juros</small>
       </div>
-
     </div>
-
   </div>
-
 </section>
 
 <section class="dynamic-section ecommerce-reviews">
-
   <div class="container">
-
     <div class="section-header">
       <span class="section-kicker">Avaliações</span>
-      <h2>${safeText(
-        aiResult.reviewTitle,
-        "Clientes que já escolheram"
-      )}</h2>
+      <h2>${safeText(aiResult.reviewTitle, "Clientes que já escolheram")}</h2>
     </div>
 
     <div class="template-grid">
-
       <div class="template-card review-card">
         <span>★★★★★</span>
-        <h3>Compra excelente</h3>
-        <p>${safeText(
-          aiResult.reviewDescription,
-          "Produto de ótima qualidade, entrega rápida e experiência muito acima do esperado."
-        )}</p>
+        <h3>${safeText(aiResult.review1Title, "Compra excelente")}</h3>
+        <p>${safeText(aiResult.review1Description, "Produto de ótima qualidade, entrega rápida e experiência muito acima do esperado.")}</p>
       </div>
 
       <div class="template-card review-card">
         <span>★★★★★</span>
-        <h3>Valeu muito a pena</h3>
-        <p>Atendeu exatamente ao que eu precisava e chegou tudo certinho.</p>
+        <h3>${safeText(aiResult.review2Title, "Valeu muito a pena")}</h3>
+        <p>${safeText(aiResult.review2Description, "Atendeu exatamente ao que eu precisava e chegou tudo certinho.")}</p>
       </div>
 
       <div class="template-card review-card">
         <span>★★★★★</span>
-        <h3>Recomendo demais</h3>
-        <p>Experiência simples, segura e com ótimo custo-benefício.</p>
+        <h3>${safeText(aiResult.review3Title, "Recomendo demais")}</h3>
+        <p>${safeText(aiResult.review3Description, "Experiência simples, segura e com ótimo custo-benefício.")}</p>
       </div>
-
     </div>
-
   </div>
-
 </section>
 `;
 }
+
 
 function generateHTML(aiResult, templateType) {
    const theme = getThemeByNiche(document.getElementById("niche").value)
@@ -2144,9 +2098,9 @@ function generateConsultingHero(aiResult) {
       <p>${aiResult.subheadline}</p>
 
       <div class="hero-highlights">
-        <span>01 Diagnóstico</span>
-        <span>02 Estratégia</span>
-        <span>03 Execução</span>
+        aiResult.step1Title
+       aiResult.step2Title
+       aiResult.step3Title
       </div>
 
       <a href="#">${aiResult.cta}</a>
@@ -2370,7 +2324,7 @@ async function fetchAIContent(formData) {
 
   const data = await response.json();
 
-  console.log("Resposta da API:", data);
+  //console.log("Resposta da API:", data);
 
  if (!response.ok) {
   showToast("⏳ Limite da IA atingido. Tente novamente em alguns segundos.");

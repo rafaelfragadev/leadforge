@@ -55,6 +55,47 @@ benefit3Icon, benefit3Title, benefit3Description
 Os campos benefit1Icon, benefit2Icon e benefit3Icon devem conter apenas uma destas opções:
 rocket, shield, chart, target, star, graduation, globe, airplane, users, lightning
 
+Para templates de curso:
+
+module1Title
+module1Description
+
+module2Title
+module2Description
+
+module3Title
+module3Description
+
+Devem representar módulos reais do curso.
+
+Para templates de consultoria:
+
+step1Title
+step1Description
+
+step2Title
+step2Description
+
+step3Title
+step3Description
+
+Devem representar as etapas do método.
+
+Para templates de ecommerce:
+
+review1Title
+review1Description
+
+review2Title
+review2Description
+
+review3Title
+review3Description
+
+Devem representar avaliações positivas de clientes.
+
+Preencha todos os campos mesmo quando não forem exibidos.
+
 Dependendo do template escolhido, retorne também:
 
 Para SaaS:
@@ -89,6 +130,33 @@ Responda SOMENTE em JSON válido. Sem markdown. Sem texto antes ou depois.
 {
   "headline": "",
   "subheadline": "",
+
+  "module1Title": "",
+  "module1Description": "",
+
+  "module2Title": "",
+  "module2Description": "",
+
+  "module3Title": "",
+  "module3Description": "",
+
+  "step1Title": "",
+  "step1Description": "",
+
+  "step2Title": "",
+  "step2Description": "",
+
+  "step3Title": "",
+  "step3Description": "",
+
+  "review1Title": "",
+  "review1Description": "",
+
+  "review2Title": "",
+  "review2Description": "",
+
+  "review3Title": "",
+  "review3Description": ""
 
   "benefit1Icon": "",
   "benefit1Title": "",
