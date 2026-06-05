@@ -546,6 +546,7 @@ function getThemeByNiche(niche = "") {
   };
 }
 
+
 function generateCSS(aiResult, templateType) {
   const theme = getThemeByNiche(document.getElementById("niche").value
 );
@@ -768,25 +769,6 @@ section{
   box-shadow:
     0 35px 80px rgba(37,99,235,.55);
 
-}
-
-.mockup-card{
-  box-shadow: 0 40px 120px rgba(37,99,235,.18);
-  transform:rotate(-4deg);
-  width:100%;
-  max-width:520px;
-
-  padding:24px;
-
-  border-radius:28px;
-
-  background:
-    rgba(255,255,255,.05);
-
-  border:
-    1px solid rgba(255,255,255,.08);
-
-  backdrop-filter:blur(20px);
 }
 
 .mockup-header{
@@ -1032,7 +1014,212 @@ details p{
   color:#CBD5E1;
 }
 
+.offer-card{
+  background:#FFFFFF;
+  border:1px solid #FED7AA;
+  box-shadow:0 30px 80px rgba(234,88,12,.12);
+}
 
+.offer-label{
+  color:#EA580C;
+}
+
+.price-box{
+  background:#FFF7ED;
+  border:1px solid #FED7AA;
+}
+
+.price-box strong{
+  color:#EA580C;
+}
+
+.review-card{
+  background:#FFFFFF;
+  border:1px solid #FED7AA;
+}
+.hero-highlights{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:24px;
+}
+
+.hero-highlights span{
+  padding:10px 14px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:700;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.10);
+}
+
+/* CURSO HERO */
+
+.course-preview,
+.saas-dashboard,
+.consulting-card,
+.product-card{
+  width:100%;
+  max-width:520px;
+  border-radius:32px;
+  padding:28px;
+}
+
+.course-preview{
+  background:#FFFFFF;
+  border:1px solid #E9D5FF;
+  box-shadow:0 40px 100px rgba(124,58,237,.18);
+  transform:rotate(3deg);
+}
+
+.course-cover{
+  height:220px;
+  border-radius:24px;
+  margin-bottom:24px;
+  background:linear-gradient(135deg,#7C3AED,#2563EB);
+}
+
+.course-info span{
+  color:#7C3AED;
+  font-weight:800;
+}
+
+.course-info strong{
+  display:block;
+  margin:8px 0;
+  font-size:36px;
+  color:#111;
+}
+
+.course-info p{
+  color:#475569;
+}
+
+/* SAAS HERO */
+
+.saas-dashboard{
+  background:rgba(15,23,42,.78);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 40px 120px rgba(37,99,235,.25);
+  backdrop-filter:blur(18px);
+  transform:rotate(-4deg);
+}
+
+.dashboard-topbar{
+  height:44px;
+  border-radius:16px;
+  margin-bottom:20px;
+  background:rgba(255,255,255,.08);
+}
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-bottom:18px;
+}
+
+.dashboard-grid div{
+  height:92px;
+  border-radius:18px;
+  background:rgba(255,255,255,.08);
+}
+
+.dashboard-chart{
+  height:180px;
+  border-radius:22px;
+  background:linear-gradient(135deg,#2563EB,#7C3AED);
+}
+
+/* CONSULTORIA HERO */
+
+.consulting-card{
+  background:#151515;
+  color:#F6F3EC;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 40px 90px rgba(0,0,0,.22);
+}
+
+.consulting-card span{
+  color:#C8A96A;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+.consulting-card strong{
+  display:block;
+  margin:14px 0;
+  font-size:64px;
+  line-height:1;
+}
+
+.consulting-card p{
+  color:#D1D5DB;
+}
+
+.consulting-lines{
+  margin-top:28px;
+  display:grid;
+  gap:14px;
+}
+
+.consulting-lines div{
+  height:16px;
+  border-radius:999px;
+  background:rgba(255,255,255,.12);
+}
+
+.consulting-lines div:nth-child(2){
+  width:80%;
+}
+
+.consulting-lines div:nth-child(3){
+  width:60%;
+}
+
+/* ECOMMERCE HERO */
+
+.product-card{
+  background:#FFFFFF;
+  border:1px solid #FED7AA;
+  box-shadow:0 40px 100px rgba(234,88,12,.16);
+  transform:rotate(-2deg);
+}
+
+.product-image{
+  height:280px;
+  border-radius:28px;
+  background:
+    radial-gradient(circle at 50% 45%,#FDBA74 0%,#FB923C 38%,#EA580C 100%);
+}
+
+.product-price{
+  margin-top:24px;
+  padding:20px;
+  border-radius:22px;
+  background:#FFF7ED;
+  text-align:center;
+}
+
+.product-price span{
+  color:#9A3412;
+  font-weight:700;
+}
+
+.product-price strong{
+  display:block;
+  color:#EA580C;
+  font-size:48px;
+  line-height:1;
+  margin-top:6px;
+}
+
+@media(max-width:768px){
+  .hero-highlights{
+    justify-content:center;
+  }
+}
 } ${generateTemplateCSS(templateType, theme)}
 `;
 }
@@ -1076,39 +1263,7 @@ body{
   border-radius:999px;
   background:linear-gradient(135deg,#7C3AED,#2563EB);
   box-shadow:0 24px 60px rgba(124,58,237,.25);
-}
-
-.mockup-card{
-  background:#FFFFFF;
-  border:1px solid #E9D5FF;
-  box-shadow:0 40px 100px rgba(124,58,237,.18);
-  transform:rotate(3deg);
-}
-
-.mockup-header{
-  height:90px;
-  background:linear-gradient(135deg,#7C3AED,#2563EB);
-}
-
-.mockup-card::before{
-  content:"🎓 Curso online";
-  display:block;
-  margin-bottom:18px;
-  font-weight:800;
-  color:#111;
-}
-
-.mockup-card::after{
-  content:"12 módulos • certificado • comunidade";
-  display:block;
-  margin-top:18px;
-  padding:14px 16px;
-  border-radius:14px;
-  background:#F3E8FF;
-  color:#6D28D9;
-  font-weight:700;
-}
-
+}  
 .dynamic-section{
   background:#FFFFFF;
   padding:72px 24px;
@@ -1159,6 +1314,11 @@ body{
   color:#FFFFFF;
 }
 
+.dashboard-metric{
+  box-shadow:
+    0 24px 70px rgba(0,0,0,.35);
+}
+
 .hero{
   background:
     radial-gradient(circle at 80% 15%, #2563EB55, transparent 32%),
@@ -1184,30 +1344,6 @@ body{
 .hero-content a{
   background:linear-gradient(135deg,#2563EB,#7C3AED);
   box-shadow:0 30px 80px rgba(37,99,235,.35);
-}
-
-.mockup-card{
-  background:rgba(15,23,42,.78);
-  border:1px solid rgba(255,255,255,.12);
-  box-shadow:
-    0 40px 120px rgba(37,99,235,.25),
-    inset 0 1px 0 rgba(255,255,255,.08);
-  transform:rotate(-4deg);
-}
-
-.mockup-card::before{
-  content:"Dashboard";
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:18px;
-  color:#CBD5E1;
-  font-weight:800;
-}
-
-.mockup-header{
-  height:150px;
-  background:linear-gradient(135deg,#2563EB,#7C3AED);
 }
 
 .mockup-stats div{
@@ -1268,28 +1404,6 @@ body{
   color:#FFFFFF;
   border-radius:6px;
   box-shadow:0 22px 50px rgba(0,0,0,.18);
-}
-
-.mockup-card{
-  background:#151515;
-  border:1px solid rgba(255,255,255,.12);
-  box-shadow:0 40px 90px rgba(0,0,0,.22);
-  transform:rotate(0deg);
-}
-
-.mockup-card::before{
-  content:"Estratégia";
-  display:block;
-  margin-bottom:18px;
-  color:#F6F3EC;
-  font-weight:800;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-}
-
-.mockup-header{
-  height:80px;
-  background:#C8A96A;
 }
 
 .mockup-line,
@@ -1405,39 +1519,6 @@ body{
   color:#FFFFFF;
   border-radius:999px;
   box-shadow:0 24px 60px rgba(234,88,12,.25);
-}
-
-.mockup-card{
-  background:#FFFFFF;
-  border:1px solid #FED7AA;
-  box-shadow:0 40px 100px rgba(234,88,12,.16);
-  transform:rotate(-2deg);
-}
-
-.mockup-card::before{
-  content:"Produto em destaque";
-  display:block;
-  margin-bottom:18px;
-  color:#111827;
-  font-weight:900;
-}
-
-.mockup-header{
-  height:210px;
-  background:
-    radial-gradient(circle at 50% 45%,#FDBA74 0%,#FB923C 38%,#EA580C 100%);
-}
-
-.mockup-card::after{
-  content:"★★★★★ 4.9 • Oferta especial";
-  display:block;
-  margin-top:18px;
-  padding:14px 16px;
-  border-radius:999px;
-  background:#FFEDD5;
-  color:#C2410C;
-  font-weight:800;
-  text-align:center;
 }
 
 .mockup-line{
@@ -1582,64 +1663,244 @@ function generateCourseSection(aiResult) {
 
 function generateSaasSection(aiResult) {
   return `
-<section class="dynamic-section problem-section">
+<section class="dynamic-section saas-flow">
+
   <div class="container">
+
     <div class="section-header">
-      <span class="section-kicker">Problema</span>
-      <h2>${safeText(aiResult.problemTitle, "O gargalo que trava sua operação")}</h2>
+      <span class="section-kicker">Como funciona</span>
+      <h2>${safeText(
+        aiResult.solutionTitle,
+        "Transforme dados em crescimento"
+      )}</h2>
     </div>
 
-    <div class="content-card">
-      <p>${safeText(aiResult.problemDescription, "Processos manuais, dados espalhados e pouca clareza tornam a tomada de decisão lenta e imprecisa.")}</p>
+    <div class="template-grid">
+
+      <div class="template-card">
+        <span>⚠️</span>
+        <h3>Problema</h3>
+        <p>
+          ${safeText(
+            aiResult.problemDescription,
+            "Processos manuais, retrabalho e falta de visibilidade limitam o crescimento."
+          )}
+        </p>
+      </div>
+
+      <div class="template-card">
+        <span>⚙️</span>
+        <h3>Automação</h3>
+        <p>
+          Centralize informações, automatize tarefas e acompanhe tudo em tempo real.
+        </p>
+      </div>
+
+      <div class="template-card">
+        <span>📈</span>
+        <h3>Resultado</h3>
+        <p>
+          ${safeText(
+            aiResult.resultsDescription,
+            "Mais produtividade, decisões rápidas e crescimento sustentável."
+          )}
+        </p>
+      </div>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="dynamic-section solution-section">
+<section class="dynamic-section dashboard-section">
+
   <div class="container">
+
     <div class="section-header">
-      <span class="section-kicker">Solução</span>
-      <h2>${safeText(aiResult.solutionTitle, "Uma plataforma para centralizar tudo")}</h2>
+      <span class="section-kicker">Dashboard</span>
+      <h2>Indicadores em um único lugar</h2>
     </div>
 
-    <div class="content-card">
-      <p>${safeText(aiResult.solutionDescription, "Com uma visão centralizada, sua equipe acompanha indicadores, automatiza tarefas e toma decisões com muito mais velocidade.")}</p>
+    <div class="dashboard-preview">
+
+      <div class="dashboard-metric">
+        <span>Conversões</span>
+        <strong>+127%</strong>
+      </div>
+
+      <div class="dashboard-metric">
+        <span>Automações</span>
+        <strong>48</strong>
+      </div>
+
+      <div class="dashboard-metric">
+        <span>Tempo economizado</span>
+        <strong>32h</strong>
+      </div>
+
     </div>
+
   </div>
+
 </section>
 `;
 }
 
 function generateConsultingSection(aiResult) {
   return `
-<section class="dynamic-section method-section">
+<section class="dynamic-section consulting-process">
+
   <div class="container">
+
     <div class="section-header">
       <span class="section-kicker">Método</span>
-      <h2>${safeText(aiResult.methodTitle, "Um método claro para sair do improviso")}</h2>
+      <h2>${safeText(
+        aiResult.methodTitle,
+        "Uma metodologia para gerar clareza e crescimento"
+      )}</h2>
+    </div>
+
+    <div class="template-grid">
+
+      <div class="template-card">
+        <span>01</span>
+        <h3>Diagnóstico</h3>
+        <p>
+          Entendemos os gargalos, oportunidades e desafios que impedem o crescimento.
+        </p>
+      </div>
+
+      <div class="template-card">
+        <span>02</span>
+        <h3>Estratégia</h3>
+        <p>
+          Construímos um plano de ação com prioridades claras e metas objetivas.
+        </p>
+      </div>
+
+      <div class="template-card">
+        <span>03</span>
+        <h3>Execução</h3>
+        <p>
+          Acompanhamos a implementação para transformar planejamento em resultado.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="dynamic-section consulting-results">
+
+  <div class="container">
+
+    <div class="section-header">
+      <span class="section-kicker">Resultados</span>
+      <h2>${safeText(
+        aiResult.resultsTitle,
+        "O impacto esperado"
+      )}</h2>
     </div>
 
     <div class="content-card">
-      <p>${safeText(aiResult.methodDescription, "A consultoria identifica gargalos, define prioridades e constrói um plano prático para gerar evolução real no negócio.")}</p>
+      <p>
+        ${safeText(
+          aiResult.resultsDescription,
+          "Mais clareza, foco estratégico e processos organizados para acelerar resultados."
+        )}
+      </p>
     </div>
+
   </div>
+
 </section>
 `;
 }
 
 function generateEcommerceSection(aiResult) {
   return `
-<section class="dynamic-section review-section">
+<section class="dynamic-section ecommerce-offer">
+
   <div class="container">
+
     <div class="section-header">
-      <span class="section-kicker">Avaliações</span>
-      <h2>${safeText(aiResult.reviewTitle, "O que dizem sobre o produto")}</h2>
+      <span class="section-kicker">Oferta</span>
+      <h2>${safeText(
+        aiResult.differentialTitle,
+        "Produto pensado para quem busca qualidade e praticidade"
+      )}</h2>
     </div>
 
-    <div class="content-card">
-      <p>${safeText(aiResult.reviewDescription, "Clientes destacam a qualidade, a facilidade de uso e a boa experiência de compra.")}</p>
+    <div class="offer-card">
+
+      <div>
+        <span class="offer-label">Oferta especial</span>
+        <h3>${safeText(
+          aiResult.solutionTitle,
+          "Condição exclusiva por tempo limitado"
+        )}</h3>
+        <p>
+          ${safeText(
+            aiResult.differentialDescription,
+            "Aproveite uma experiência de compra mais segura, prática e com benefícios exclusivos."
+          )}
+        </p>
+      </div>
+
+      <div class="price-box">
+        <span>A partir de</span>
+        <strong>R$ 97</strong>
+        <small>ou 12x sem juros</small>
+      </div>
+
     </div>
+
   </div>
+
+</section>
+
+<section class="dynamic-section ecommerce-reviews">
+
+  <div class="container">
+
+    <div class="section-header">
+      <span class="section-kicker">Avaliações</span>
+      <h2>${safeText(
+        aiResult.reviewTitle,
+        "Clientes que já escolheram"
+      )}</h2>
+    </div>
+
+    <div class="template-grid">
+
+      <div class="template-card review-card">
+        <span>★★★★★</span>
+        <h3>Compra excelente</h3>
+        <p>${safeText(
+          aiResult.reviewDescription,
+          "Produto de ótima qualidade, entrega rápida e experiência muito acima do esperado."
+        )}</p>
+      </div>
+
+      <div class="template-card review-card">
+        <span>★★★★★</span>
+        <h3>Valeu muito a pena</h3>
+        <p>Atendeu exatamente ao que eu precisava e chegou tudo certinho.</p>
+      </div>
+
+      <div class="template-card review-card">
+        <span>★★★★★</span>
+        <h3>Recomendo demais</h3>
+        <p>Experiência simples, segura e com ótimo custo-benefício.</p>
+      </div>
+
+    </div>
+
+  </div>
+
 </section>
 `;
 }
@@ -1664,54 +1925,9 @@ function generateHTML(aiResult, templateType) {
 <body>
 
 
-  <section class="hero">
+${generateHero(aiResult, templateType)}
 
-  <div class="container">
-
-    <div class="hero-content">
-
-      <span class="hero-badge">
-        Gerado com LeadForge AI
-      </span>
-
-      <h1>${aiResult.headline}</h1>
-
-      <p>
-        ${aiResult.subheadline}
-      </p>
-
-      <a href="#">
-        ${aiResult.cta}
-      </a>
-
-    </div>
-
-    <div class="hero-visual">
-
-      <div class="mockup-card">
-
-        <div class="mockup-header"></div>
-
-        <div class="mockup-line"></div>
-        <div class="mockup-line short"></div>
-
-        <div class="mockup-stats">
-
-          <div></div>
-          <div></div>
-          <div></div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-  ${generateDynamicSection(aiResult, templateType)}
+${generateDynamicSection(aiResult, templateType)}
  
   <section class="benefits">
     <div class="container">
@@ -1813,6 +2029,202 @@ ${getIcon(aiResult.benefit2Icon || "target")}
 
 </body>
 </html>
+`;
+}
+
+function generateHero(aiResult, templateType) {
+  const type = String(templateType).toLowerCase().trim();
+
+  switch (type) {
+    case "curso":
+      return generateCourseHero(aiResult);
+
+    case "saas":
+      return generateSaasHero(aiResult);
+
+    case "consultoria":
+      return generateConsultingHero(aiResult);
+
+    case "ecommerce":
+      return generateEcommerceHero(aiResult);
+
+    default:
+      return generateDefaultHero(aiResult);
+  }
+}
+
+function generateCourseHero(aiResult) {
+  return `
+<section class="hero course-hero">
+  <div class="container">
+
+    <div class="hero-content">
+      <span class="hero-badge">Curso online premium</span>
+
+      <h1>${aiResult.headline}</h1>
+
+      <p>${aiResult.subheadline}</p>
+
+      <div class="hero-highlights">
+        <span>🎓 Certificado</span>
+        <span>👥 Comunidade</span>
+        <span>📚 Acesso vitalício</span>
+      </div>
+
+      <a href="#">${aiResult.cta}</a>
+    </div>
+
+    <div class="hero-visual">
+      <div class="course-preview">
+        <div class="course-cover"></div>
+
+        <div class="course-info">
+          <span>Trilha completa</span>
+          <strong>12 módulos</strong>
+          <p>Aulas práticas, materiais e suporte para evoluir com clareza.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+`;
+}
+
+function generateSaasHero(aiResult) {
+  return `
+<section class="hero saas-hero">
+  <div class="container">
+
+    <div class="hero-content">
+      <span class="hero-badge">SaaS para crescimento</span>
+
+      <h1>${aiResult.headline}</h1>
+
+      <p>${aiResult.subheadline}</p>
+
+      <div class="hero-highlights">
+        <span>⚡ Automação</span>
+        <span>📊 Dashboard</span>
+        <span>🔗 Integrações</span>
+      </div>
+
+      <a href="#">${aiResult.cta}</a>
+    </div>
+
+    <div class="hero-visual">
+      <div class="saas-dashboard">
+        <div class="dashboard-topbar"></div>
+
+        <div class="dashboard-grid">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+
+        <div class="dashboard-chart"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+`;
+}
+
+function generateConsultingHero(aiResult) {
+  return `
+<section class="hero consulting-hero">
+  <div class="container">
+
+    <div class="hero-content">
+      <span class="hero-badge">Consultoria estratégica</span>
+
+      <h1>${aiResult.headline}</h1>
+
+      <p>${aiResult.subheadline}</p>
+
+      <div class="hero-highlights">
+        <span>01 Diagnóstico</span>
+        <span>02 Estratégia</span>
+        <span>03 Execução</span>
+      </div>
+
+      <a href="#">${aiResult.cta}</a>
+    </div>
+
+    <div class="hero-visual">
+      <div class="consulting-card">
+        <span>Plano estratégico</span>
+        <strong>90 dias</strong>
+        <p>Clareza, prioridades e execução guiada para acelerar resultados.</p>
+
+        <div class="consulting-lines">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+`;
+}
+
+function generateEcommerceHero(aiResult) {
+  return `
+<section class="hero ecommerce-hero">
+  <div class="container">
+
+    <div class="hero-content">
+      <span class="hero-badge">Oferta especial</span>
+
+      <h1>${aiResult.headline}</h1>
+
+      <p>${aiResult.subheadline}</p>
+
+      <div class="hero-highlights">
+        <span>★★★★★ 4.9</span>
+        <span>🚚 Envio rápido</span>
+        <span>🛡️ Garantia</span>
+      </div>
+
+      <a href="#">${aiResult.cta}</a>
+    </div>
+
+    <div class="hero-visual">
+      <div class="product-card">
+        <div class="product-image"></div>
+
+        <div class="product-price">
+          <span>A partir de</span>
+          <strong>R$ 97</strong>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+`;
+}
+
+function generateDefaultHero(aiResult) {
+  return `
+<section class="hero">
+  <div class="container">
+
+    <div class="hero-content">
+      <span class="hero-badge">Gerado com LeadForge AI</span>
+
+      <h1>${aiResult.headline}</h1>
+
+      <p>${aiResult.subheadline}</p>
+
+      <a href="#">${aiResult.cta}</a>
+    </div>
+
+  </div>
+</section>
 `;
 }
 
