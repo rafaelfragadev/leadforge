@@ -765,10 +765,6 @@ section{
   transform:
     translateY(-4px)
     scale(1.02);
-
-  box-shadow:
-    0 35px 80px rgba(37,99,235,.55);
-
 }
 
 .mockup-header{
@@ -783,21 +779,6 @@ section{
     ${theme.primary},
     ${theme.accent}
   );
-}
-
-.mockup-line{
-  height:14px;
-
-  border-radius:999px;
-
-  margin-bottom:14px;
-
-  background:
-    rgba(255,255,255,.08);
-}
-
-.mockup-line.short{
-  width:60%;
 }
 
 .mockup-stats{
@@ -870,9 +851,6 @@ section{
 
 .benefit-card:hover{
   transform:translateY(-4px);
-
-  border-color:
-    rgba(37,99,235,.45);
 }
 
 .benefit-card p{
@@ -1194,27 +1172,6 @@ details p{
     radial-gradient(circle at 50% 45%,#FDBA74 0%,#FB923C 38%,#EA580C 100%);
 }
 
-.product-price{
-  margin-top:24px;
-  padding:20px;
-  border-radius:22px;
-  background:#FFF7ED;
-  text-align:center;
-}
-
-.product-price span{
-  color:#9A3412;
-  font-weight:700;
-}
-
-.product-price strong{
-  display:block;
-  color:#EA580C;
-  font-size:48px;
-  line-height:1;
-  margin-top:6px;
-}
-
 @media(max-width:768px){
   .hero-highlights{
     justify-content:center;
@@ -1264,6 +1221,13 @@ body{
   background:linear-gradient(135deg,#7C3AED,#2563EB);
   box-shadow:0 24px 60px rgba(124,58,237,.25);
 }  
+
+.hero-content a:hover{
+  box-shadow:
+    0 20px 50px rgba(124,58,237,.25),
+    0 40px 90px rgba(37,99,235,.15);
+}  
+
 .dynamic-section{
   background:#FFFFFF;
   padding:72px 24px;
@@ -1345,6 +1309,11 @@ body{
   background:linear-gradient(135deg,#2563EB,#7C3AED);
   box-shadow:0 30px 80px rgba(37,99,235,.35);
 }
+.hero-content a:hover{
+   box-shadow:
+    0 20px 50px rgba(37,99,235,.25),
+    0 40px 90px rgba(37,99,235,.15);
+}
 
 .mockup-stats div{
   background:rgba(255,255,255,.08);
@@ -1404,6 +1373,12 @@ body{
   color:#FFFFFF;
   border-radius:6px;
   box-shadow:0 22px 50px rgba(0,0,0,.18);
+}
+
+.hero-content a:hover{
+   box-shadow:
+    0 20px 50px rgba(16,185,129,.25),
+    0 40px 90px rgba(16,185,129,.15);
 }
 
 .mockup-line,
@@ -1479,8 +1454,8 @@ details p{
 }
 `;
 
-    case "ecommerce":
-      return `
+ case "ecommerce":
+  return `
 body{
   background:#FFF7ED;
   color:#111827;
@@ -1491,14 +1466,41 @@ body{
     radial-gradient(circle at 80% 20%, #FB923C33, transparent 30%),
     linear-gradient(135deg,#FFFFFF,#FFF7ED);
 }
-
-.benefits,
-.social-proof,
-.objection,
-.faq{
-  padding:72px 24px;
+.ecommerce-hero .hero-highlights span{
+  background:#FFFFFF !important;
+  border:1px solid #FED7AA !important;
+  color:#9A3412 !important;
+  box-shadow:0 10px 30px rgba(234,88,12,.08) !important;
+  border-radius: 3px;
+  padding: 5px 10px;
+}
+  .ecommerce-hero .product-image{
+  position:relative !important;
+  overflow:hidden !important;
 }
 
+.ecommerce-hero .product-image::after{
+  content:"" !important;
+  position:absolute !important;
+  inset:24px !important;
+  border-radius:22px !important;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.32),
+      rgba(255,255,255,0)
+    ) !important;
+}
+    .ecommerce-hero .product-image::before{
+  content:"✦" !important;
+  position:absolute !important;
+  top:50% !important;
+  left:50% !important;
+  transform:translate(-50%,-50%) !important;
+  font-size:72px !important;
+  color:rgba(255,255,255,.75) !important;
+  z-index:2 !important;
+}
 .hero-badge{
   background:#FFEDD5;
   color:#C2410C;
@@ -1521,14 +1523,134 @@ body{
   box-shadow:0 24px 60px rgba(234,88,12,.25);
 }
 
-.mockup-line{
-  background:#FED7AA;
+.hero-content a:hover{
+  box-shadow:
+    0 20px 50px rgba(234,88,12,.25),
+    0 40px 90px rgba(234,88,12,.15);
 }
 
-.mockup-stats div{
-  background:#FFF7ED;
-  border:1px solid #FED7AA;
+/* HERO PRODUTO */
+
+.ecommerce-hero .hero-visual{
+  grid-column:8 / span 5 !important;
+  display:flex !important;
+  justify-content:center !important;
+  align-items:center !important;
 }
+
+.ecommerce-hero .product-card{
+  width:100% !important;
+  max-width:460px !important;
+  min-height:520px !important;
+  padding:28px !important;
+
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:space-between !important;
+
+  background:#FFFFFF !important;
+  border:1px solid #FED7AA !important;
+  border-radius:36px !important;
+
+  box-shadow:0 40px 100px rgba(234,88,12,.18) !important;
+
+  transform:rotate(-2deg) !important;
+}
+
+.ecommerce-hero .product-image{
+  height:320px !important;
+  border-radius:28px !important;
+
+  background:
+    radial-gradient(circle at 50% 45%,#FDBA74 0%,#FB923C 38%,#EA580C 100%) !important;
+}
+
+.ecommerce-hero .product-info{
+  margin-top:24px !important;
+  padding:22px !important;
+
+  border-radius:24px !important;
+  background:#FFF7ED !important;
+  border:1px solid #FED7AA !important;
+}
+
+.ecommerce-hero .product-info span{
+  display:block !important;
+  color:#C2410C !important;
+  font-weight:800 !important;
+  font-size:14px !important;
+  text-transform:uppercase !important;
+  letter-spacing:.08em !important;
+}
+
+.ecommerce-hero .product-info strong{
+  display:block !important;
+  margin:8px 0 !important;
+  font-size:28px !important;
+  line-height:1.1 !important;
+  color:#111827 !important;
+}
+
+.ecommerce-hero .product-info p{
+  color:#4B5563 !important;
+  font-size:15px !important;
+  line-height:1.5 !important;
+}
+
+/* OFERTA */
+
+.ecommerce-offer .offer-card{
+  grid-column:1 / span 12 !important;
+
+  display:grid !important;
+  grid-template-columns:1.4fr .8fr !important;
+  align-items:center !important;
+  gap:32px !important;
+
+  width:100% !important;
+  padding:40px !important;
+
+  background:#FFFFFF !important;
+  border:1px solid #FED7AA !important;
+  border-radius:32px !important;
+
+  box-shadow:0 30px 80px rgba(234,88,12,.12) !important;
+}
+
+.ecommerce-offer .offer-card h3{
+  font-size:36px !important;
+  line-height:1.05 !important;
+  margin-bottom:16px !important;
+}
+
+.ecommerce-offer .offer-card p{
+  font-size:18px !important;
+  line-height:1.6 !important;
+  max-width:640px !important;
+}
+
+.ecommerce-offer .price-box{
+  width:100% !important;
+  min-height:220px !important;
+
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:center !important;
+  align-items:center !important;
+
+  background:#FFF7ED !important;
+  border:1px solid #FED7AA !important;
+  border-radius:24px !important;
+
+  text-align:center !important;
+}
+
+.ecommerce-offer .price-box strong{
+  font-size:56px !important;
+  color:#EA580C !important;
+}
+
+/* SEÇÕES */
 
 .dynamic-section{
   background:#FFFFFF;
@@ -1595,6 +1717,21 @@ details{
 
 details p{
   color:#4B5563;
+}
+
+@media(max-width:768px){
+  .ecommerce-hero .hero-visual{
+    grid-column:1 / span 12 !important;
+  }
+
+  .ecommerce-offer .offer-card{
+    grid-template-columns:1fr !important;
+    padding:32px !important;
+  }
+
+  .ecommerce-offer .offer-card h3{
+    font-size:30px !important;
+  }
 }
 `;
 
@@ -2150,9 +2287,10 @@ function generateEcommerceHero(aiResult) {
       <div class="product-card">
         <div class="product-image"></div>
 
-        <div class="product-price">
-          <span>A partir de</span>
-          <strong>R$ 97</strong>
+        <div class="product-info">
+          <span>Produto premium</span>
+          <strong>Oferta exclusiva</strong>
+          <p>Qualidade, praticidade e garantia em uma experiência pensada para conversão.</p>
         </div>
       </div>
     </div>
