@@ -238,9 +238,13 @@ cooldownInterval = setInterval(function() {
   
 try {
   aiResult = await fetchAIContent(formData);
+
+  window.aiResult = aiResult;
+console.log("AI RESULT GLOBAL:", window.aiResult);
 } finally {
   isGenerating = false;
 }
+
 
 localStorage.setItem(
   "leadforge_last_aiResult",
@@ -548,55 +552,21 @@ function getThemeByNiche(niche = "") {
 
 
 function generateCSS(aiResult, templateType) {
-  const theme = getThemeByNiche(document.getElementById("niche").value
-);
- console.log("CSS templateType:", templateType);
- console.log("CSS extra:", generateTemplateCSS(templateType, theme));
+  const theme = getThemeByNiche(
+    document.getElementById("niche").value
+  );
+
+  console.log("CSS templateType:", templateType);
+
   return `
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
 }
-.template-grid{
-  grid-column:1 / span 12;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
-}
-
-.template-card{
-  padding:32px;
-  border-radius:24px;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.1);
-}
-
-.template-card span{
-  display:inline-flex;
-  margin-bottom:18px;
-  font-size:14px;
-  font-weight:800;
-  opacity:.7;
-}
-
-.template-card h3{
-  font-size:24px;
-  margin-bottom:12px;
-}
-
-.template-card p{
-  color:#CBD5E1;
-}
-
-@media(max-width:768px){
-  .template-grid{
-    grid-template-columns:1fr;
-  }
-}
 
 body{
-  font-family:Inter,sans-serif;
+  font-family:Inter, sans-serif;
   background:#050816;
   color:#FFFFFF;
   line-height:1.6;
@@ -609,421 +579,137 @@ section{
 .container{
   max-width:1280px;
   margin:0 auto;
-
   display:grid;
   grid-template-columns:repeat(12,1fr);
   gap:20px;
 }
-.section-kicker{
+
+/* HEADERS */
+
+.section-header{
+  grid-column:1 / span 12;
+  margin-bottom:48px;
+}
+
+.section-kicker,
+.eyebrow,
+.section-header span{
   display:inline-block;
   margin-bottom:14px;
   font-size:14px;
-  font-weight:700;
+  font-weight:800;
   letter-spacing:.08em;
   text-transform:uppercase;
   color:${theme.accent};
 }
-.section-header{
-  grid-column:1 / span 12;
-  margin-bottom:26px;
-}
 
 .section-header h2{
-  font-size:40px;
-  line-height:1;
-  letter-spacing:-.03em;
+  max-width:760px;
+  font-size:56px;
+  font-weight:900;
+  line-height:1.05;
+  letter-spacing:-.04em;
+  margin-bottom:16px;
 }
 
-/* HERO */
-
-.hero{
-  min-height:88vh;
-
-  display:flex;
-  align-items:center;
-
-  background:
-    radial-gradient(
-      circle at top right,
-      rgba(37,99,235,.20),
-      transparent 35%
-    ),
-    radial-gradient(
-      circle at top left,
-      rgba(124,58,237,.18),
-      transparent 35%
-    ),
-    #050816;
-}
-
-.hero-content{
-  grid-column:1 / span 6;
-
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-}
-  .hero-content p{
-  color:#CBD5E1;
-}
-
-
-.hero-visual{
-  grid-column:8 / span 5;
-
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  pointer-events:none;
-}
-
-.hero-badge{
-
-  display:inline-flex;
-
-  align-items:center;
-
-  gap:8px;
-
-  width:max-content;
-
-  padding:10px 16px;
-
-  margin-bottom:28px;
-
-  border-radius:999px;
-
-  background:
-    rgba(255,255,255,.05);
-
-  border:
-    1px solid rgba(255,255,255,.10);
-
-   color:${theme.accent};
-
-  backdrop-filter:blur(12px);
-}
-
-.hero-content h1{
-
-  max-width:700px;
-
-  font-size:clamp(
-    42px,
-    5vw,
-    72px
-  );
-
-  line-height:.95;
-
-  letter-spacing:-.05em;
-
-  margin-bottom:24px;
-}
-.hero-content p{
+.section-header p{
+  max-width:720px;
   font-size:20px;
-
-  color:#CBD5E1;
-
-  max-width:600px;
+  line-height:1.55;
+  color:rgba(255,255,255,.72);
 }
 
-.hero-content a{
-  max-width:570px;
-  text-align:center;
-  display:inline-block;
+/* GRID BASE */
 
-  margin-top:36px;
-
-  padding:16px 28px;
-
-  border-radius:14px;
-
-  text-decoration:none;
-
-  color:#FFFFFF;
-
-  font-weight:600;
-
-  background:linear-gradient(
-  135deg,
-  ${theme.primary},
-  ${theme.accent}
-  );
-
-  box-shadow:
-    0 20px 50px rgba(37,99,235,.35);
-
-  transition:
-    transform .3s ease,
-    box-shadow .3s ease,
-    opacity .3s ease;
-}
-
-.hero-content a:hover{
-
-  transform:
-    translateY(-4px)
-    scale(1.02);
-}
-
-.mockup-header{
-  height:180px;
-
-  border-radius:18px;
-
-  margin-bottom:20px;
-
-  background:linear-gradient(
-    135deg,
-    ${theme.primary},
-    ${theme.accent}
-  );
-}
-
-.mockup-stats{
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:14px;
-
-  margin-top:24px;
-}
-
-.mockup-stats div{
-  height:90px;
-
-  border-radius:16px;
-
-  background:
-    rgba(255,255,255,.06);
-}
-    @media(max-width:1024px){
-
-  .hero-content{
-    grid-column:1 / span 12;
-    text-align:center;
-    align-items:center;
-  }
-
-  .hero-content a{
-  background:linear-gradient(
-    135deg,
-    ${theme.primary},
-    ${theme.accent}
-  );
-}
-
-  .hero-visual{
-    grid-column:1 / span 12;
-    margin-top:50px;
-  }
-
-}
-
-/* BENEFÍCIOS */
-
-.benefits-grid{
+.template-grid,
+.benefits-grid,
+.proof-grid,
+.steps-grid,
+.dashboard-preview{
   grid-column:1 / span 12;
-
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:20px;
+  gap:24px;
 }
 
-.benefit-card{
-  margin-bottom:12px;
-  font-size:22px;
-  padding:32px;
-
-  border-radius:24px;
-
-  background:
-    rgba(255,255,255,.05);
-
-  border:
-    1px solid rgba(255,255,255,.10);
-
-  transition:.3s;
-}
-
-.benefit-card:hover{
-  transform:translateY(-4px);
-}
-
-.benefit-card p{
-  color:#CBD5E1;
-}
-
-.benefit-icon{
-  width:56px;
-  height:56px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  margin-bottom:20px;
-
-  border-radius:14px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #2563EB,
-      #7C3AED
-    );
-
-  font-size:24px;
-}
-
-/* SOCIAL + OBJECTION */
-
+.template-card,
+.benefit-card,
+.step-card,
+.metric-card,
 .content-card{
-  grid-column:1 / span 12;
-
-  padding:32px;
-
   border-radius:24px;
-
-  background:
-    rgba(255,255,255,.05);
-
-  border:
-    1px solid rgba(255,255,255,.10);
+  padding:32px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.10);
 }
 
+.template-card h3,
+.benefit-card h3,
+.step-card h3{
+  font-size:26px;
+  line-height:1.15;
+  margin-bottom:14px;
+}
+
+.template-card p,
+.benefit-card p,
+.step-card p,
 .content-card p{
   color:#CBD5E1;
 }
 
-/* FAQ */
+/* HERO BASE */
 
-.faq-list{
-  grid-column:1 / span 12;
+.hero{
+  min-height:88vh;
+  display:flex;
+  align-items:center;
 }
 
-details{
-  margin-bottom:16px;
-
-  border-radius:18px;
-
-  overflow:hidden;
-
-  background:
-    rgba(255,255,255,.05);
-
-  border:
-    1px solid rgba(255,255,255,.10);
+.hero-content{
+  grid-column:1 / span 6;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
 }
 
-summary{
-  cursor:pointer;
-
-  padding:22px;
-
-  font-weight:700;
-
-  list-style:none;
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  width:max-content;
+  padding:10px 16px;
+  margin-bottom:28px;
+  border-radius:999px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.10);
+  color:${theme.accent};
+  backdrop-filter:blur(12px);
 }
 
-details p{
-  padding:0 22px 22px;
-
-  color:#CBD5E1;
-}
-
-/* MOBILE */
-
-@media(max-width:1024px){
-
-  .hero-content{
-    grid-column:1 / span 12;
-  }
-
-  .hero-content p{
-  color:#CBD5E1;
-}
-
-
-  .benefits-grid{
-    grid-template-columns:1fr;
-  }
-
-}
-
-@media(max-width:768px){
-
-  section{
-     padding:56px 20px;
-  }
-
-  .hero{
-    min-height:auto;
-  }
- .dynamic-section,
-  .benefits,
-  .social-proof,
-  .objection,
-  .faq{
-    padding:56px 20px;
-  }
-  .hero-content h1{
+.hero-content h1{
   max-width:700px;
-
-  font-size:clamp(
-    42px,
-    5vw,
-    72px
-  );
-
+  font-size:clamp(42px,5vw,72px);
   line-height:.95;
-
   letter-spacing:-.05em;
-
   margin-bottom:24px;
-
-  color:#FFFFFF;
 }
 
-  .hero-content p{
+.hero-content p{
+  max-width:600px;
+  font-size:20px;
   color:#CBD5E1;
 }
 
-.offer-card{
-  background:#FFFFFF;
-  border:1px solid #FED7AA;
-  box-shadow:0 30px 80px rgba(234,88,12,.12);
-}
-
-.offer-label{
-  color:#EA580C;
-}
-
-.price-box{
-  background:#FFF7ED;
-  border:1px solid #FED7AA;
-}
-
-.price-box strong{
-  color:#EA580C;
-}
-
-.review-card{
-  background:#FFFFFF;
-  border:1px solid #FED7AA;
-}
 .hero-highlights{
   display:flex;
   flex-wrap:wrap;
   gap:10px;
-  margin-top:24px;
+  margin-top:22px;
 }
 
 .hero-highlights span{
-  padding:10px 14px;
+  padding:8px 12px;
   border-radius:999px;
   font-size:14px;
   font-weight:700;
@@ -1031,160 +717,249 @@ details p{
   border:1px solid rgba(255,255,255,.10);
 }
 
-/* CURSO HERO */
-
-.course-preview,
-.saas-dashboard,
-.consulting-card,
-.product-card{
-  width:100%;
-  max-width:520px;
-  border-radius:32px;
-  padding:28px;
+.hero-content a{
+  display:inline-block;
+  text-align:center;
+  margin-top:36px;
+  padding:16px 28px;
+  border-radius:14px;
+  text-decoration:none;
+  color:#FFFFFF;
+  font-weight:700;
+  background:linear-gradient(135deg, ${theme.primary}, ${theme.accent});
+  box-shadow:0 20px 50px rgba(37,99,235,.35);
+  transition:transform .3s ease, box-shadow .3s ease;
 }
 
-.course-preview{
-  background:#FFFFFF;
-  border:1px solid #E9D5FF;
-  box-shadow:0 40px 100px rgba(124,58,237,.18);
-  transform:rotate(3deg);
+.hero-content a:hover{
+  transform:translateY(-4px) scale(1.02);
 }
 
-.course-cover{
-  height:220px;
-  border-radius:24px;
+.hero-visual{
+  grid-column:8 / span 5;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  pointer-events:none;
+}
+
+/* STEPS */
+
+.step-number{
+  font-size:64px;
+  font-weight:900;
+  line-height:1;
   margin-bottom:24px;
-  background:linear-gradient(135deg,#7C3AED,#2563EB);
+  background:linear-gradient(90deg,#2563EB,#7C3AED);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-.course-info span{
-  color:#7C3AED;
-  font-weight:800;
+.step-card{
+  transition:.3s ease;
 }
 
-.course-info strong{
+.step-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+/* METRICS */
+
+.metric-card{
+  text-align:center;
+  padding:40px;
+}
+
+.metric-card strong{
   display:block;
-  margin:8px 0;
-  font-size:36px;
-  color:#111;
-}
-
-.course-info p{
-  color:#475569;
-}
-
-/* SAAS HERO */
-
-.saas-dashboard{
-  background:rgba(15,23,42,.78);
-  border:1px solid rgba(255,255,255,.12);
-  box-shadow:0 40px 120px rgba(37,99,235,.25);
-  backdrop-filter:blur(18px);
-  transform:rotate(-4deg);
-}
-
-.dashboard-topbar{
-  height:44px;
-  border-radius:16px;
-  margin-bottom:20px;
-  background:rgba(255,255,255,.08);
-}
-
-.dashboard-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-  margin-bottom:18px;
-}
-
-.dashboard-grid div{
-  height:92px;
-  border-radius:18px;
-  background:rgba(255,255,255,.08);
-}
-
-.dashboard-chart{
-  height:180px;
-  border-radius:22px;
-  background:linear-gradient(135deg,#2563EB,#7C3AED);
-}
-
-/* CONSULTORIA HERO */
-
-.consulting-card{
-  background:#151515;
-  color:#F6F3EC;
-  border:1px solid rgba(255,255,255,.12);
-  box-shadow:0 40px 90px rgba(0,0,0,.22);
-}
-
-.consulting-card span{
-  color:#C8A96A;
-  font-weight:800;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-}
-
-.consulting-card strong{
-  display:block;
-  margin:14px 0;
   font-size:64px;
   line-height:1;
+  margin-bottom:10px;
 }
 
-.consulting-card p{
-  color:#D1D5DB;
+.metric-card span{
+  font-size:18px;
+  opacity:.8;
 }
 
-.consulting-lines{
-  margin-top:28px;
+/* BENEFITS */
+
+.benefit-card{
+  transition:.3s ease;
+}
+
+.benefit-card:hover{
+  transform:translateY(-4px);
+}
+
+.benefit-icon{
+  width:56px;
+  height:56px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:20px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#2563EB,#7C3AED);
+  font-size:24px;
+}
+
+/* OBJECTION */
+
+.objection-card{
+  grid-column:1 / span 12 !important;
+
+  width:100% !important;
+  max-width:none !important;
+
+  display:block !important;
+
+  padding:64px 0 !important;
+
+  background:transparent !important;
+  border:none !important;
+  box-shadow:none !important;
+}
+
+.objection-card .section-kicker{
+  display:block !important;
+  width:max-content !important;
+}
+
+.objection-card h2{
+  width:100% !important;
+  max-width:900px !important;
+  font-weight:900 !important;
+  font-size: 56px !important;
+  line-height: 1.2 !important;
+  letter-spacing:-.04em !important;
+
+  margin-bottom:20px !important;
+
+  text-align:left !important;
+}
+
+.objection-card p{
+  width:100% !important;
+  max-width:760px !important;
+
+  font-size:22px !important;
+  line-height:1.6 !important;
+
+  text-align:left !important;
+}
+/* FAQ */
+
+.faq .container{
   display:grid;
-  gap:14px;
+  grid-template-columns:repeat(12,1fr);
+  gap:20px;
 }
 
-.consulting-lines div{
-  height:16px;
-  border-radius:999px;
-  background:rgba(255,255,255,.12);
+.faq .section-header{
+  grid-column:1 / span 12;
 }
 
-.consulting-lines div:nth-child(2){
-  width:80%;
+.faq-list{
+  grid-column:1 / span 12;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
 }
 
-.consulting-lines div:nth-child(3){
-  width:60%;
+.faq-list details,
+.faq details{
+  width:100%;
+  grid-column:1 / span 12;
+  display:block;
+  margin:0 0 16px;
+  border-radius:18px;
+  overflow:hidden;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.10);
 }
 
-/* ECOMMERCE HERO */
-
-.product-card{
-  background:#FFFFFF;
-  border:1px solid #FED7AA;
-  box-shadow:0 40px 100px rgba(234,88,12,.16);
-  transform:rotate(-2deg);
+.faq-list summary,
+.faq summary{
+  width:100%;
+  display:block;
+  padding:22px 26px;
+  cursor:pointer;
+  font-size:20px;
+  font-weight:700;
+  list-style:none;
+  white-space:normal;
 }
 
-.product-image{
-  height:280px;
-  border-radius:28px;
-  background:
-    radial-gradient(circle at 50% 45%,#FDBA74 0%,#FB923C 38%,#EA580C 100%);
+.faq-list details p,
+.faq details p{
+  width:100%;
+  padding:0 26px 24px;
+  color:#CBD5E1;
+  white-space:normal;
 }
 
-@media(max-width:768px){
+/* RESPONSIVE */
+
+@media(max-width:1024px){
+  .hero-content{
+    grid-column:1 / span 12;
+    text-align:center;
+    align-items:center;
+  }
+
+  .hero-visual{
+    grid-column:1 / span 12;
+    margin-top:50px;
+  }
+
   .hero-highlights{
     justify-content:center;
   }
 }
-} ${generateTemplateCSS(templateType, theme)}
+
+@media(max-width:768px){
+  section{
+    padding:56px 20px;
+  }
+
+  .hero{
+    min-height:auto;
+  }
+
+  .section-header h2{
+    font-size:42px;
+  }
+
+  .template-grid,
+  .benefits-grid,
+  .proof-grid,
+  .steps-grid,
+  .dashboard-preview{
+    grid-template-columns:1fr;
+  }
+
+  .step-number{
+    font-size:48px;
+  }
+
+  .objection-card{
+    grid-column:1 / span 12;
+    padding:32px;
+  }
+}
+
+${generateTemplateCSS(templateType, theme)}
 `;
 }
+
 
 function generateTemplateCSS(templateType, theme) {
    const type = String(templateType).toLowerCase().trim();
      console.log("TYPE NORMALIZADO:", type);
-    switch (templateType) {
+    switch (type) {
 
     case "curso":
       return `
@@ -1210,6 +985,18 @@ body{
 .hero-content h1{
   color:#111;
   font-size:clamp(52px,5vw,82px);
+  font-weight: 900 !important;
+  
+}
+
+.course-section .section-header p{
+  display:block !important;
+  max-width:720px !important;
+  margin-top:18px !important;
+
+  color:#64748B !important;
+  font-size:20px !important;
+  line-height:1.55 !important;
 }
 
 .hero-content p{
@@ -1227,12 +1014,77 @@ body{
     0 20px 50px rgba(124,58,237,.25),
     0 40px 90px rgba(37,99,235,.15);
 }  
+.course-hero-card{
+  width:100%;
+  max-width:460px;
+  padding:34px;
+  border-radius:32px;
+
+  background:#FFFFFF;
+  border:1px solid #E9D5FF;
+
+  box-shadow:
+    0 30px 90px rgba(124,58,237,.16);
+
+  transform:rotate(2deg);
+}
+
+.course-card-badge{
+  display:inline-flex;
+  margin-bottom:28px;
+  padding:10px 14px;
+  border-radius:999px;
+
+  background:#F3E8FF;
+  color:#7C3AED;
+
+  font-size:14px;
+  font-weight:900;
+}
+
+.course-hero-card h3{
+  font-size:42px;
+  line-height:1;
+  letter-spacing:-.04em;
+  margin-bottom:14px;
+  color:#111827;
+}
+
+.course-hero-card p{
+  color:#64748B;
+  font-size:18px;
+  line-height:1.5;
+  margin-bottom:28px;
+}
+
+.course-card-list{
+  display:grid;
+  gap:12px;
+}
+
+.course-card-list span{
+  padding:14px 16px;
+  border-radius:16px;
+
+  background:#F7F3FF;
+  border:1px solid #E9D5FF;
+
+  color:#111827;
+  font-weight:700;
+}
 
 .dynamic-section{
   background:#FFFFFF;
   padding:72px 24px;
 }
-
+.dynamic-section h2{
+  font-size:56px;
+  line-height:1;
+  letter-spacing:-.03em;
+  margin-bottom:16px;
+  max-width:700px;
+}
+  
 .dynamic-section .content-card{
   background:#FFFFFF;
   color:#111;
@@ -1254,12 +1106,140 @@ body{
 
 .section-header h2{
   color:#111;
+  font-size:56px;
+  line-height:1;
+  letter-spacing:-.03em;
+  margin-bottom:16px;
+  max-width:700px;
 }
 
 .faq{
-  background:#F4EEFF;
+  background:#F4EEFF !important;
 }
 
+.faq details{
+  background:#FFFFFF !important;
+  color:#111827 !important;
+  border:1px solid #E9D5FF !important;
+}
+
+.faq summary{
+  color:#111827 !important;
+}
+
+.faq details p{
+  color:#475569 !important;
+}
+
+/* COURSE MODULES */
+
+.course-modules{
+  grid-column:1 / span 12 !important;
+
+  display:grid !important;
+  grid-template-columns:repeat(3,1fr) !important;
+  gap:28px !important;
+
+  margin-top:64px !important;
+}
+
+.course-modules .template-card{
+  min-height:260px !important;
+
+  padding:34px !important;
+
+  border-radius:28px !important;
+
+  background:#FFFFFF !important;
+
+  border:1px solid #E9D5FF !important;
+
+  box-shadow:
+    0 20px 60px rgba(124,58,237,.08) !important;
+}
+
+.course-modules .template-card span{
+  display:block !important;
+
+  margin-bottom:28px !important;
+
+  color:#7C3AED !important;
+
+  font-size:18px !important;
+  font-weight:900 !important;
+}
+
+.course-modules .template-card h3{
+  color:#111827 !important;
+
+  font-size:28px !important;
+
+  line-height:1.1 !important;
+
+  margin-bottom:16px !important;
+}
+
+.course-modules .template-card p{
+  color:#64748B !important;
+
+  font-size:18px !important;
+
+  line-height:1.55 !important;
+}
+
+/* PROOF GRID */
+
+.proof-grid{
+  grid-column:1 / span 12 !important;
+
+  display:grid !important;
+  grid-template-columns:repeat(3,1fr) !important;
+
+  gap:28px !important;
+
+  margin-top:64px !important;
+}
+
+.proof-card{
+  padding:40px !important;
+
+  border-radius:28px !important;
+
+  background:#FFFFFF !important;
+
+  border:1px solid #E9D5FF !important;
+
+  box-shadow:
+    0 20px 60px rgba(124,58,237,.08) !important;
+}
+
+.proof-card strong{
+  display:block !important;
+
+  margin-bottom:12px !important;
+
+  color:#111827 !important;
+
+  font-size:clamp(34px,4vw,58px) !important;
+
+  line-height:1 !important;
+}
+
+.proof-card span{
+  color:#64748B !important;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:768px){
+
+  .course-modules,
+  .proof-grid{
+    grid-template-columns:1fr !important;
+  }
+
+}
+  
 details{
   background:#FFFFFF;
   color:#111;
@@ -1277,6 +1257,68 @@ body{
   background:#050816;
   color:#FFFFFF;
 }
+.saas-dashboard{
+  display:block !important;
+}
+.objection-section .container{
+  display:grid !important;
+  grid-template-columns:repeat(12,1fr) !important;
+}
+
+.objection-card{
+  grid-column:1 / span 10 !important;
+
+  text-align:left !important;
+
+  padding:56px 0 !important;
+}
+
+.objection-card .section-kicker{
+  display:block !important;
+
+  margin-bottom:16px !important;
+
+  color: #60A5FA !important;
+
+  font-size:14px !important;
+  font-weight:800 !important;
+
+  letter-spacing:.12em !important;
+  text-transform:uppercase !important;
+}
+
+.objection-card h2{
+
+  color:#FFFFFF !important;
+
+  font-size:clamp(44px,5vw,72px) !important;
+  font-weight:900 !important;
+
+  line-height:.98 !important;
+  letter-spacing:-.05em !important;
+
+  text-align:left !important;
+}
+
+.objection-card p{
+  max-width:760px !important;
+
+  margin-top:24px !important;
+
+  color:#CBD5E1 !important;
+
+  font-size:20px !important;
+  line-height:1.6 !important;
+
+  text-align:left !important;
+}
+  
+.dashboard-preview .dashboard-metric{
+  background:#151A2A;
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:0 24px 70px rgba(0,0,0,.28);
+  text-align: center;
+}
 
 .dashboard-metric{
   box-shadow:
@@ -1292,7 +1334,7 @@ body{
 
 .hero-badge{
   background:rgba(255,255,255,.06);
-  color:#A78BFA;
+  color: #60A5FA;
   border:1px solid rgba(255,255,255,.12);
 }
 
@@ -1338,6 +1380,64 @@ body{
 .faq{
   background:#050816;
 }
+  .saas-hero .hero-visual{
+  grid-column:8 / span 5 !important;
+  display:flex !important;
+  justify-content:center !important;
+  align-items:center !important;
+}
+
+.saas-hero .saas-dashboard{
+  width:100% !important;
+  max-width:520px !important;
+  min-height:420px !important;
+  display:block !important;
+  padding:28px !important;
+  border-radius:32px !important;
+
+  background:rgba(15,23,42,.78) !important;
+  border:1px solid rgba(255,255,255,.12) !important;
+
+  box-shadow:
+    0 40px 120px rgba(37,99,235,.25),
+    inset 0 1px 0 rgba(255,255,255,.08) !important;
+
+  backdrop-filter:blur(18px) !important;
+  transform:rotate(-4deg) !important;
+}
+
+.saas-hero .dashboard-topbar{
+  height:44px !important;
+  border-radius:16px !important;
+  margin-bottom:20px !important;
+  background:rgba(255,255,255,.08) !important;
+}
+
+.saas-hero .dashboard-grid{
+  display:grid !important;
+  grid-template-columns:repeat(3,1fr) !important;
+  gap:14px !important;
+  margin-bottom:18px !important;
+}
+
+.saas-hero .dashboard-grid div{
+  height:92px !important;
+  border-radius:18px !important;
+  background:rgba(255,255,255,.08) !important;
+}
+
+.saas-hero .dashboard-chart{
+  height:180px !important;
+  border-radius:22px !important;
+  background:linear-gradient(135deg,#2563EB,#7C3AED) !important;
+}
+
+@media(max-width:1024px){
+  .saas-hero .hero-visual{
+    grid-column:1 / span 12 !important;
+    margin-top:50px !important;
+  }
+}
 `;
 
    case "consultoria":
@@ -1354,7 +1454,6 @@ body{
 
 .hero-badge{
   background:#151515;
-  color:#F6F3EC;
   border:1px solid #151515;
 }
 
@@ -1766,12 +1865,16 @@ function generateDynamicSection(aiResult, templateType) {
 }
 
 function generateCourseSection(aiResult) {
+  const sectionData = getSectionData(aiResult, "curso");
   return `
 <section class="dynamic-section course-section">
   <div class="container">
     <div class="section-header">
       <span class="section-kicker">Conteúdo do curso</span>
-      <h2>${safeText(aiResult.differentialTitle, "O que você vai aprender")}</h2>
+
+      <h2>${sectionData.title}</h2>
+
+      <p>${sectionData.description}</p>
     </div>
 
     <div class="template-grid course-modules">
@@ -1799,26 +1902,20 @@ function generateCourseSection(aiResult) {
 }
 
 function generateSaasSection(aiResult) {
+   const sectionData = getSectionData(aiResult, "saas");
   return `
 <section class="dynamic-section saas-flow">
 
   <div class="container">
 
     <div class="section-header">
-      <span class="section-kicker">Como funciona</span>
-      <h3>
-        ${safeText(
-          aiResult.module1Title,
-          "Fundamentos"
-        )}
-      </h3>
 
-      <p>
-        ${safeText(
-          aiResult.module1Description,
-          "Entenda a base necessária..."
-        )}
-</p>
+      <span>COMO FUNCIONA</span>
+
+      <h2>${sectionData.title}</h2>
+
+      <p>${sectionData.description}</p>
+
     </div>
 
     <div class="template-grid">
@@ -1851,38 +1948,6 @@ function generateSaasSection(aiResult) {
             "Mais produtividade, decisões rápidas e crescimento sustentável."
           )}
         </p>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-<section class="dynamic-section dashboard-section">
-
-  <div class="container">
-
-    <div class="section-header">
-      <span class="section-kicker">Dashboard</span>
-      <h2>Indicadores em um único lugar</h2>
-    </div>
-
-    <div class="dashboard-preview">
-
-      <div class="dashboard-metric">
-        <span>Conversões</span>
-        <strong>+127%</strong>
-      </div>
-
-      <div class="dashboard-metric">
-        <span>Automações</span>
-        <strong>48</strong>
-      </div>
-
-      <div class="dashboard-metric">
-        <span>Tempo economizado</span>
-        <strong>32h</strong>
       </div>
 
     </div>
@@ -2020,106 +2085,245 @@ ${generateHero(aiResult, templateType)}
 
 ${generateDynamicSection(aiResult, templateType)}
  
-  <section class="benefits">
-    <div class="container">
-      <div class="section-header">
-        <h2>Benefícios</h2>
-      </div>
+${generateBenefits(aiResult, templateType)}
 
-<div class="benefits-grid">
-  <div class="benefit-card">
-      <div class="benefit-icon">
-        ${getIcon(aiResult.benefit1Icon || "star")}
-      </div>
-      <h3>${aiResult.benefit1Title}</h3>
-      <p>${aiResult.benefit1Description}</p></div>
+${generateSocialProof(aiResult, templateType)}
 
-<div class="benefit-card">
+${generateObjection(aiResult, templateType)}
 
-<div class="benefit-icon">
-${getIcon(aiResult.benefit2Icon || "target")}
-  </div>
-
-  <h3>
-    ${aiResult.benefit2Title}
-  </h3>
-
-  <p>
-    ${aiResult.benefit2Description}
-  </p>
-
-</div>
-
-<div class="benefit-card">
-
-  <div class="benefit-icon">
-    ${getIcon(aiResult.benefit3Icon || "rocket")}
-  </div>
-
-      <h3>
-        ${aiResult.benefit3Title}
-      </h3>
-
-      <p>
-        ${aiResult.benefit3Description}
-      </p>
-
-</div>
-      </div>
-    </div>
-</section>
-
-  <section class="social-proof">
-    <div class="container">
-      <div class="section-header">
-        <h2>Prova social</h2>
-      </div>
-
-      <div class="content-card">
-        <p>${aiResult.socialProof}</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="objection">
-    <div class="container">
-      <div class="section-header">
-        <h2>Quebra de objeção</h2>
-      </div>
-
-      <div class="content-card">
-        <p>${aiResult.objection}</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="faq">
-    <div class="container">
-      <div class="section-header">
-        <h2>Perguntas frequentes</h2>
-      </div>
-
-      <div class="faq-list">
-        <details>
-          <summary>${aiResult.faq1Question}</summary>
-          <p>${aiResult.faq1Answer}</p>
-        </details>
-
-        <details>
-          <summary>${aiResult.faq2Question}</summary>
-          <p>${aiResult.faq2Answer}</p>
-        </details>
-
-        <details>
-          <summary>${aiResult.faq3Question}</summary>
-          <p>${aiResult.faq3Answer}</p>
-        </details>
-      </div>
-    </div>
-  </section>
+${generateFAQ(aiResult, templateType)}
 
 </body>
 </html>
+`;
+}
+function getSectionData(aiResult, templateType) {
+  const type = String(templateType).toLowerCase().trim();
+
+  switch (type) {
+    case "curso":
+      return {
+        title: safeText(
+          aiResult.courseSectionTitle,
+          "O que você vai aprender"
+        ),
+        description: safeText(
+          aiResult.courseSectionDescription,
+          "Conheça os módulos que vão acelerar sua evolução."
+        )
+      };
+
+    case "saas":
+      return {
+        title: safeText(
+          aiResult.saasSectionTitle,
+          "Centralize sua operação"
+        ),
+        description: safeText(
+          aiResult.saasSectionDescription,
+          "Automatize processos, acompanhe dados e ganhe produtividade."
+        )
+      };
+
+    case "consultoria":
+      return {
+        title: safeText(
+          aiResult.consultingSectionTitle,
+          "Nossa metodologia"
+        ),
+        description: safeText(
+          aiResult.consultingSectionDescription,
+          "Um processo estruturado para diagnosticar, planejar e executar."
+        )
+      };
+
+    case "ecommerce":
+      return {
+        title: safeText(
+          aiResult.ecommerceSectionTitle,
+          "Produto pensado para conversão"
+        ),
+        description: safeText(
+          aiResult.ecommerceSectionDescription,
+          "Diferenciais, garantia e uma oferta clara para facilitar a compra."
+        )
+      };
+
+    default:
+      return {
+        title: "Como funciona",
+        description: "Entenda como nossa solução gera resultados."
+      };
+  }
+}
+
+function generateBenefits(aiResult, templateType){
+
+  const type = String(templateType)
+    .toLowerCase()
+    .trim();
+
+  switch(type){
+
+    case "curso":
+      return generateCourseBenefits(aiResult);
+
+    case "saas":
+      return generateSaasBenefits(aiResult);
+
+    case "consultoria":
+      return generateConsultingBenefits(aiResult);
+
+    case "ecommerce":
+      return generateEcommerceBenefits(aiResult);
+
+    default:
+      return "";
+  }
+}
+
+function generateCourseBenefits(aiResult){
+  return `
+<section class="benefits">
+
+  <div class="container">
+
+    <div class="section-header">
+      <h2>Benefícios</h2>
+    </div>
+
+    <div class="benefits-grid">
+
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          ${getIcon(aiResult.benefit1Icon || "star")}
+        </div>
+
+        <h3>${aiResult.benefit1Title}</h3>
+
+        <p>${aiResult.benefit1Description}</p>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          ${getIcon(aiResult.benefit2Icon || "target")}
+        </div>
+
+        <h3>${aiResult.benefit2Title}</h3>
+
+        <p>${aiResult.benefit2Description}</p>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          ${getIcon(aiResult.benefit3Icon || "rocket")}
+        </div>
+
+        <h3>${aiResult.benefit3Title}</h3>
+
+        <p>${aiResult.benefit3Description}</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+`;
+}
+function generateSaasBenefits(aiResult){
+  return `
+<section class="benefits saas-benefits">
+
+  <div class="container">
+
+    <div class="section-header">
+      <span class="section-kicker">Resultados</span>
+      <h2>Indicadores que fazem diferença</h2>
+    </div>
+
+    <div class="template-grid">
+
+      <div class="template-card metric-card">
+        <strong>+127%</strong>
+        <span>Conversões</span>
+      </div>
+
+      <div class="template-card metric-card">
+        <strong>48</strong>
+        <span>Automações ativas</span>
+      </div>
+
+      <div class="template-card metric-card">
+        <strong>32h</strong>
+        <span>Economizadas por mês</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+`;
+}
+
+function generateConsultingBenefits(aiResult){
+  return generateCourseBenefits(aiResult);
+}
+
+function generateEcommerceBenefits(aiResult){
+  return generateCourseBenefits(aiResult);
+}
+
+function generateSocialProof(aiResult, templateType) {
+  const type = String(templateType).toLowerCase().trim();
+
+  const titleByTemplate = {
+    curso: "Resultados dos alunos",
+    saas: "Resultados da plataforma",
+    consultoria: "Resultados gerados",
+    ecommerce: "Clientes satisfeitos"
+  };
+
+  return `
+<section class="social-proof proof-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-kicker">Prova social</span>
+      <h2>${titleByTemplate[type] || "Resultados comprovados"}</h2>
+    </div>
+
+    <div class="template-grid proof-grid">
+      <div class="template-card proof-card">
+        <strong>${safeText(aiResult.socialProof1, "+5.000 clientes")}</strong>
+      </div>
+
+      <div class="template-card proof-card">
+        <strong>${safeText(aiResult.socialProof2, "98% de satisfação")}</strong>
+      </div>
+
+      <div class="template-card proof-card">
+        <strong>${safeText(aiResult.socialProof3, "Resultados reais")}</strong>
+      </div>
+    </div>
+  </div>
+</section>
+`;
+}
+
+function generateObjection(aiResult, templateType) {
+  return `
+<section class="objection objection-section">
+  <div class="container">
+    <div class="objection-card">
+      <span class="section-kicker">Ainda em dúvida?</span>
+
+      <h2>${safeText(aiResult.objectionTitle, "E se eu não conseguir começar agora?")}</h2>
+
+      <p>${safeText(aiResult.objectionDescription, "Você pode começar com segurança, no seu ritmo e com uma estrutura pensada para reduzir riscos.")}</p>
+    </div>
+  </div>
+</section>
 `;
 }
 
@@ -2165,15 +2369,23 @@ function generateCourseHero(aiResult) {
       <a href="#">${aiResult.cta}</a>
     </div>
 
-    <div class="hero-visual">
-      <div class="course-preview">
-        <div class="course-cover"></div>
+   <div class="hero-visual">
+      <div class="course-hero-card">
 
-        <div class="course-info">
-          <span>Trilha completa</span>
-          <strong>12 módulos</strong>
-          <p>Aulas práticas, materiais e suporte para evoluir com clareza.</p>
+        <div class="course-card-badge">
+          🎓 Curso premium
         </div>
+
+        <h3>Trilha completa</h3>
+
+        <p>Aulas práticas, materiais e suporte para evoluir com clareza.</p>
+
+        <div class="course-card-list">
+          <span>12 módulos</span>
+          <span>Certificado</span>
+          <span>Acesso vitalício</span>
+        </div>
+
       </div>
     </div>
 
@@ -2182,6 +2394,41 @@ function generateCourseHero(aiResult) {
 `;
 }
 
+function generateSaasBenefits(aiResult){
+  return `
+<section class="benefits saas-benefits">
+
+  <div class="container">
+
+    <div class="section-header">
+      <span class="section-kicker">Resultados</span>
+      <h2>Indicadores que fazem diferença</h2>
+    </div>
+
+    <div class="template-grid">
+
+      <div class="template-card metric-card">
+        <strong>+127%</strong>
+        <span>Conversões</span>
+      </div>
+
+      <div class="template-card metric-card">
+        <strong>48</strong>
+        <span>Automações ativas</span>
+      </div>
+
+      <div class="template-card metric-card">
+        <strong>32h</strong>
+        <span>Economizadas por mês</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+`;
+}
 function generateSaasHero(aiResult) {
   return `
 <section class="hero saas-hero">
@@ -2220,6 +2467,84 @@ function generateSaasHero(aiResult) {
   </div>
 </section>
 `;
+}
+function generateHowItWorks(aiResult) {
+  return `
+<section class="how-it-works">
+
+  <div class="container">
+
+    <div class="section-header">
+      <span>COMO FUNCIONA</span>
+
+      <h2>${safeText(
+        aiResult.solutionTitle,
+        "Gestão simplificada em 3 etapas"
+      )}</h2>
+
+      <p>${safeText(
+        aiResult.solutionDescription,
+        "Organize sua operação de forma simples."
+      )}</p>
+    </div>
+
+    <div class="steps-grid">
+
+      <div class="step-card">
+        <div class="step-number">01</div>
+
+        <h3>${safeText(
+          aiResult.step1Title,
+          "Cadastre sua operação"
+        )}</h3>
+
+        <p>${safeText(
+          aiResult.step1Description,
+          "Importe alunos, documentos e informações importantes."
+        )}</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">02</div>
+
+        <h3>${safeText(
+          aiResult.step2Title,
+          "Automatize processos"
+        )}</h3>
+
+        <p>${safeText(
+          aiResult.step2Description,
+          "Configure automações para reduzir tarefas manuais."
+        )}</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">03</div>
+
+        <h3>${safeText(
+          aiResult.step3Title,
+          "Acompanhe resultados"
+        )}</h3>
+
+        <p>${safeText(
+          aiResult.step3Description,
+          "Visualize indicadores e tome decisões mais rápidas."
+        )}</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+`;
+}
+function generateConsultingHero(aiResult){
+  return generateCourseHero(aiResult);
+}
+
+function generateEcommerceHero(aiResult){
+  return generateCourseHero(aiResult);
 }
 
 function generateConsultingHero(aiResult) {
@@ -2338,6 +2663,57 @@ function generateHTMLWithExternalCSS(aiResult, templateType) {
 
 </body>
 </html>
+`;
+}
+function generateFAQ(aiResult, templateType) {
+  return `
+<section class="faq">
+
+  <div class="container">
+
+    <div class="section-header">
+      <h2>Perguntas frequentes</h2>
+    </div>
+
+    <details>
+      <summary>${safeText(
+        aiResult.faq1Question,
+        "Pergunta 1"
+      )}</summary>
+
+      <p>${safeText(
+        aiResult.faq1Answer,
+        "Resposta 1"
+      )}</p>
+    </details>
+
+    <details>
+      <summary>${safeText(
+        aiResult.faq2Question,
+        "Pergunta 2"
+      )}</summary>
+
+      <p>${safeText(
+        aiResult.faq2Answer,
+        "Resposta 2"
+      )}</p>
+    </details>
+
+    <details>
+      <summary>${safeText(
+        aiResult.faq3Question,
+        "Pergunta 3"
+      )}</summary>
+
+      <p>${safeText(
+        aiResult.faq3Answer,
+        "Resposta 3"
+      )}</p>
+    </details>
+
+  </div>
+
+</section>
 `;
 }
 

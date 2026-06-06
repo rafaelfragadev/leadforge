@@ -21,20 +21,35 @@ Exemplo correto:
 
 Exemplo incorreto:
 "Conquiste Os Céus E Transforme Sua Carreira"
+REGRA OBRIGATÓRIA SOBRE TEMPLATE:
 
+O templateType manda mais que o nicho.
+
+Se templateType for "saas", NÃO gere texto de curso, aula, formação, certificado, professor, aluno aprendendo ou jornada educacional.
+
+Mesmo que o nicho mencione aviação, piloto, escola ou curso, trate como um SOFTWARE/PLATAFORMA SaaS para esse mercado.
+
+Para SaaS, use palavras como:
+plataforma, software, painel, dashboard, automação, integração, CRM, gestão, dados, operação, produtividade, relatórios, equipe, processos.
+
+Exemplo correto:
+"Gerencie sua escola de aviação em um painel inteligente"
+
+Exemplo errado:
+"Torne-se piloto profissional"
 Adapte a estrutura conforme o tipo de landing page:
 
-Se for curso:
-- foque em transformação, aprendizado, autoridade e resultado.
+    Se templateType = "curso":
+    gere copy de curso, formação, aulas, módulos e aprendizado.
 
-Se for SaaS:
-- foque em problema, solução, automação, produtividade e diferenciais do produto.
+    Se templateType = "saas":
+    gere copy de software, plataforma, automação, dashboard, dados, integração e produtividade.
 
-Se for consultoria:
-- foque em autoridade, método, diagnóstico, clareza e confiança.
+    Se templateType = "consultoria":
+    gere copy de diagnóstico, estratégia, método e execução.
 
-Se for e-commerce:
-- foque em desejo, diferenciais do produto, benefícios práticos, segurança e compra.
+    Se templateType = "ecommerce":
+    gere copy de produto, oferta, compra, garantia e avaliações.
 
 A prova social deve parecer realista.
 Evite frases genéricas.
@@ -54,6 +69,41 @@ benefit3Icon, benefit3Title, benefit3Description
 
 Os campos benefit1Icon, benefit2Icon e benefit3Icon devem conter apenas uma destas opções:
 rocket, shield, chart, target, star, graduation, globe, airplane, users, lightning
+socialProof1, socialProof2 e socialProof3 devem representar métricas, resultados ou indicadores relevantes para o segmento.
+
+Curso:
+- alunos formados
+- taxa de aprovação
+- certificados emitidos
+
+SaaS:
+- empresas atendidas
+- leads processados
+- automações executadas
+
+Consultoria:
+- projetos executados
+- empresas atendidas
+- resultados alcançados
+
+Ecommerce:
+- avaliações positivas
+- pedidos entregues
+- clientes satisfeitos
+
+objectionTitle e objectionDescription devem representar a principal objeção do cliente e a resposta para ela.
+Os títulos quando forem em duas linhas, deixar no mínimo duas palavras em cada linha.
+
+{
+  "socialProof1": "+5.000 alunos",
+  "socialProof2": "98% aprovação",
+  "socialProof3": "12.000 certificados emitidos",
+
+  "objectionTitle": "E se eu não conseguir acompanhar o curso?",
+  "objectionDescription": "O conteúdo foi estruturado para iniciantes e você terá acesso às aulas para estudar no seu ritmo."
+}
+Se templateType for "saas", as FAQs devem ser sobre uso da plataforma, integração, suporte, demonstração, implantação e personalização.
+Não gerar FAQs sobre curso, requisitos, aulas ou certificado.
 
 Para templates de curso:
 
@@ -124,6 +174,20 @@ Oferta: ${offer}
 Tom: ${tone}
 Objetivo: ${goal}
 Tipo de landing page: ${templateType}
+
+Os campos de sectionTitle/sectionDescription devem ser preenchidos de acordo com o templateType.
+
+Se templateType = "curso":
+preencha courseSectionTitle e courseSectionDescription com foco em aprendizado, módulos, formação e evolução do aluno.
+
+Se templateType = "saas":
+preencha saasSectionTitle e saasSectionDescription com foco em plataforma, automação, dashboard, operação, dados e produtividade.
+
+Se templateType = "consultoria":
+preencha consultingSectionTitle e consultingSectionDescription com foco em método, diagnóstico, estratégia e execução.
+
+Se templateType = "ecommerce":
+preencha ecommerceSectionTitle e ecommerceSectionDescription com foco em produto, oferta, compra, garantia e diferenciais.
 
 Responda SOMENTE em JSON válido. Sem markdown. Sem texto antes ou depois.
 
@@ -196,7 +260,30 @@ Responda SOMENTE em JSON válido. Sem markdown. Sem texto antes ou depois.
   "reviewTitle": "",
   "reviewDescription": "",
 
+  "socialProof1": "",
+  "socialProof2": "",
+  "socialProof3": "",
+
+  "objectionTitle": "",
+  "objectionDescription": ""
+
+  "courseSectionTitle": "",
+  "courseSectionDescription": "",
+
+  "saasSectionTitle": "",
+  "saasSectionDescription": "",
+
+  "consultingSectionTitle": "",
+  "consultingSectionDescription": "",
+
+  "ecommerceSectionTitle": "",
+  "ecommerceSectionDescription": "",
+
+"cta": ""
   "cta": ""
+  O campo templateType define o tipo de landing page.
+
+
 }
 `;
 
