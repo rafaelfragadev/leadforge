@@ -808,14 +808,10 @@ section{
 
 .objection-card{
   grid-column:1 / span 8 !important;
-
   width:100% !important;
   max-width:none !important;
-
   display:block !important;
-
   padding:64px 0 !important;
-
   background:transparent !important;
   border:none !important;
   box-shadow:none !important;
@@ -830,24 +826,21 @@ section{
   width:100% !important;
   max-width:900px !important;
   font-weight:900 !important;
-  font-size: 56px !important;
-  line-height: 1.2 !important;
+  font-size:56px !important;
+  line-height:1.2 !important;
   letter-spacing:-.04em !important;
-
   margin-bottom:20px !important;
-
   text-align:left !important;
 }
 
 .objection-card p{
   width:100% !important;
   max-width:760px !important;
-
   font-size:22px !important;
   line-height:1.6 !important;
-
   text-align:left !important;
 }
+
 /* FAQ */
 
 .faq .container{
@@ -900,7 +893,7 @@ section{
   white-space:normal;
 }
 
-/* RESPONSIVE */
+/* TABLET */
 
 @media(max-width:1024px){
   .hero-content{
@@ -919,107 +912,121 @@ section{
   }
 }
 
+/* MOBILE */
+
 @media(max-width:768px){
+
   section{
-    padding:56px 20px;
+    padding:72px 20px;
+  }
+
+  .container{
+    grid-template-columns:1fr !important;
+    gap:24px !important;
+    max-width:100% !important;
+  }
+
+  .section-header{
+    grid-column:1 / -1 !important;
+    margin-bottom:40px;
+  }
+
+  .section-header h2{
+    font-size:clamp(34px,10vw,48px);
+    line-height:1;
+  }
+
+  .section-header p{
+    max-width:none;
   }
 
   .hero{
     min-height:auto;
+    padding:88px 20px 72px;
   }
 
-  .section-header h2{
-    font-size:42px;
+  .hero-content,
+  .hero-visual{
+    grid-column:1 / -1 !important;
+  }
+
+  .hero-content h1{
+    font-size:clamp(42px,12vw,58px) !important;
+    line-height:.95;
+  }
+
+  .hero-content p{
+    max-width:none;
+    font-size:18px !important;
+  }
+
+  .hero-highlights{
+    flex-wrap:wrap;
+    justify-content:center;
   }
 
   .template-grid,
   .benefits-grid,
   .proof-grid,
   .steps-grid,
-  .dashboard-preview{
-    grid-template-columns:1fr;
+  .dashboard-preview,
+  .authority-grid,
+  .method-grid{
+    grid-column:1 / -1 !important;
+    grid-template-columns:1fr !important;
   }
 
-  .step-number{
-    font-size:48px;
+  .template-card,
+  .benefit-card,
+  .proof-card,
+  .authority-card,
+  .method-card,
+  .content-card,
+  .objection-card{
+    grid-column:1 / -1 !important;
+    min-height:auto !important;
   }
 
   .objection-card{
-    grid-column:1 / span 8;
-    padding:32px;
+    padding:32px !important;
   }
-    /* FIX MÉTODO CONSULTORIA */
 
-.consulting-method .container{
-  display:grid;
-  grid-template-columns:repeat(12,1fr);
-  gap:24px;
-}
+  .objection-card h2{
+    font-size:clamp(36px,10vw,52px) !important;
+    line-height:.95 !important;
+    max-width:none !important;
+  }
 
-.consulting-method .section-header{
-  grid-column:1 / span 10;
-  margin-bottom:56px;
-}
+  details,
+  .faq-item{
+    width:100% !important;
+    max-width:100% !important;
+  }
 
-.consulting-method .section-header h2{
-  max-width:900px;
-  color:#FFFFFF;
-}
+  summary{
+    white-space:normal !important;
+    line-height:1.4 !important;
+  }
 
-.consulting-method .section-header p{
-  max-width:680px;
-  color:#D1D5DB;
-}
+  .content-card,
+  .method-card,
+  .template-card{
+    padding:28px !important;
+    overflow:hidden !important;
+  }
 
-.consulting-method .method-grid{
-  grid-column:1 / span 12;
-
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:24px;
-}
-
-.consulting-method .method-card{
-  min-height:300px;
-  padding:40px;
-
-  border-radius:28px;
-
-  background:#1F1F1F;
-  border:1px solid rgba(255,255,255,.1);
-
-  box-shadow:0 24px 70px rgba(0,0,0,.22);
-}
-
-.consulting-method .method-card span{
-  display:block;
-  margin-bottom:28px;
-
-  color:#C8A96A;
-  font-size:18px;
-  font-weight:800;
-}
-
-.consulting-method .method-card h3{
-  margin-bottom:18px;
-
-  color:#FFFFFF;
-  font-size:30px;
-  line-height:1.05;
-  letter-spacing:-.04em;
-}
-
-.consulting-method .method-card p{
-  color:#D1D5DB;
-  font-size:17px;
-  line-height:1.6;
-}
+  .content-card h3,
+  .method-card h3{
+    font-size:34px !important;
+    line-height:1.05 !important;
+    word-break:normal !important;
+  }
 }
 
 ${generateTemplateCSS(templateType, theme)}
+  ${generateMobileCSS()}
 `;
 }
-
 
 function generateTemplateCSS(templateType, theme) {
    const type = String(templateType).toLowerCase().trim();
@@ -1495,13 +1502,6 @@ body{
   height:180px !important;
   border-radius:22px !important;
   background:linear-gradient(135deg,#2563EB,#7C3AED) !important;
-}
-
-@media(max-width:1024px){
-  .saas-hero .hero-visual{
-    grid-column:1 / span 12 !important;
-    margin-top:50px !important;
-  }
 }
 `;
 
@@ -2729,6 +2729,269 @@ section.objection.objection-section.ecommerce-objection p{
     default:
       return "";
   }
+}
+
+function generateMobileCSS(){
+  return `
+@media(max-width:768px){
+
+  section{
+    padding:72px 20px !important;
+    overflow:hidden;
+  }
+
+.container{
+  width:100% !important;
+  max-width:100% !important;
+
+  display:block !important;
+
+  margin:0 auto !important;
+  overflow:hidden !important;
+  }
+.hero-content,
+.hero-visual,
+.section-header,
+.template-grid,
+.benefits-grid,
+.proof-grid,
+.steps-grid,
+.dashboard-preview,
+.authority-grid,
+.method-grid,
+.faq-list{
+  width:100% !important;
+  max-width:100% !important;
+}
+ .saas-hero .saas-dashboard{
+    max-width:300px !important;
+    min-height:320px !important;
+    padding:22px !important;
+
+    transform:none !important;
+    border-radius:28px !important;
+  }
+
+  .saas-hero .hero-visual{
+    overflow:visible !important;
+
+  }.
+  
+  saas-hero .saas-dashboard{
+    max-width:300px !important;
+    min-height:320px !important;
+    padding:22px !important;
+
+    transform:none !important;
+    border-radius:28px !important;
+  }
+
+  .saas-hero .hero-visual{
+    overflow:visible !important;
+  }
+  .saas-dashboard{
+    width:100% !important;
+    max-width:320px !important;
+    min-height:360px !important;
+
+    margin:0 auto !important;
+
+    transform:none !important;
+    border-radius:28px !important;
+  }
+
+  .dashboard-chart{
+    min-height:150px !important;
+  }
+    
+  .hero{
+    min-height:auto !important;
+    padding:88px 20px 72px !important;
+  }
+
+  .hero-content,
+  .hero-visual{
+    grid-column:1 / -1 !important;
+    width:100% !important;
+  }
+
+  .hero-content{
+    text-align:center !important;
+    align-items:center !important;
+  }
+
+  .hero-content h1{
+    max-width:100% !important;
+    font-size:clamp(42px,12vw,58px) !important;
+    line-height:.95 !important;
+  }
+
+  .hero-content p{
+    max-width:100% !important;
+    font-size:18px !important;
+  }
+
+  .hero-highlights{
+    justify-content:center !important;
+    flex-wrap:wrap !important;
+  }
+
+  .template-grid,
+  .benefits-grid,
+  .proof-grid,
+  .steps-grid,
+  .dashboard-preview,
+  .authority-grid,
+  .method-grid,
+  .benefits-grid{
+    grid-column:1 / -1 !important;
+    grid-template-columns:1fr !important;
+  }
+
+  .template-card,
+  .benefit-card,
+  .proof-card,
+  .authority-card,
+  .method-card,
+  .content-card,
+  .objection-card{
+    grid-column:1 / -1 !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-height:auto !important;
+    padding:28px !important;
+  }
+
+  .section-header{
+    grid-column:1 / -1 !important;
+    margin-bottom:40px !important;
+  }
+
+  .section-header h2,
+  .objection-card h2{
+    max-width:100% !important;
+    font-size:clamp(34px,10vw,48px) !important;
+    line-height:1 !important;
+  }
+
+  .section-header p,
+  .objection-card p{
+    max-width:100% !important;
+    font-size:18px !important;
+  }
+
+  .faq-list,
+  .faq details,
+  details{
+    width:100% !important;
+    max-width:100% !important;
+  }
+
+  summary{
+    white-space:normal !important;
+    line-height:1.4 !important;
+  }
+    .faq{
+    overflow:hidden !important;
+  }
+
+  .faq .container{
+    width:100% !important;
+    max-width:100% !important;
+    overflow:hidden !important;
+  }
+
+  .faq-list{
+    width:100% !important;
+    max-width:100% !important;
+    overflow:hidden !important;
+  }
+
+  .faq details{
+    width:100% !important;
+    max-width:100% !important;
+    overflow:visible !important;
+  }
+
+   .faq summary{
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+
+    padding:20px !important;
+
+    font-size:16px !important;
+    line-height:1.4 !important;
+
+    white-space:normal !important;
+    overflow-wrap:break-word !important;
+    word-break:normal !important;
+  }
+
+  .faq .container{
+    padding-left:0 !important;
+    padding-right:0 !important;
+  }
+
+  .faq-list,
+  .faq details{
+    width:100% !important;
+    max-width:100% !important;
+  }
+
+  .faq details p{
+    width:100% !important;
+    max-width:100% !important;
+
+    padding:0 20px 20px !important;
+
+    white-space:normal !important;
+    overflow-wrap:break-word !important;
+    word-break:break-word !important;
+
+    box-sizing:border-box !important;
+  }
+     .faq .container{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    width:100% !important;
+    max-width:100% !important;
+  }
+
+  .faq details{
+    grid-column:1 / -1 !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    box-sizing:border-box !important;
+    overflow:hidden !important;
+  }
+
+  .faq summary,
+  .faq details p{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    box-sizing:border-box !important;
+
+    white-space:normal !important;
+    overflow-wrap:break-word !important;
+    word-break:normal !important;
+  }
+
+  .faq summary{
+    padding:20px !important;
+    font-size:16px !important;
+    line-height:1.35 !important;
+  }
+
+  .faq details p{
+    padding:0 20px 20px !important;
+    font-size:16px !important;
+    line-height:1.5 !important;
+  }
+  
+`;
 }
 
 function safeText(value, fallback) {
