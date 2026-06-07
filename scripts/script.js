@@ -592,15 +592,14 @@ section{
 }
 
 .section-kicker,
-.eyebrow,
-.section-header span{
+.eyebrow{
   display:inline-block;
   margin-bottom:14px;
   font-size:14px;
   font-weight:800;
   letter-spacing:.08em;
   text-transform:uppercase;
-  color:${theme.accent};
+  color:#60A5FA;
 }
 
 .section-header h2{
@@ -667,7 +666,7 @@ section{
 }
 
 .hero-content{
-  grid-column:1 / span 6;
+  grid-column:1 / span 7;
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -808,7 +807,7 @@ section{
 /* OBJECTION */
 
 .objection-card{
-  grid-column:1 / span 12 !important;
+  grid-column:1 / span 8 !important;
 
   width:100% !important;
   max-width:none !important;
@@ -946,9 +945,75 @@ section{
   }
 
   .objection-card{
-    grid-column:1 / span 12;
+    grid-column:1 / span 8;
     padding:32px;
   }
+    /* FIX MÉTODO CONSULTORIA */
+
+.consulting-method .container{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:24px;
+}
+
+.consulting-method .section-header{
+  grid-column:1 / span 10;
+  margin-bottom:56px;
+}
+
+.consulting-method .section-header h2{
+  max-width:900px;
+  color:#FFFFFF;
+}
+
+.consulting-method .section-header p{
+  max-width:680px;
+  color:#D1D5DB;
+}
+
+.consulting-method .method-grid{
+  grid-column:1 / span 12;
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+
+.consulting-method .method-card{
+  min-height:300px;
+  padding:40px;
+
+  border-radius:28px;
+
+  background:#1F1F1F;
+  border:1px solid rgba(255,255,255,.1);
+
+  box-shadow:0 24px 70px rgba(0,0,0,.22);
+}
+
+.consulting-method .method-card span{
+  display:block;
+  margin-bottom:28px;
+
+  color:#C8A96A;
+  font-size:18px;
+  font-weight:800;
+}
+
+.consulting-method .method-card h3{
+  margin-bottom:18px;
+
+  color:#FFFFFF;
+  font-size:30px;
+  line-height:1.05;
+  letter-spacing:-.04em;
+}
+
+.consulting-method .method-card p{
+  color:#D1D5DB;
+  font-size:17px;
+  line-height:1.6;
+}
 }
 
 ${generateTemplateCSS(templateType, theme)}
@@ -1266,7 +1331,7 @@ body{
 }
 
 .objection-card{
-  grid-column:1 / span 10 !important;
+  grid-column:1 / span 8 !important;
 
   text-align:left !important;
 
@@ -1440,50 +1505,476 @@ body{
 }
 `;
 
-   case "consultoria":
+ case "consultoria":
   return `
 body{
   background:#F6F3EC;
   color:#151515;
 }
+  /* FIX DEFINITIVO - MÉTODO CONSULTORIA */
 
-.hero{
+section.dynamic-section.consulting-method div.container{
+  display:grid !important;
+  grid-template-columns:repeat(12,1fr) !important;
+  gap:24px !important;
+}
+
+section.dynamic-section.consulting-method div.section-header{
+  grid-column:1 / span 10 !important;
+  margin-bottom:56px !important;
+}
+
+section.dynamic-section.consulting-method div.method-grid{
+  grid-column:1 / span 12 !important;
+
+  display:grid !important;
+  grid-template-columns:repeat(3,1fr) !important;
+  gap:24px !important;
+}
+
+section.dynamic-section.consulting-method div.method-card{
+  min-height:280px !important;
+  padding:40px !important;
+
+  border-radius:28px !important;
+
+  background:#1F1F1F !important;
+  border:1px solid rgba(255,255,255,.1) !important;
+  box-shadow:0 24px 70px rgba(0,0,0,.22) !important;
+}
+
+section.dynamic-section.consulting-method div.method-card span{
+  display:block !important;
+  margin-bottom:24px !important;
+
+  color:#C8A96A !important;
+  font-size:18px !important;
+  font-weight:800 !important;
+}
+
+section.dynamic-section.consulting-method div.method-card h3{
+  margin-bottom:16px !important;
+
+  color:#FFFFFF !important;
+  font-size:30px !important;
+  line-height:1.05 !important;
+}
+
+section.dynamic-section.consulting-method div.method-card p{
+  color:#D1D5DB !important;
+  font-size:17px !important;
+  line-height:1.6 !important;
+}
+
+/* FIX DEFINITIVO - BENEFÍCIOS CONSULTORIA */
+
+section.benefits.consulting-benefits .container{
+  display:grid !important;
+  grid-template-columns:repeat(12,1fr) !important;
+  gap:24px !important;
+}
+
+section.benefits.consulting-benefits .section-header{
+  grid-column:1 / span 8 !important;
+  margin-bottom:56px !important;
+}
+
+section.benefits.consulting-benefits .section-header h2{
+  max-width:900px !important;
+}
+
+section.benefits.consulting-benefits .section-header p{
+  max-width:680px !important;
+  color:#4B5563 !important;
+}
+
+section.benefits.consulting-benefits .benefit-card{
+  grid-column:span 4 !important;
+  min-height:300px !important;
+  padding:40px !important;
+
+  border-radius:28px !important;
+
+  background:#FFFFFF !important;
+  color:#151515 !important;
+
+  border:1px solid #E5E0D5 !important;
+  box-shadow:0 24px 70px rgba(0,0,0,.06) !important;
+}
+
+section.benefits.consulting-benefits .benefit-card h3{
+  font-size:30px !important;
+  line-height:1.05 !important;
+  letter-spacing:-.04em !important;
+}
+
+section.benefits.consulting-benefits .benefit-card p{
+  color:#4B5563 !important;
+  font-size:17px !important;
+  line-height:1.6 !important;
+}
+
+section.benefits.consulting-benefits .benefit-card span{
+  display:block !important;
+  margin-bottom:18px !important;
+
+  color:#C8A96A !important;
+  font-weight:800 !important;
+}
+  /* força todos os cards para a linha de baixo */
+section.benefits.consulting-benefits .benefit-card:nth-of-type(2){
+  grid-column:1 / span 4 !important;
+}
+
+section.benefits.consulting-benefits .benefit-card:nth-of-type(3){
+  grid-column:5 / span 4 !important;
+}
+
+section.benefits.consulting-benefits .benefit-card:nth-of-type(4){
+  grid-column:9 / span 4 !important;
+}
+  .consulting-benefits .section-kicker{
+  color:#C8A96A !important;
+}
+  section.objection .objection-card .section-kicker{
+  color:#C8A96A !important;
+}
+  /* FIX DEFINITIVO - AUTORIDADE CONSULTORIA */
+
+section.authority-section .container{
+  display:grid !important;
+  grid-template-columns:repeat(12,1fr) !important;
+  gap:24px !important;
+}
+
+section.authority-section .section-header{
+  grid-column:1 / span 8 !important;
+  margin-bottom:56px !important;
+}
+
+section.authority-section .authority-grid{
+  grid-column:1 / span 12 !important;
+
+  display:grid !important;
+  grid-template-columns:repeat(4,1fr) !important;
+  gap:24px !important;
+}
+
+section.authority-section .authority-card{
+  min-height:220px !important;
+  padding:40px !important;
+  text-align:center !important;
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:center !important;
+  align-items: center;
+
+  border-radius:28px !important;
+
+  background:#1F1F1F !important;
+  border:1px solid rgba(255,255,255,.1) !important;
+  box-shadow:0 24px 70px rgba(0,0,0,.22) !important;
+}
+
+section.authority-section .authority-card strong{
+  color:#C8A96A !important;
+  font-size:64px !important;
+  line-height:.9 !important;
+  letter-spacing:-.05em !important;
+}
+
+section.authority-section .authority-card span{
+  color:#FFFFFF !important;
+  font-size:18px !important;
+  line-height:1.35 !important;
+  max-width:180px !important;
+}
+/* FIX DEFINITIVO - PROVA SOCIAL CONSULTORIA */
+
+section.social-proof.proof-section .container,
+section.social-proof .container{
+  display:grid !important;
+  grid-template-columns:repeat(12,1fr) !important;
+  gap:24px !important;
+}
+
+section.social-proof .section-header{
+  grid-column:1 / span 8 !important;
+  margin-bottom:56px !important;
+}
+
+section.social-proof .section-kicker{
+  color:#C8A96A !important;
+}
+
+section.social-proof .social-proof-grid,
+section.social-proof .proof-grid{
+  grid-column:1 / span 12 !important;
+
+  display:grid !important;
+  grid-template-columns:repeat(3,1fr) !important;
+  gap:24px !important;
+}
+
+section.social-proof .proof-card{
+  min-height:220px !important;
+  padding:40px !important;
+
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:center !important;
+  align-items:flex-start !important;
+
+  border-radius:28px !important;
+
+  background:#F6F3EC !important;
+  color:#151515 !important;
+
+  border:1px solid #E5E0D5 !important;
+  box-shadow:0 24px 70px rgba(0,0,0,.06) !important;
+}
+
+section.social-proof .proof-card strong{
+  display:block !important;
+  margin-bottom:12px !important;
+
+  color:#151515 !important;
+  font-size:42px !important;
+  line-height:1 !important;
+  letter-spacing:-.04em !important;
+}
+
+section.social-proof .proof-card p,
+section.social-proof .proof-card span{
+  color:#4B5563 !important;
+  font-size:18px !important;
+  line-height:1.45 !important;
+}
+
+@media(max-width:900px){
+  section.social-proof .section-header,
+  section.social-proof .social-proof-grid,
+  section.social-proof .proof-grid{
+    grid-column:1 / span 12 !important;
+  }
+
+  section.social-proof .social-proof-grid,
+  section.social-proof .proof-grid{
+    grid-template-columns:1fr !important;
+  }
+}
+  /* AJUSTE VISUAL - PROVA SOCIAL CONSULTORIA */
+
+section.social-proof .proof-card{
+  justify-content:flex-start !important;
+  padding:44px !important;
+}
+
+section.social-proof .proof-card{
+  font-size:32px !important;
+  line-height:1.05 !important;
+  letter-spacing:-.04em !important;
+  font-weight:800 !important;
+}
+
+section.social-proof .proof-card strong{
+  font-size:56px !important;
+  color:#C8A96A !important;
+}
+
+section.social-proof .proof-card p,
+section.social-proof .proof-card span{
+  margin-top:12px !important;
+  color:#4B5563 !important;
+  font-size:18px !important;
+  font-weight:500 !important;
+  line-height:1.5 !important;
+}
+
+@media(max-width:900px){
+  section.authority-section .section-header,
+  section.authority-section .authority-grid{
+    grid-column:1 / span 12 !important;
+  }
+
+  section.authority-section .authority-grid{
+    grid-template-columns:1fr !important;
+  }
+
+  section.authority-section .authority-card{
+    min-height:auto !important;
+  }
+
+  section.authority-section .authority-card strong{
+    font-size:48px !important;
+  }
+}
+
+@media(max-width:900px){
+  section.benefits.consulting-benefits .section-header,
+  section.benefits.consulting-benefits .benefit-card{
+    grid-column:1 / span 12 !important;
+  }
+
+  section.benefits.consulting-benefits .benefit-card{
+    min-height:auto !important;
+  }
+}
+
+/* HERO CONSULTORIA */
+.consulting-hero > .container{
+  max-width:1280px;
+  grid-template-columns:repeat(12,1fr);
+  gap:20px;
+}
+
+.consulting-hero .hero-content{
+    grid-column:1 / span 7 !important;
+}
+
+.consulting-hero .hero-visual{
+  width:100%;
+}
+
+.consulting-card{
+  width:100%;
+  max-width:none;
+  grid-column:8 / span 5 !important;
+}
+.consulting-hero{
   background:
+    radial-gradient(circle at 85% 20%, rgba(200,169,106,.28), transparent 32%),
     linear-gradient(90deg,#F6F3EC 0%,#FFFFFF 55%,#ECE7DC 100%);
 }
 
-.hero-badge{
+.consulting-hero > .container{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:20px;
+  align-items:center;
+}
+
+.consulting-hero .hero-content{
+  grid-column:1 / span 6;
+}
+
+.consulting-hero .hero-visual{
+  grid-column:7 / span 6;
+  width:100%;
+  display:flex;
+  justify-content:flex-end;
+}
+
+.consulting-hero .hero-badge{
+  display:inline-flex;
+  width:max-content;
+  margin-bottom:24px;
   background:#151515;
+  color:#FFFFFF;
   border:1px solid #151515;
 }
 
-.hero-content h1{
+.consulting-hero .hero-content h1{
   color:#151515;
-  font-size:clamp(54px,5vw,84px);
+  max-width:900px;
+  font-size:clamp(46px,4.2vw,76px);
+  line-height:.95;
   letter-spacing:-.06em;
 }
 
-.hero-content p{
+.consulting-hero .hero-content p{
+  max-width:560px;
+  margin-top:24px;
   color:#4B5563;
 }
 
-.hero-content a{
+.consulting-hero .hero-content a{
+  margin-top:32px;
   background:#151515;
   color:#FFFFFF;
-  border-radius:6px;
+  border-radius:8px;
   box-shadow:0 22px 50px rgba(0,0,0,.18);
 }
 
-.hero-content a:hover{
-   box-shadow:
-    0 20px 50px rgba(16,185,129,.25),
-    0 40px 90px rgba(16,185,129,.15);
+.consulting-card{
+  width:100%;
+  max-width:100%;
+  min-width:480px;
+  padding:48px;
+  border-radius:32px;
+  background:#151515;
+  color:#FFFFFF;
+  box-shadow:0 30px 80px rgba(0,0,0,.22);
 }
 
-.mockup-line,
-.mockup-stats div{
-  background:rgba(255,255,255,.12);
+.consulting-label{
+  display:inline-flex;
+  margin-bottom:28px;
+  color:#C8A96A;
+  font-size:14px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.08em;
 }
+
+.consulting-steps{
+  display:grid;
+  gap:18px;
+}
+
+.consulting-steps div{
+  width:100%;
+  padding:28px;
+  border-radius:18px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.1);
+}
+
+.consulting-steps strong{
+  display:block;
+  margin-bottom:8px;
+  color:#C8A96A;
+  font-size:32px;
+  line-height:1;
+} 
+.consulting-steps p{
+  color:#F3F4F6;
+  font-size:18px;
+  line-height:1.45;
+}
+
+/* FIX HERO CONSULTORIA - VERSÃO EQUILIBRADA */
+
+section.consulting-hero .container{
+   max-width:1280px !important;
+  width:100% !important;
+  margin:0 auto !important;
+
+  display:grid !important;
+  grid-template-columns:repeat(12,1fr) !important;
+  gap:20px !important;
+  align-items:center !important;
+}
+
+section.consulting-hero .container > .hero-visual{
+  grid-column:6 / span 5 !important;
+  width:100% !important;
+}
+
+section.consulting-hero .hero-content h1{
+  max-width:640px !important;
+  font-size:clamp(48px,4.2vw,78px) !important;
+  line-height:.95 !important;
+}
+
+section.consulting-hero .container > .hero-visual > .consulting-card{
+  width:100% !important;
+  max-width:560px !important;
+  min-width:0 !important;
+  margin:0 !important;
+}
+
+/* SEÇÃO DINÂMICA */
 
 .dynamic-section{
   background:#151515;
@@ -1504,63 +1995,331 @@ body{
   color:#D1D5DB;
 }
 
-.benefits{
-  background:#F6F3EC;
+/* BENEFÍCIOS */
+
+.consulting-benefits .section-header{
+  grid-column:1 / span 10;
+  margin-bottom:64px;
 }
 
-.benefit-card{
+.consulting-benefits .section-header h2{
+  max-width:900px;
+}
+
+.consulting-benefits .section-header p{
+  color:#4B5563;
+  max-width:680px;
+}
+
+.consulting-benefits .benefit-card{
+  min-height:320px;
+  padding:44px 40px;
+
+  border-radius:28px;
+
   background:#FFFFFF;
   color:#151515;
+
   border:1px solid #E5E0D5;
-  box-shadow:0 18px 45px rgba(0,0,0,.06);
+  box-shadow:0 24px 70px rgba(0,0,0,.06);
 }
 
-.benefit-card p{
+.consulting-benefits .benefit-card h3{
+  font-size:30px;
+  line-height:1.05;
+  letter-spacing:-.04em;
+}
+
+.consulting-benefits .benefit-card p{
+  max-width:none;
   color:#4B5563;
+  font-size:17px;
 }
 
-.benefit-icon{
+/* AUTORIDADE */
+
+.authority-section{
   background:#151515;
+  color:#FFFFFF;
 }
 
-.social-proof,
-.objection{
+.authority-section .section-header{
+  grid-column:1 / span 12;
+  margin-bottom:60px;
+}
+
+.authority-section .section-kicker{
+  color:#C8A96A;
+}
+
+.authority-section .section-header p{
+  color:#D1D5DB;
+  max-width:700px;
+}
+
+.authority-grid{
+  grid-column:1 / span 12;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px;
+}
+
+.authority-card{
+  padding:40px 32px;
+  border-radius:24px;
+  background:#1F1F1F;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 20px 50px rgba(0,0,0,.20);
+}
+
+.authority-card strong{
+  display:block;
+  margin-bottom:12px;
+  color:#C8A96A;
+  font-size:56px;
+  font-weight:800;
+  line-height:1;
+}
+
+.authority-card span{
+  color:#FFFFFF;
+  font-size:18px;
+  line-height:1.5;
+}
+
+/* PROVA SOCIAL / OBJEÇÃO */
+
+.social-proof{
   background:#FFFFFF;
 }
 
-.content-card{
-  background:#FFFFFF;
+.social-proof .section-header{
+  grid-column:1 / span 12;
+  margin-bottom:56px;
+}
+
+.social-proof .section-kicker{
+  color:#C8A96A;
+}
+
+.social-proof-grid{
+  grid-column:1 / span 12;
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+
+.proof-card{
+  min-height:220px;
+  padding:40px;
+
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  flex-direction:column;
+
+  border-radius:28px;
+
+  background:#F6F3EC;
   color:#151515;
   border:1px solid #E5E0D5;
 }
 
-.content-card p{
-  color:#4B5563;
+.proof-card strong{
+  display:block;
+  margin-bottom:12px;
+
+  color:#151515;
+  font-size:42px;
+  line-height:1;
+  letter-spacing:-.04em;
 }
+
+.proof-card p{
+  color:#4B5563;
+  font-size:18px;
+  line-height:1.4;
+}
+  @media(max-width:900px){
+
+  .method-grid,
+  .authority-grid,
+  .social-proof-grid{
+    grid-template-columns:1fr;
+  }
+
+  .consulting-method .section-header,
+  .consulting-benefits .section-header{
+    grid-column:1 / span 12;
+  }
+
+  .method-card,
+  .consulting-benefits .benefit-card,
+  .proof-card{
+    min-height:auto;
+  }
+    
+}
+
+/* FAQ */
 
 .faq{
   background:#F6F3EC;
 }
 
-details{
+.faq details{
   background:#FFFFFF;
   color:#151515;
   border:1px solid #E5E0D5;
 }
 
-details p{
+.faq details p{
   color:#4B5563;
 }
-`;
 
+/* RESPONSIVO */
+
+@media(max-width:900px){
+
+  .consulting-hero .hero-content,
+  .consulting-hero .hero-visual{
+    grid-column:1 / span 12;
+  }
+
+  .consulting-hero .hero-visual{
+  display:flex;
+  justify-content:stretch;
+}
+
+  .consulting-card{
+    min-width:0;
+    max-width:none;
+  }
+
+  .authority-grid,
+  .social-proof-grid{
+    grid-template-columns:1fr;
+  }
+
+  .authority-card strong{
+    font-size:42px;
+  }
+
+  .consulting-hero .hero-content h1{
+    font-size:clamp(42px,12vw,64px);
+  }
+    /* MÉTODO CONSULTORIA */
+
+.consulting-method .section-header{
+  grid-column:1 / span 12;
+  margin-bottom:56px;
+}
+
+.consulting-method .method-grid{
+  grid-column:1 / span 12;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+
+.consulting-method .method-card{
+  min-height:280px;
+  padding:40px;
+  border-radius:28px;
+  background:#1F1F1F;
+  border:1px solid rgba(255,255,255,.1);
+}
+
+.consulting-method .method-card span{
+  display:block;
+  margin-bottom:24px;
+  color:#C8A96A;
+  font-size:18px;
+  font-weight:800;
+}
+
+.consulting-method .method-card h3{
+  margin-bottom:16px;
+  color:#FFFFFF;
+  font-size:30px;
+  line-height:1.05;
+}
+
+.consulting-method .method-card p{
+  color:#D1D5DB;
+  font-size:17px;
+  line-height:1.6;
+}
+}
+`;
  case "ecommerce":
   return `
 body{
   background:#FFF7ED;
   color:#111827;
 }
+.ecommerce-social-proof{
+  background:#FFFFFF;
+}
+.ecommerce-reviews .review-card p{
+  color:#4B5563 !important;
+  opacity:1 !important;
+}
+  .ecommerce-reviews .review-card h3{
+  color:#111827 !important;
+}
+  .ecommerce-reviews .review-stars{
+  color:#EA580C !important;
+}
+.ecommerce-offer .section-kicker,
+.ecommerce-reviews .section-kicker,
+.ecommerce-social-proof .section-kicker,
+.ecommerce-objection .section-kicker,
+.ecommerce-faq .section-kicker{
+  color:#EA580C !important;
+}
 
-.hero{
+.ecommerce-social-proof .section-kicker{
+  color:#EA580C !important;
+}
+.ecommerce-hero .hero-badge,
+.ecommerce-social-proof .section-kicker,
+.ecommerce-objection .section-kicker,
+.ecommerce-faq .section-kicker{
+  color:#EA580C !important;
+}
+.ecommerce-social-proof .proof-grid{
+  grid-column:1 / span 12;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+
+.ecommerce-social-proof .proof-card{
+  min-height:220px;
+  padding:40px;
+  border-radius:28px;
+  background:#FFF7ED;
+  border:1px solid #FED7AA;
+  box-shadow:0 24px 70px rgba(234,88,12,.08);
+}
+
+.ecommerce-social-proof .proof-card strong{
+  display:block;
+  margin-bottom:10px;
+  color:#EA580C;
+  font-size:56px;
+  line-height:1;
+}
+
+.ecommerce-social-proof .proof-card span{
+  color:#4B5563;
+  font-size:18px;
+  line-height:1.4;
+}
+
+.ecommerce-hero{
   background:
     radial-gradient(circle at 80% 20%, #FB923C33, transparent 30%),
     linear-gradient(135deg,#FFFFFF,#FFF7ED);
@@ -1600,29 +2359,29 @@ body{
   color:rgba(255,255,255,.75) !important;
   z-index:2 !important;
 }
-.hero-badge{
+.ecommerce-hero .hero-badge{
   background:#FFEDD5;
   color:#C2410C;
   border:1px solid #FED7AA;
 }
 
-.hero-content h1{
+.ecommerce-hero .hero-content h1{
   color:#111827;
   font-size:clamp(52px,5vw,82px);
 }
 
-.hero-content p{
+.ecommerce-hero .hero-content p{
   color:#4B5563;
 }
 
-.hero-content a{
+.ecommerce-hero .hero-content a{
   background:#EA580C;
   color:#FFFFFF;
   border-radius:999px;
   box-shadow:0 24px 60px rgba(234,88,12,.25);
 }
 
-.hero-content a:hover{
+.ecommerce-hero .hero-content a:hover{
   box-shadow:
     0 20px 50px rgba(234,88,12,.25),
     0 40px 90px rgba(234,88,12,.15);
@@ -1749,48 +2508,144 @@ body{
   color:#EA580C !important;
 }
 
+/* FIX ECOMMERCE - OBJECTION DIRETO */
+
+.ecommerce-objection{
+  background:#FFFFFF !important;
+}
+
+.ecommerce-objection .container{
+  display:grid !important;
+  grid-template-columns:repeat(12,1fr) !important;
+  gap:24px !important;
+}
+
+.ecommerce-objection .objection-card{
+  grid-column:1 / span 12 !important;
+  padding:56px !important;
+  border-radius:32px !important;
+  background:#FFF7ED !important;
+  border:1px solid #FED7AA !important;
+  box-shadow:0 24px 70px rgba(234,88,12,.08) !important;
+}
+
+.ecommerce-objection .section-kicker{
+  color:#EA580C !important;
+}
+
+.ecommerce-objection h2{
+  color:#111827 !important;
+}
+
+.ecommerce-objection p{
+  color:#4B5563 !important;
+  max-width:700px !important;
+}
+
+/* FIX ECOMMERCE - SOCIAL PROOF */
+
+section.social-proof.proof-section.ecommerce-social-proof{
+  background:#FFFFFF !important;
+}
+
+section.social-proof.proof-section.ecommerce-social-proof .container{
+  display:grid !important;
+  grid-template-columns:repeat(12,1fr) !important;
+  gap:24px !important;
+}
+
+section.social-proof.proof-section.ecommerce-social-proof .section-header{
+  grid-column:1 / span 12 !important;
+  margin-bottom:56px !important;
+}
+
+section.social-proof.proof-section.ecommerce-social-proof .section-kicker{
+  color:#EA580C !important;
+}
+
+section.social-proof.proof-section.ecommerce-social-proof .proof-grid{
+  grid-column:1 / span 12 !important;
+
+  display:grid !important;
+  grid-template-columns:repeat(3,1fr) !important;
+  gap:24px !important;
+}
+
+section.social-proof.proof-section.ecommerce-social-proof .proof-card{
+  min-height:220px !important;
+  padding:40px !important;
+
+  border-radius:28px !important;
+
+  background:#FFF7ED !important;
+  border:1px solid #FED7AA !important;
+
+  box-shadow:0 24px 70px rgba(234,88,12,.08) !important;
+}
+
+section.social-proof.proof-section.ecommerce-social-proof .proof-card strong{
+  display:block !important;
+  margin-bottom:10px !important;
+
+  color:#EA580C !important;
+  font-size:56px !important;
+  line-height:1 !important;
+}
+
+section.social-proof.proof-section.ecommerce-social-proof .proof-card span{
+  color:#4B5563 !important;
+  font-size:18px !important;
+  line-height:1.4 !important;
+}
 /* SEÇÕES */
 
-.dynamic-section{
+.ecommerce-section{
   background:#FFFFFF;
 }
 
-.dynamic-section .section-kicker{
+.ecommerce-section .section-kicker{
   color:#EA580C;
 }
 
-.dynamic-section .content-card{
+.ecommerce-section .content-card{
   background:#FFF7ED;
   color:#111827;
   border:1px solid #FED7AA;
   box-shadow:0 20px 50px rgba(234,88,12,.08);
 }
 
-.dynamic-section .content-card p{
+.ecommerce-section .content-card p{
   color:#4B5563;
 }
 
-.benefits{
+.ecommerce-benefits{
   background:#FFF7ED;
 }
 
-.benefit-card{
+..ecommerce-benefits .benefit-card{
   background:#FFFFFF;
   color:#111827;
   border:1px solid #FED7AA;
   box-shadow:0 18px 45px rgba(234,88,12,.08);
 }
 
-.benefit-card p{
+.ecommerce-benefits .benefit-card p{
   color:#4B5563;
 }
 
-.benefit-icon{
+.ecommerce-benefits .benefit-icon{
   background:#EA580C;
 }
 
-.social-proof,
-.objection{
+.ecommerce-social-proof,
+.ecommerce-objection{
+  background:#FFFFFF;
+}
+  body .social-proof{
+  background:#FFFFFF;
+}
+
+body .objection{
   background:#FFFFFF;
 }
 
@@ -1804,17 +2659,17 @@ body{
   color:#4B5563;
 }
 
-.faq{
+.ecommerce-faq{
   background:#FFFFFF;
 }
 
-details{
+.ecommerce-faq details{
   background:#FFF7ED;
   color:#111827;
   border:1px solid #FED7AA;
 }
 
-details p{
+.ecommerce-faq details p{
   color:#4B5563;
 }
 
@@ -1831,6 +2686,43 @@ details p{
   .ecommerce-offer .offer-card h3{
     font-size:30px !important;
   }
+    /* FIX ECOMMERCE - OBJECTION */
+
+section.objection.objection-section.ecommerce-objection{
+  background:#FFFFFF !important;
+}
+
+section.objection.objection-section.ecommerce-objection .container{
+  display:grid !important;
+  grid-template-columns:repeat(12,1fr) !important;
+  gap:24px !important;
+}
+
+section.objection.objection-section.ecommerce-objection .objection-card{
+  grid-column:1 / span 12 !important;
+
+  padding:56px !important;
+
+  border-radius:32px !important;
+
+  background:#FFF7ED !important;
+  border:1px solid #FED7AA !important;
+
+  box-shadow:0 24px 70px rgba(234,88,12,.08) !important;
+}
+
+section.objection.objection-section.ecommerce-objection .section-kicker{
+  color:#EA580C !important;
+}
+
+section.objection.objection-section.ecommerce-objection h2{
+  color:#111827 !important;
+}
+
+section.objection.objection-section.ecommerce-objection p{
+  color:#4B5563 !important;
+  max-width:700px !important;
+}
 }
 `;
 
@@ -1854,7 +2746,7 @@ function generateDynamicSection(aiResult, templateType) {
       return generateSaasSection(aiResult);
 
     case "consultoria":
-      return generateConsultingSection(aiResult);
+       return generateConsultingSection(aiResult);
 
     case "ecommerce":
       return generateEcommerceSection(aiResult);
@@ -1960,45 +2852,39 @@ function generateSaasSection(aiResult) {
 
 function generateConsultingSection(aiResult) {
   return `
-<section class="dynamic-section consulting-process">
+<section class="dynamic-section consulting-method">
   <div class="container">
+
     <div class="section-header">
       <span class="section-kicker">Método</span>
-      <h2>${safeText(aiResult.methodTitle, "Uma metodologia para gerar clareza e crescimento")}</h2>
+
+      <h2>${safeText(aiResult.consultingSectionTitle, "Consultoria Especializada para Pilotos")}</h2>
+
+      <p>${safeText(aiResult.consultingSectionDescription, "Transforme sua carreira na aviação com uma consultoria personalizada e estratégica.")}</p>
     </div>
 
-    <div class="template-grid">
-      <div class="template-card">
+    <div class="method-grid">
+
+      <div class="method-card">
         <span>01</span>
-        <h3>${safeText(aiResult.step1Title, "Diagnóstico")}</h3>
-        <p>${safeText(aiResult.step1Description, "Entendemos os gargalos, oportunidades e desafios que impedem o crescimento.")}</p>
+        <h3>Diagnóstico profundo</h3>
+        <p>Mapeamos o cenário atual, os principais gargalos e as oportunidades mais relevantes.</p>
       </div>
 
-      <div class="template-card">
+      <div class="method-card">
         <span>02</span>
-        <h3>${safeText(aiResult.step2Title, "Estratégia")}</h3>
-        <p>${safeText(aiResult.step2Description, "Construímos um plano de ação com prioridades claras e metas objetivas.")}</p>
+        <h3>Plano estratégico</h3>
+        <p>Organizamos prioridades, ações práticas e próximos passos para avançar com clareza.</p>
       </div>
 
-      <div class="template-card">
+      <div class="method-card">
         <span>03</span>
-        <h3>${safeText(aiResult.step3Title, "Execução")}</h3>
-        <p>${safeText(aiResult.step3Description, "Acompanhamos a implementação para transformar planejamento em resultado.")}</p>
+        <h3>Acompanhamento</h3>
+        <p>Ajustamos a execução ao longo do processo para manter consistência e evolução.</p>
       </div>
-    </div>
-  </div>
-</section>
 
-<section class="dynamic-section consulting-results">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-kicker">Resultados</span>
-      <h2>${safeText(aiResult.resultsTitle, "O impacto esperado")}</h2>
     </div>
 
-    <div class="content-card">
-      <p>${safeText(aiResult.resultsDescription, "Mais clareza, foco estratégico e processos organizados para acelerar resultados.")}</p>
-    </div>
   </div>
 </section>
 `;
@@ -2080,11 +2966,10 @@ function generateHTML(aiResult, templateType) {
 
 <body>
 
-
 ${generateHero(aiResult, templateType)}
 
 ${generateDynamicSection(aiResult, templateType)}
- 
+
 ${generateBenefits(aiResult, templateType)}
 
 ${generateSocialProof(aiResult, templateType)}
@@ -2172,7 +3057,7 @@ function generateBenefits(aiResult, templateType){
       return generateSaasBenefits(aiResult);
 
     case "consultoria":
-      return generateConsultingBenefits(aiResult);
+       return generateConsultingBenefits(aiResult);
 
     case "ecommerce":
       return generateEcommerceBenefits(aiResult);
@@ -2184,7 +3069,7 @@ function generateBenefits(aiResult, templateType){
 
 function generateCourseBenefits(aiResult){
   return `
-<section class="benefits">
+<section class="benefits ecommerce-benefits">
 
   <div class="container">
 
@@ -2286,7 +3171,7 @@ function generateSocialProof(aiResult, templateType) {
   };
 
   return `
-<section class="social-proof proof-section">
+<section class="social-proof proof-section ${type}-social-proof">
   <div class="container">
     <div class="section-header">
       <span class="section-kicker">Prova social</span>
@@ -2294,26 +3179,31 @@ function generateSocialProof(aiResult, templateType) {
     </div>
 
     <div class="template-grid proof-grid">
+
       <div class="template-card proof-card">
-        <strong>${safeText(aiResult.socialProof1, "+5.000 clientes")}</strong>
+        <strong>${safeText(aiResult.socialProofNumber1, "50+")}</strong>
+        <span>${safeText(aiResult.socialProofText1, "Empresas atendidas")}</span>
       </div>
 
       <div class="template-card proof-card">
-        <strong>${safeText(aiResult.socialProof2, "98% de satisfação")}</strong>
+        <strong>${safeText(aiResult.socialProofNumber2, "30%")}</strong>
+        <span>${safeText(aiResult.socialProofText2, "Aumento na eficiência")}</span>
       </div>
 
       <div class="template-card proof-card">
-        <strong>${safeText(aiResult.socialProof3, "Resultados reais")}</strong>
+        <strong>${safeText(aiResult.socialProofNumber3, "15+")}</strong>
+        <span>${safeText(aiResult.socialProofText3, "Anos de experiência")}</span>
       </div>
+
     </div>
   </div>
 </section>
 `;
 }
-
 function generateObjection(aiResult, templateType) {
+    const type = String(templateType).toLowerCase().trim();
   return `
-<section class="objection objection-section">
+<section class="objection objection-section ${type}-objection">
   <div class="container">
     <div class="objection-card">
       <span class="section-kicker">Ainda em dúvida?</span>
@@ -2468,6 +3358,58 @@ function generateSaasHero(aiResult) {
 </section>
 `;
 }
+
+function generateConsultingHero(aiResult) {
+  return `
+<section class="hero consulting-hero">
+  <div class="container">
+
+    <div class="hero-content">
+      <span class="hero-badge">Consultoria estratégica</span>
+
+      <h1>${aiResult.headline}</h1>
+
+      <p>${aiResult.subheadline}</p>
+
+      <div class="hero-highlights">
+        <span>🔎 Diagnóstico individual</span>
+        <span>🧭 Estratégia personalizada</span>
+        <span>🚀 Acompanhamento contínuo</span>
+      </div>
+
+      <a href="#">${aiResult.cta}</a>
+    </div>
+
+    <div class="hero-visual">
+      <div class="consulting-card">
+
+        <span class="consulting-label">Plano de ação</span>
+
+        <div class="consulting-steps">
+          <div>
+            <strong>✓</strong>
+            <p>Diagnóstico estratégico</p>
+          </div>
+
+          <div>
+            <strong>✓</strong>
+            <p>Plano de crescimento</p>
+          </div>
+
+          <div>
+            <strong>✓</strong>
+            <p>Mentoria individual</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+`;
+}
+
 function generateHowItWorks(aiResult) {
   return `
 <section class="how-it-works">
@@ -2587,6 +3529,81 @@ function generateConsultingHero(aiResult) {
 `;
 }
 
+function generateConsultingHero(aiResult) {
+  return `
+<section class="hero consulting-hero">
+  <div class="container">
+    <div class="hero-content">
+      <span class="hero-badge">Consultoria estratégica</span>
+
+      <h1>${safeText(aiResult.title, "Transforme seu negócio com uma estratégia sob medida")}</h1>
+
+      <p>${safeText(aiResult.description, "Receba um diagnóstico claro, um plano de ação personalizado e acompanhamento para sair do improviso e crescer com direção.")}</p>
+
+      <a href="#" class="btn-primary">
+        ${safeText(aiResult.cta, "Agendar diagnóstico")}
+      </a>
+    </div>
+
+    <div class="consulting-card">
+      <span class="consulting-label">Plano de ação</span>
+
+      <div class="consulting-steps">
+        <div>
+          <strong>✓</strong>
+          <p>Diagnóstico estratégico</p>
+        </div>
+
+        <div>
+          <strong>✓</strong>
+          <p>Plano de crescimento</p>
+        </div>
+
+        <div>
+          <strong>✓</strong>
+          <p>Mentoria individual</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+`;
+}
+
+function generateConsultingBenefits(aiResult) {
+  return `
+<section class="benefits consulting-benefits">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-kicker">Por que funciona</span>
+
+      <h2>${safeText(aiResult.benefitsTitle, "Clareza, direção e execução no mesmo lugar")}</h2>
+
+      <p>${safeText(aiResult.benefitsDescription, "Uma consultoria pensada para tirar você da tentativa e erro e transformar decisões soltas em um plano estratégico aplicável.")}</p>
+    </div>
+
+    <div class="benefit-card">
+      <span>01</span>
+      <h3>${safeText(aiResult.benefit1Title, "Diagnóstico real")}</h3>
+      <p>${safeText(aiResult.benefit1Description, "Entenda exatamente onde estão os gargalos que impedem seu crescimento.")}</p>
+    </div>
+
+    <div class="benefit-card">
+      <span>02</span>
+      <h3>${safeText(aiResult.benefit2Title, "Estratégia sob medida")}</h3>
+      <p>${safeText(aiResult.benefit2Description, "Nada de fórmula genérica. O plano é construído de acordo com seu contexto.")}</p>
+    </div>
+
+    <div class="benefit-card">
+      <span>03</span>
+      <h3>${safeText(aiResult.benefit3Title, "Execução orientada")}</h3>
+      <p>${safeText(aiResult.benefit3Description, "Você sabe o que fazer, por onde começar e quais decisões priorizar.")}</p>
+    </div>
+  </div>
+</section>
+`;
+}
+
 function generateEcommerceHero(aiResult) {
   return `
 <section class="hero ecommerce-hero">
@@ -2645,6 +3662,71 @@ function generateDefaultHero(aiResult) {
 `;
 }
 
+function generateAuthoritySection(aiResult, templateType){
+
+  const type = String(templateType)
+    .toLowerCase()
+    .trim();
+
+  if(type !== "consultoria"){
+    return "";
+  }
+
+  return `
+<section class="authority-section">
+
+  <div class="container">
+
+    <div class="section-header">
+      <span class="section-kicker">
+        Autoridade
+      </span>
+
+      <h2>
+        ${safeText(
+          aiResult.authorityTitle,
+          "Por que confiar em nossa metodologia?"
+        )}
+      </h2>
+
+      <p>
+        ${safeText(
+          aiResult.authorityDescription,
+          "Experiência prática, estratégia validada e acompanhamento para gerar resultados consistentes."
+        )}
+      </p>
+    </div>
+
+    <div class="authority-grid">
+
+      <div class="authority-card">
+        <strong>${aiResult.authorityStat1Number || "200+"}</strong>
+        <span>${aiResult.authorityStat1Label || "Projetos realizados"}</span>
+      </div>
+
+      <div class="authority-card">
+        <strong>${aiResult.authorityStat2Number || "95%"}</strong>
+        <span>${aiResult.authorityStat2Label || "Satisfação dos clientes"}</span>
+      </div>
+
+      <div class="authority-card">
+        <strong>${aiResult.authorityStat3Number || "15+"}</strong>
+        <span>${aiResult.authorityStat3Label || "Anos de experiência"}</span>
+      </div>
+
+      <div class="authority-card">
+        <strong>${aiResult.authorityStat4Number || "500+"}</strong>
+        <span>${aiResult.authorityStat4Label || "Horas de consultoria"}</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+`;
+}
+
 function generateHTMLWithExternalCSS(aiResult, templateType) {
   return `
 <!DOCTYPE html>
@@ -2665,9 +3747,10 @@ function generateHTMLWithExternalCSS(aiResult, templateType) {
 </html>
 `;
 }
-function generateFAQ(aiResult, templateType) {
+function generateFAQ (aiResult, templateType) {
+  const type = String(templateType).toLowerCase().trim();
   return `
-<section class="faq">
+<section class="faq ecommerce-faq">
 
   <div class="container">
 

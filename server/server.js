@@ -175,6 +175,138 @@ Tom: ${tone}
 Objetivo: ${goal}
 Tipo de landing page: ${templateType}
 
+### SEÇÃO EXCLUSIVA — AUTORIDADE E CREDIBILIDADE (CONSULTORIA)
+
+Quando o template selecionado for **Consultoria**, gerar uma seção exclusiva de autoridade logo após os benefícios principais.
+
+Objetivo da seção:
+
+Demonstrar experiência, histórico de resultados, credibilidade e validação da metodologia utilizada.
+
+A estrutura deve seguir o formato:
+
+Título:
+Por que confiar em nossa metodologia?
+
+Subtítulo:
+Nossa abordagem combina experiência prática, estratégia validada e acompanhamento contínuo para gerar resultados consistentes.
+
+A IA deve gerar entre 3 e 4 indicadores de autoridade.
+
+Exemplos:
+
+200+
+Projetos realizados
+
+95%
+Satisfação dos clientes
+
+15+
+Anos de experiência
+
+500+
+Horas de consultoria
+
+120+
+Empresas atendidas
+
+98%
+Taxa de recomendação
+
+50+
+Especialistas orientados
+
+300+
+Planos estratégicos desenvolvidos
+
+Os números devem ser compatíveis com o contexto do nicho informado pelo usuário.
+
+Exemplo:
+
+Consultoria empresarial:
+
+* Empresas atendidas
+* Projetos executados
+* Taxa de satisfação
+
+Consultoria de carreira:
+
+* Profissionais orientados
+* Promoções conquistadas
+* Horas de mentoria
+
+Consultoria de marketing:
+
+* Campanhas executadas
+* Leads gerados
+* Clientes atendidos
+
+Consultoria financeira:
+
+* Patrimônio gerenciado
+* Planos financeiros criados
+* Clientes assessorados
+
+A seção deve transmitir:
+
+* Autoridade
+* Experiência
+* Confiabilidade
+* Histórico comprovado
+* Segurança na contratação
+
+Evitar métricas genéricas ou irrelevantes.
+
+Os indicadores devem sempre representar resultados reais, experiência acumulada ou validação da metodologia.
+
+Esta seção é exclusiva do template Consultoria e não deve ser utilizada nos templates Curso, SaaS ou E-commerce.
+
+
+### FAQ ESPECÍFICO PARA CONSULTORIA
+
+Quando o template selecionado for **Consultoria**, NÃO gere perguntas genéricas de cursos, treinamentos, plataformas SaaS ou produtos digitais.
+
+As perguntas devem refletir dúvidas reais de alguém que está contratando uma consultoria profissional.
+
+Priorize temas como:
+
+* Tempo para obter resultados
+* Processo de diagnóstico
+* Personalização da estratégia
+* Reuniões e acompanhamento
+* Perfil ideal do cliente
+* Implementação da estratégia
+* Garantias e expectativas
+* Suporte durante o processo
+* Metodologia utilizada
+* Diferenciais da consultoria
+
+Exemplos de perguntas adequadas:
+
+* Quanto tempo leva para começar a ver resultados?
+* A consultoria é personalizada para minha situação?
+* As reuniões são individuais ou em grupo?
+* Como funciona o acompanhamento durante o processo?
+* Preciso ter experiência prévia para participar?
+* Como é feita a análise inicial?
+* Vocês ajudam na implementação das estratégias?
+* Quantos encontros estão incluídos?
+* A consultoria é indicada para iniciantes?
+* O que acontece após o término da consultoria?
+
+Evite perguntas como:
+
+* Como acesso as aulas?
+* O certificado está incluso?
+* Posso assistir quando quiser?
+* O curso possui módulos?
+* A plataforma funciona no celular?
+
+Essas perguntas pertencem ao template Curso e nunca devem ser utilizadas em Consultoria.
+
+As respostas devem transmitir confiança, autoridade, personalização e foco em resultados práticos.
+
+
 Os campos de sectionTitle/sectionDescription devem ser preenchidos de acordo com o templateType.
 
 Se templateType = "curso":
@@ -236,6 +368,22 @@ Responda SOMENTE em JSON válido. Sem markdown. Sem texto antes ou depois.
 
   "socialProof": "",
   "objection": "",
+  {
+
+  "authorityTitle":"",
+  "authorityDescription":"",
+
+  "authorityStat1Number":"",
+  "authorityStat1Label":"",
+
+  "authorityStat2Number":"",
+  "authorityStat2Label":"",
+
+  "authorityStat3Number":"",
+  "authorityStat3Label":"",
+
+  "authorityStat4Number":"",
+  "authorityStat4Label":""
 
   "faq1Question": "",
   "faq1Answer": "",
